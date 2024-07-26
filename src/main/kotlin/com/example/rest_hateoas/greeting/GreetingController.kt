@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/1/greeting")
 class GreetingController {
-    fun greeting(
-        @RequestParam(value = "name", defaultValue = "World") name: String?
-    ): HttpEntity<GreetingResource> {
+
+    @GetMapping
+    fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String?): HttpEntity<GreetingResource> {
         val greeting = GreetingResource(String.format(TEMPLATE, name))
-        greeting.add(
-            WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(GreetingController::class.java).greeting(name))
-                .withSelfRel()
-        )
+        greeting.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(GreetingController::class.java).greeting(name)).withSelfRel())
 
         return ResponseEntity(greeting, HttpStatus.OK)
     }
