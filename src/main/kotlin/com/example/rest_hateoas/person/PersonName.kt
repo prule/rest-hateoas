@@ -7,10 +7,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Embeddable
 class PersonName(
-    @NotBlank
+    @field:NotBlank
     var firstName: String? = null,
 
-    @NotBlank
+    @field:NotBlank
     var lastName: String? = null,
     var otherNames: String? = null
 )

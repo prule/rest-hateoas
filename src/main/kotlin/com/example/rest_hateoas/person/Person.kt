@@ -19,7 +19,7 @@ class Person(
     var key: Key = Key(),
 
     @Embedded
-    @Valid
+    @field:Valid
     var name: PersonName = PersonName(),
 
     @Embedded
