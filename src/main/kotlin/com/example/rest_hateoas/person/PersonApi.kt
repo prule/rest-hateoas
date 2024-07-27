@@ -25,10 +25,10 @@ class PersonApi(private val repository: PersonRepository) {
         criteria: PersonSearchCriteria,
         fields: Fields,
         pageable: Pageable,
-        assembler: PagedResourcesAssembler<Person>
+        assembler: PagedResourcesAssembler<Person>?
     ): HttpEntity<PagedModel<PersonResource>> {
         val page = repository.findAll(criteria.toPredicate(), pageable)
-        return ResponseEntity(assembler.toModel(page) { person: Person -> PersonResource().fromModel(person, fields) }, HttpStatus.OK)
+        return ResponseEntity(assembler!!.toModel(page) { person: Person -> PersonResource().fromModel(person, fields) }, HttpStatus.OK)
     }
 
     @GetMapping("/{key}")
