@@ -1,10 +1,7 @@
 package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.common.Address
-import com.example.rest_hateoas.common.FieldVisibility
-import com.example.rest_hateoas.common.Fields
 import com.example.rest_hateoas.common.VersionedRepresentationModel
-import com.example.rest_hateoas.user.UserGroup
 import java.time.LocalDate
 
 open class PersonModel : VersionedRepresentationModel<PersonModel>() {
@@ -15,16 +12,15 @@ open class PersonModel : VersionedRepresentationModel<PersonModel>() {
     var address: Address = Address()
     var dateOfBirth: LocalDate? = null
 
-    fun fromEntity(entity: Person, fields: Fields): PersonModel {
+    fun fromEntity(entity: Person): PersonModel {
         // fields that will always be set, regardless of fields parameters
 
         key = entity.key.key
         version = entity.version
 
-        // fields dependent on fields parameters
-        fields.set("name") { name = entity.name }
-        fields.set("address") { address = entity.address }
-        fields.set("dateOfBirth") { dateOfBirth = entity.dateOfBirth }
+        name = entity.name
+        address = entity.address
+        dateOfBirth = entity.dateOfBirth
 
         return this
     }
@@ -35,23 +31,12 @@ open class PersonModel : VersionedRepresentationModel<PersonModel>() {
      * set are included - eg fields could be constructed or cleaned by security
      * logic before being passed here.
      */
-    fun toEntity(entity: Person, fields: Fields) {
+    fun toEntity(entity: Person) {
         checkVersion(entity)
 
-        fields.set("name") { entity.name = name }
-        fields.set("address") { entity.address = address }
-        fields.set("dateOfBirth") { entity.dateOfBirth = dateOfBirth }
+        entity.name = name
+        entity.address = address
+        entity.dateOfBirth = dateOfBirth
     }
 
-    companion object {
-        fun fieldVisibility(): FieldVisibility {
-            return FieldVisibility(
-                mapOf(
-                    "name" to listOf(UserGroup.Group.ADMIN, UserGroup.Group.USER),
-                    "address" to listOf(UserGroup.Group.ADMIN, UserGroup.Group.USER),
-                    "dateOfBirth" to listOf(UserGroup.Group.ADMIN)
-                )
-            )
-        }
-    }
 }
