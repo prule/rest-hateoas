@@ -1,18 +1,14 @@
 package com.example.rest_hateoas.common
 
+import com.google.common.base.Joiner
 import com.google.common.base.Splitter
 import java.util.function.BiConsumer
 import java.util.stream.Collectors
 
-class Fields {
-    private val fields: List<String>
+data class Fields(val fields: List<String>) {
 
-    constructor(fields: String?) {
-        this.fields = Splitter.on(",").splitToList(fields ?: ALL)
-    }
-
-    private constructor(fields: List<String>) {
-        this.fields = fields
+    override fun toString(): String {
+        return Joiner.on(",").join(fields)
     }
 
     fun set(fieldName: String, setFunction: Runnable): Fields {
@@ -56,8 +52,16 @@ class Fields {
         private const val ALL = "*"
         private const val NESTED_SEPARATOR = "."
 
+        fun of(str: String?): Fields {
+            return if (str.isNullOrBlank() || "*" == str) {
+                all()
+            } else {
+                Fields(Splitter.on(",").splitToList(str))
+            }
+        }
+
         fun all(): Fields {
-            return Fields(ALL)
+            return Fields(listOf(ALL))
         }
     }
 }

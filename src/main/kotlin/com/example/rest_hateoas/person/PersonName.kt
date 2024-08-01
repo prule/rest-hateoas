@@ -12,6 +12,7 @@ class PersonName(
 
     @field:NotBlank
     var lastName: String? = null,
+
     var otherNames: String? = null
 )
 

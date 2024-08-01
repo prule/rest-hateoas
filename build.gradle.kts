@@ -43,9 +43,13 @@ dependencies {
     implementation("com.google.guava:guava:33.2.1-jre")
     implementation("io.github.xn32:json5k:0.3.0")
 
+    implementation(libs.logback.classic)
+    implementation(libs.bundles.logging)
+
+    testImplementation(libs.bundles.kotest)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 
     runtimeOnly("com.h2database:h2")
 

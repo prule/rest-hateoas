@@ -23,7 +23,7 @@ import java.util.function.Consumer
 @JsonTypeIdResolver(
     LowerCaseClassNameResolver::class
 )
-class ApiError(
+data class ApiError(
     val status: HttpStatus,
     val timestamp: ZonedDateTime? = ZonedDateTime.now(),
     val message: String? = null,

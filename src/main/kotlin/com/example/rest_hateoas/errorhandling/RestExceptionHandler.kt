@@ -2,8 +2,9 @@ package com.example.rest_hateoas.errorhandling
 
 import com.example.rest_hateoas.common.NotFoundException
 import jakarta.persistence.EntityNotFoundException
+import jakarta.persistence.RollbackException
+import jakarta.validation.ConstraintViolationException
 import org.hibernate.dialect.lock.OptimisticEntityLockException
-import org.hibernate.exception.ConstraintViolationException
 import org.hibernate.validator.internal.engine.path.PathImpl
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.http.converter.HttpMessageNotWritableException
+import org.springframework.transaction.TransactionSystemException
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
@@ -28,6 +30,7 @@ import java.util.function.Consumer
 @Order(Ordered.LOWEST_PRECEDENCE)
 @ControllerAdvice
 class RestExceptionHandler : ResponseEntityExceptionHandler() {
+
     /**
      * Handle MissingServletRequestParameterException. Triggered when a 'required' request parameter is missing.
      *
@@ -295,8 +298,23 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
         return buildResponseEntity(apiError)
     }
 
+    @ExceptionHandler(TransactionSystemException::class)
+    protected fun handleTransactionSystemException(
+        ex: TransactionSystemException,
+        request: WebRequest?
+    ): ResponseEntity<Any> {
+        if (ex.cause is RollbackException) {
+            if ((ex.cause as RollbackException).cause is jakarta.validation.ConstraintViolationException) {
+                return handleConstraintViolation((ex.cause as RollbackException).cause as jakarta.validation.ConstraintViolationException)
+            }
+        }
+        return handleAllExceptions(ex, request)
+    }
+
+
     @ExceptionHandler(Exception::class)
     fun handleAllExceptions(ex: Exception, request: WebRequest?): ResponseEntity<Any> {
+        logger.error("handleAllExceptions", ex)
         val apiError = ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex)
         return buildResponseEntity(apiError)
     }
