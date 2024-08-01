@@ -4,7 +4,9 @@ import com.example.rest_hateoas.greeting.GreetingController
 import com.example.rest_hateoas.person.Person
 import com.example.rest_hateoas.person.PersonController
 import com.example.rest_hateoas.person.PersonModel
+import com.example.rest_hateoas.person.PersonSearchCriteria
 import com.fasterxml.jackson.annotation.JsonCreator
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
@@ -25,7 +27,7 @@ class IndexResource @JsonCreator constructor(pagedResourcesAssembler: PagedResou
         add(
             WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(PersonController::class.java)
-                    .search2(null, null, null, 0, 15, null, pagedResourcesAssembler)
+                    .search(PersonSearchCriteria(), PageRequest.of(0, 15), pagedResourcesAssembler)
             ).withRel("persons-search")
         )
         add(

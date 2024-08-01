@@ -23,8 +23,8 @@ class PersonController(private val repository: PersonRepository) {
 
     private val personModelAssembler = PersonModelAssembler()
 
-    @GetMapping("/alternative-search")
-    fun search1(
+    @GetMapping
+    fun search(
         criteria: PersonSearchCriteria,
         pageable: Pageable,
         assembler: PagedResourcesAssembler<Person>?
@@ -34,46 +34,6 @@ class PersonController(private val repository: PersonRepository) {
             assembler!!.toModel(page) { person: Person -> personModelAssembler.toModel(person) },
             HttpStatus.OK
         )
-    }
-
-    @GetMapping
-    fun search2(
-        @RequestParam(name = "filter", required = false) filter: String?,
-        @RequestParam(name = "from", required = false) from: Int?,
-        @RequestParam(name = "to", required = false) to: Int?,
-        @RequestParam(name = "page", required = false, defaultValue = "0") page: Int?,
-        @RequestParam(name = "size", required = false, defaultValue = "20") size: Int?,
-        @RequestParam(name = "sort", required = false, defaultValue = "name.lastName,asc") sort: List<String>?,
-        assembler: PagedResourcesAssembler<Person>?
-    ): HttpEntity<PagedModel<RepresentationModel<PersonModel>>> {
-
-        if (sort!=null) {
-            for (s in sort) {
-                val split = s.split(',')
-                if (split.size == 1) {
-                    Sort.Order.by(split[0])
-                } else {
-                    val direction = Direction.fromString(split[1])
-                    when (direction) {
-                        Direction.ASC -> Sort.Order.asc(split[0])
-                        Direction.DESC -> Sort.Order.desc(split[0])
-                        else -> Sort.unsorted()
-                    }
-
-                }
-
-            }
-        }
-        val pageable =
-            PageRequest.of(page ?: 0, size ?: 15, if (sort != null) Sort.by(*sort.toTypedArray()) else Sort.unsorted())
-        val data = repository.findAll(
-            PersonSearchCriteria(filter, from, to).toPredicate(),
-            pageable
-        )
-
-        return ResponseEntity(assembler!!.toModel(data) { person: Person ->
-            personModelAssembler.toModel(person)
-        }, HttpStatus.OK)
     }
 
     @GetMapping("/{key}")
