@@ -38,7 +38,7 @@ class PersonController(private val repository: PersonRepository) {
 
     @GetMapping("/{key}")
     fun find(
-        @PathVariable key: String,
+        @PathVariable(name = "key") key: String,
     ): ResponseEntity<PersonModel> {
         val model = loadModel(key)
         return ResponseEntity.ok().body(personModelAssembler.toModel(model))

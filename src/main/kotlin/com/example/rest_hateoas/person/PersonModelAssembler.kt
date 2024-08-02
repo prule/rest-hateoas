@@ -5,6 +5,7 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 
 class PersonModelAssembler : RepresentationModelAssembler<Person, PersonModel> {
     override fun toModel(entity: Person): PersonModel {
+
         val model = PersonModel().fromEntity(entity)
         // links
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonController::class.java).find(entity.key.key)).withSelfRel())
