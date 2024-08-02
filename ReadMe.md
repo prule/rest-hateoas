@@ -41,8 +41,50 @@ To bootstap the frontend, we need an index that lists the main starting points -
     }
 }
 ```
+The `persons-find` link lets us retrieve a single person.
 
-Seeing the `persons-search` link, the frontend knows to render the menu item to search for people, and it knows the URL to use to perform the search.
+If we take the link template
+```
+http://localhost:8080/api/1/persons/{key}
+```
+and substitute the key to get
+```
+http://localhost:8080/api/1/persons/homer
+```
+we get the response which include data for that person, and links that tell us how to interact with this resource:
+```json
+{
+    "key": "homer",
+    "version": 1,
+    "name": {
+        "firstName": "Homer2",
+        "lastName": "Simpson",
+        "otherNames": "Jay"
+    },
+    "address": {
+        "line1": "Level 33",
+        "line2": "10000 York St",
+        "city": "Sydney",
+        "state": "NSW",
+        "country": "Australia",
+        "postcode": "2000"
+    },
+    "dateOfBirth": "1980-01-01",
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/api/1/persons/homer"
+        },
+        "persons-update": {
+            "href": "http://localhost:8080/api/1/persons/homer"
+        },
+        "persons-delete": {
+            "href": "http://localhost:8080/api/1/persons/homer"
+        }
+    }
+}
+```
+
+Seeing the `persons-search` link in the index, the frontend knows to render the menu item to search for people, and it knows the URL to use to perform the search.
 
 Unfortunately the `persons-search` link isn't templated properly in this example - it should look like the following, in order to convey the optional query string parameters - this is a problem for another day: 
 ```
