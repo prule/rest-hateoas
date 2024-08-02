@@ -2,8 +2,13 @@ package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.common.PredicateBuilder
 import com.querydsl.core.types.Predicate
+import org.springframework.web.bind.annotation.RequestParam
 import java.time.LocalDate
 
+/**
+ * Defines how Person can be searched. The logic here could be anything, but ultimately produces a Query-DSL predicate
+ * which can be passed to a spring-data repository.
+ */
 class PersonSearchCriteria(
     val filter: String? = null,
     val from: Int? = null,

@@ -27,11 +27,11 @@ class IndexResource @JsonCreator constructor(pagedResourcesAssembler: PagedResou
         add(
             WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(PersonController::class.java)
-                    .search(PersonSearchCriteria(), PageRequest.of(0, 15), pagedResourcesAssembler)
+                    .search(null, null, null)
             ).withRel("persons-search")
         )
         add(
-            WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonController::class.java).find(""))
+            WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonController::class.java).find(null))
                 .withRel("persons-find")
         )
         add(

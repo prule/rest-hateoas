@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "greeting",
+			"name": "index",
 			"event": [
 				{
 					"listen": "test",
@@ -17,6 +17,16 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -39,6 +49,520 @@
 							"key": "name",
 							"value": "World"
 						}
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "greeting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/greeting?name=World",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"greeting"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "World"
+						}
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - find",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/persons",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/persons",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons search with pageable params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/persons?size=5&page=2&sort=name.lastName,ASC",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "name.lastName,ASC"
+						}
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons search with filter params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/persons?filter=homer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "homer"
+						}
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"dateOfBirth\": \"1980-01-01\",\n    \"name\": {\n      \"firstName\": \"Homer\",\n      \"lastName\": \"Simpson\",\n      \"otherNames\": \"Jay\"\n    },\n    \"address\": {\n      \"line1\": \"Level 33\",\n      \"line2\": \"10000 York St\",\n      \"city\": \"Sydney\",\n      \"state\": \"NSW\",\n      \"postcode\": \"2000\",\n      \"country\": \"Australia\"\n    }\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - create - invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"dateOfBirth\": \"1980-01-01\",\n    \"name\": {\n      \"firstName\": \"Homer\",\n      \"lastName\": \"Simpson\",\n      \"otherNames\": \"Jay\"\n    },\n    \"address\": {\n      \"line1\": \"Level 33\",\n      \"line2\": \"10000 York St\",\n      \"city\": \"Sydney\",\n      \"state\": \"NSW\",\n      \"postcode\": \"2000\",\n      \"country\": \"Australia\"\n    }\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": 0,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"Simpson\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons/homer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons",
+						"homer"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - update - invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": 0,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons/homer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons",
+						"homer"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "persons - update - conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": -1,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons/homer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons",
+						"homer"
 					]
 				},
 				"description": "Call the greeting endpoint"
