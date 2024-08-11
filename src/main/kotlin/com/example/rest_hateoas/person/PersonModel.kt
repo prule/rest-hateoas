@@ -25,12 +25,6 @@ open class PersonModel : VersionedRepresentationModel<PersonModel>() {
         return this
     }
 
-    /**
-     * The "fields" parameter controls which fields on the entity are set.
-     * This could be controlled so only fields that the user has permission to
-     * set are included - eg fields could be constructed or cleaned by security
-     * logic before being passed here.
-     */
     fun toEntity(entity: Person) {
         checkVersion(entity)
 
