@@ -54,8 +54,7 @@ class PersonController(private val repository: PersonRepository) {
         @RequestBody model: PersonModel,
     ): ResponseEntity<PersonModel> {
         // in a more complex application this would probably go through a service to create the new entity and apply business logic
-        val entity = Person()
-        personModelAssembler.toEntity(model, entity)
+        val entity = Person(Key(), model.name, model.address, model.dateOfBirth)
         val personModel = personModelAssembler.toModel(repository.save(entity))
         return ResponseEntity.created(personModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(personModel)
     }

@@ -38,11 +38,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
     implementation("com.google.guava:guava:33.2.1-jre")
     implementation("io.github.xn32:json5k:0.3.0")
-
+//    implementation ("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
     implementation(libs.logback.classic)
     implementation(libs.bundles.logging)
 
@@ -54,6 +55,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 
     kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
+    implementation(kotlin("script-runtime"))
 
 }
 

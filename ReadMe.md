@@ -1,3 +1,5 @@
+> I just discovered the JPA code didn't migrate across from java very well so I'm currently working on cleaning that up and adding functionality.
+
 # Getting started with Hateoas
 
 This project provides a sample application that demonstrates how to
