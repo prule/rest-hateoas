@@ -1,0 +1,18 @@
+= Rest-Hateoas-JPA-JWT-SpringBoot example application
+Paul Rule
+:url-repo: https://github.com/prule/rest-hateoas
+:source-highlighter: rouge
+:author: Paul Rule
+:toc:
+:toclevels: 3
+:doctype: book
+
+
+[sidebar]
+This is a work in progress!
+
+
+include::../includes/Jpa.adoc[]
+include::../includes/Apis.adoc[]
+include::../includes/Hateoas.adoc[]
+include::../includes/AboutMe.adoc[]

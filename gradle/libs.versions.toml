@@ -9,6 +9,7 @@ junit-jupiter-engine = "5.10.0"
 kotest = "5.8.0"
 logback-classic = "1.4.12"
 kotlin-logging-jvm = "3.0.5"
+asciidocter = "4.0.3"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -25,3 +26,9 @@ logging = ["kotlin-logging-jvm"]
 
 [plugins]
 jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+asciidoctor-convert = { id = "org.asciidoctor.jvm.convert", version.ref = "asciidocter" }
+asciidoctor-pdf = { id = "org.asciidoctor.jvm.pdf", version.ref = "asciidocter" }
+asciidoctor-epub = { id = "org.asciidoctor.jvm.epub", version.ref = "asciidocter" }
+asciidoctor-leanpub = { id = "org.asciidoctor.jvm.leanpub", version.ref = "asciidocter" }
+asciidoctor-revealjs = { id = "org.asciidoctor.jvm.revealjs", version.ref = "asciidocter" }
+asciidoctor-gems = { id = "org.asciidoctor.jvm.gems", version.ref = "asciidocter" }
