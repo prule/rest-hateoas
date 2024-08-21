@@ -1,4 +1,6 @@
 > I just discovered the JPA code didn't migrate across from java very well so I'm currently working on cleaning that up and adding functionality.
+> 
+> So, a lot of this is a work in progress...
 
 # Getting started with Hateoas
 
