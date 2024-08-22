@@ -1,0 +1,46 @@
+//---
+//!!com.example.demo.user.UserGroup
+//key:
+//key: admin
+//name: Admin
+//description: Admin users
+//enabled: true
+//---
+//!!com.example.demo.user.UserGroup
+//key:
+//key: user
+//name: User
+//description: Normal users
+//enabled: true
+//---
+//!!com.example.demo.user.UserGroup
+//key:
+//key: disabled
+//name: Disabled
+//description: Disabled group for testing
+//enabled: false
+
+[
+  {
+    key: { key: "admin"},
+    name: "Admin",
+    description: "Admin users",
+    enabled: true
+  },
+  {
+    key: {
+      key: "user"
+    },
+    name: "User",
+    description: "Normal users",
+    enabled: true
+  },
+  {
+    key: {
+      key: "disabled"
+    },
+    name: "Disabled",
+    description: "Disabled group for testing",
+    enabled: false
+  }
+]

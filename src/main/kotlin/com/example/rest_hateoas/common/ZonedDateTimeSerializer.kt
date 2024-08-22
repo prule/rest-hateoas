@@ -10,7 +10,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalSerializationApi::class)
-@Serializer(forClass = LocalDate::class)
+@Serializer(forClass = ZonedDateTime::class)
 object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
     private val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
 

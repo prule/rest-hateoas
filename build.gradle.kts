@@ -87,7 +87,8 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
     implementation("com.google.guava:guava:33.2.1-jre")
     implementation("io.github.xn32:json5k:0.3.0")
-//    implementation ("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+    implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
     implementation(libs.logback.classic)
     implementation(libs.bundles.logging)
 

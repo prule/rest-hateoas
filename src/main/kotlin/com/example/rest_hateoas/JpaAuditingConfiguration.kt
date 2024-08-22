@@ -1,5 +1,7 @@
 package com.example.rest_hateoas
 
+import com.example.rest_hateoas.user.User
+import com.example.rest_hateoas.user.UserPrincipal
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider
@@ -13,15 +15,24 @@ import java.util.*
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider", dateTimeProviderRef = "auditingDateTimeProvider")
 class JpaAuditingConfiguration {
     @Bean
-    fun auditorProvider(): AuditorAware<String> {
+    fun auditorProvider(): AuditorAware<Long> {
         return AuditorAware {
+            val principal = SecurityContextHolder.getContext().authentication?.principal
             Optional.ofNullable(
-//                if (SecurityContextHolder.getContext().authentication != null)
-                SecurityContextHolder.getContext().authentication?.name
-//                else
-//                    null
+                if (principal != null) (principal as UserPrincipal).id else null
             )
         }
+//            SecurityContextHolder.getContext().authentication?.principal?.let {
+//                Optional.ofNullable(
+//                    (it as User).id
+//                )
+//            Optional.ofNullable(
+//                if (SecurityContextHolder.getContext().authentication != null)
+//                ( as User).id
+//                else
+//                    null
+//            )
+//        }
     }
 
     @Bean

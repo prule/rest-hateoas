@@ -1,6 +1,7 @@
-package com.example.rest_hateoas.errorhandling
+package com.example.rest_hateoas.common.errorhandling
 
 import com.example.rest_hateoas.common.NotFoundException
+import com.example.rest_hateoas.common.security.InvalidAuthenticationTokenException
 import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.RollbackException
 import jakarta.validation.ConstraintViolationException
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.http.converter.HttpMessageNotWritableException
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.transaction.TransactionSystemException
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -273,24 +275,28 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
         return buildResponseEntity(apiError)
     }
 
-//    @ExceptionHandler(InvalidAuthenticationTokenException::class)
-//    fun handleInvalidAuthenticationToken(
-//        ex: InvalidAuthenticationTokenException,
-//        request: WebRequest?
-//    ): ResponseEntity<Any> {
-//        val apiError = ApiError(HttpStatus.UNAUTHORIZED)
-//        apiError.setMessage(String.format("Expired or invalid authentication token"))
-//        apiError.setDebugMessage(ex.getMessage())
-//        return buildResponseEntity(apiError)
-//    }
+    @ExceptionHandler(InvalidAuthenticationTokenException::class)
+    fun handleInvalidAuthenticationToken(
+        ex: InvalidAuthenticationTokenException,
+        request: WebRequest?
+    ): ResponseEntity<Any> {
+        val apiError = ApiError(
+            HttpStatus.UNAUTHORIZED,
+            message = String.format("Expired or invalid authentication token"),
+            debugMessage = ex.message
+        )
+        return buildResponseEntity(apiError)
+    }
 
-//    @ExceptionHandler(BadCredentialsException::class)
-//    protected fun handleBadCredentials(ex: BadCredentialsException, request: WebRequest?): ResponseEntity<Any> {
-//        val apiError = ApiError(HttpStatus.UNAUTHORIZED)
-//        apiError.setMessage(String.format("Invalid username/password combination"))
-//        apiError.setDebugMessage(ex.getMessage())
-//        return buildResponseEntity(apiError)
-//    }
+    @ExceptionHandler(BadCredentialsException::class)
+    protected fun handleBadCredentials(ex: BadCredentialsException, request: WebRequest?): ResponseEntity<Any> {
+        val apiError = ApiError(
+            HttpStatus.UNAUTHORIZED,
+            message = String.format("Invalid username/password combination"),
+            debugMessage = ex.message
+        )
+        return buildResponseEntity(apiError)
+    }
 
     @ExceptionHandler(OptimisticEntityLockException::class)
     protected fun handleConcurrentEdit(ex: OptimisticEntityLockException, request: WebRequest?): ResponseEntity<Any> {

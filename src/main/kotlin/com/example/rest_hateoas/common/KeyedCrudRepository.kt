@@ -6,5 +6,5 @@ import java.util.*
 
 @NoRepositoryBean
 interface KeyedCrudRepository<T, ID> : CrudRepository<T, ID> {
-    fun findByKey(key: Key?): Optional<T>?
+    fun findByKey(key: Key?): T?
 }

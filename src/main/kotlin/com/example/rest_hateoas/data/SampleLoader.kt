@@ -2,6 +2,7 @@ package com.example.rest_hateoas.data
 
 import com.example.rest_hateoas.common.Address
 import com.example.rest_hateoas.common.Key
+import com.example.rest_hateoas.common.Loader
 import com.example.rest_hateoas.data.Fixtures.Persons
 import com.example.rest_hateoas.person.Person
 import com.example.rest_hateoas.person.PersonName
@@ -13,11 +14,10 @@ import java.time.LocalDate
 import java.util.function.Function
 
 @Component
-class SampleLoader(val personRepository: PersonRepository) {
+class SampleLoader(val personRepository: PersonRepository): Loader {
 
-    fun load() {
+    override fun load() {
         // example loading from yaml
-
         createOrUpdate("data/sample/persons.json5") { obj: Any -> createOrUpdatePerson(obj as Person) }
 
         // fixture driven
@@ -51,7 +51,7 @@ class SampleLoader(val personRepository: PersonRepository) {
     }
 
     private fun createOrUpdatePerson(newPerson: Person): Person {
-        val person = personRepository.findByKey(newPerson.key)!!.orElse(newPerson)
+        val person = personRepository.findByKey(newPerson.key) ?: newPerson
 
         // copy fields we wish to update
         person.name = person.name

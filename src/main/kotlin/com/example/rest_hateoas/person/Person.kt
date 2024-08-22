@@ -29,7 +29,7 @@ class Person(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
+    val id: Long? = null
 
 ) : AbstractEntity<Long>() {
 

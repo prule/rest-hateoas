@@ -10,6 +10,7 @@ import org.springframework.hateoas.PagedModel
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
@@ -50,6 +51,7 @@ class PersonController(private val repository: PersonRepository) {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('Admin')")
     fun create(
         @RequestBody model: PersonModel,
     ): ResponseEntity<PersonModel> {
@@ -60,6 +62,7 @@ class PersonController(private val repository: PersonRepository) {
     }
 
     @PutMapping("/{key}")
+    @PreAuthorize("hasRole('Admin')")
     fun update(
         @PathVariable(name = "key", required = true) key: String?,
         @RequestBody model: PersonModel

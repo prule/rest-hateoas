@@ -3,7 +3,9 @@ package com.example.rest_hateoas.user
 import com.example.rest_hateoas.common.AbstractEntity
 import com.example.rest_hateoas.common.Key
 import jakarta.persistence.*
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(name = "usr") // name of table is changed to avoid naming conflicts with database
 class User(
 
@@ -16,9 +18,9 @@ class User(
     var lastName: String,
     var enabled: Boolean,
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = UserGroup::class)
-    var groups: Set<UserGroup>,
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    var groups: MutableSet<UserGroup>,
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null
 ) : AbstractEntity<String?>() {
 
