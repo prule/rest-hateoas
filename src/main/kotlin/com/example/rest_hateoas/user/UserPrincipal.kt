@@ -32,6 +32,10 @@ class UserPrincipal(user: User) : UserDetails {
         return username
     }
 
+    override fun isEnabled(): Boolean {
+        return enabled
+    }
+
     override fun isAccountNonExpired(): Boolean {
         // TODO implement account expired
         return true
@@ -47,7 +51,4 @@ class UserPrincipal(user: User) : UserDetails {
         return true
     }
 
-    override fun isEnabled(): Boolean {
-        return enabled
-    }
 }

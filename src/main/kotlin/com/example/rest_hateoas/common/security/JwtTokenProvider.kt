@@ -37,26 +37,18 @@ class JwtTokenProvider(
             .compact()
     }
 
-    fun getAuthentication(token: String?): Authentication {
+    fun getAuthentication(token: String): Authentication {
         val userDetails: UserDetails = userDetailsService.loadUserByUsername(getUsername(token))
         return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities())
     }
 
-    fun getUsername(token: String?): String {
+    fun getUsername(token: String): String {
         return Jwts.parser()
             .verifyWith(Keys.hmacShaKeyFor(secretKey.toByteArray(Charsets.UTF_8)))
             .build()
             .parseSignedClaims(token)
             .payload
             .getSubject()
-    }
-
-    fun resolveToken(req: HttpServletRequest): String? {
-        val bearerToken: String? = req.getHeader(AUTH_HEADER)
-        if (bearerToken != null && bearerToken.startsWith(BEAR_TOKEN_PREFIX)) {
-            return bearerToken.substring(BEAR_TOKEN_PREFIX.length)
-        }
-        return null
     }
 
     fun validateToken(token: String): Boolean {
@@ -72,10 +64,5 @@ class JwtTokenProvider(
         } catch (e: IllegalArgumentException) {
             throw InvalidAuthenticationTokenException("Expired or invalid JWT token")
         }
-    }
-
-    companion object {
-        const val BEAR_TOKEN_PREFIX: String = "Bearer "
-        const val AUTH_HEADER: String = "Authorization"
     }
 }

@@ -51,7 +51,6 @@ class PersonController(private val repository: PersonRepository) {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('Admin')")
     fun create(
         @RequestBody model: PersonModel,
     ): ResponseEntity<PersonModel> {
@@ -62,7 +61,6 @@ class PersonController(private val repository: PersonRepository) {
     }
 
     @PutMapping("/{key}")
-    @PreAuthorize("hasRole('Admin')")
     fun update(
         @PathVariable(name = "key", required = true) key: String?,
         @RequestBody model: PersonModel

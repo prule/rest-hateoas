@@ -1,11 +1,9 @@
 package com.example.rest_hateoas.user
 
 import com.example.rest_hateoas.common.VersionedRepresentationModel
-import com.example.rest_hateoas.person.PersonController
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 
 
-open class UserResource : VersionedRepresentationModel<UserResource>() {
+open class UserModel : VersionedRepresentationModel<UserModel>() {
 
     override var version: Long = 0
 
@@ -17,7 +15,7 @@ open class UserResource : VersionedRepresentationModel<UserResource>() {
 
     private var enabled = false
 
-    fun fromModel(model: User): UserResource {
+    fun fromModel(model: User): UserModel {
 
         key = model.key.key
         username = model.username

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/1/index")
 class IndexController() {
     @GetMapping
-    fun index(assembler: PagedResourcesAssembler<Person>): HttpEntity<IndexResource> {
-        return ResponseEntity(IndexResource(assembler), HttpStatus.OK)
+    fun index(assembler: PagedResourcesAssembler<Person>): HttpEntity<IndexModel> {
+        return ResponseEntity(IndexModel(assembler), HttpStatus.OK)
     }
 
 }

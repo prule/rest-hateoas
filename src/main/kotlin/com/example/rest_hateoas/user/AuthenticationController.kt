@@ -26,23 +26,10 @@ class AuthenticationController(
         try {
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
             val token: String = jwtTokenProvider.createToken(username, emptyList())
-
             return LoginResponseModel(username, token)
         } catch (e: org.springframework.security.core.AuthenticationException) {
             throw BadCredentialsException("Invalid username/password")
         }
     }
 
-    @GetMapping("/api/1/user/me")
-    fun me(): UserResource? {
-        try {
-            val user: AuthenticatedUser? = AuthenticatedUser.instance
-            if (user != null) {
-                return userRepository.findByUsername(user.username).let { UserResource().fromModel(it!!) }
-            }
-        } catch (e: java.lang.Exception) {
-            // ignore
-        }
-        return null
-    }
 }

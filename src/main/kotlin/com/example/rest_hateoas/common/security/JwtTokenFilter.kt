@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.GenericFilterBean
 import java.io.IOException
 
-class JwtTokenFilter internal constructor(
+class JwtTokenFilter(
     private val jwtTokenProvider: JwtTokenProvider,
     private val restExceptionHandler: RestExceptionHandler,
     private val objectMapper: ObjectMapper
@@ -21,7 +21,7 @@ class JwtTokenFilter internal constructor(
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest, response: ServletResponse, filterChain: FilterChain) {
-        val token = jwtTokenProvider.resolveToken(request as HttpServletRequest)
+        val token = resolveToken(request as HttpServletRequest)
 
         try {
             if (token != null && jwtTokenProvider.validateToken(token)) {
@@ -38,4 +38,18 @@ class JwtTokenFilter internal constructor(
 
         filterChain.doFilter(request, response)
     }
+
+    fun resolveToken(req: HttpServletRequest): String? {
+        val bearerToken: String? = req.getHeader(AUTH_HEADER)
+        if (bearerToken != null && bearerToken.startsWith(BEAR_TOKEN_PREFIX)) {
+            return bearerToken.substring(BEAR_TOKEN_PREFIX.length)
+        }
+        return null
+    }
+
+    companion object {
+        const val BEAR_TOKEN_PREFIX: String = "Bearer "
+        const val AUTH_HEADER: String = "Authorization"
+    }
+
 }
