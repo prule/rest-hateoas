@@ -16,3 +16,23 @@ To log in:
 If authentication is successful, the `AuthenticationController` uses `JwtTokenProvider` to generate a token containing the users username. and this token is returned to the client. The client application needs to hold on to this token and send it to the server with each request.
 
 Now, with each request the client subsequently makes, `JwtTokenFilter` checks the provided token. If the token is present and valid, it is decoded to reveal the username, and then the user is registered in the Spring Security Context - making it available throughout the current request.
+
+Configuring Spring is done in `SecurityConfig`.
+
+Password Encoder:
+
+include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=encoder]
+
+The DAO Authentication Provider, using the custom UserDetailsService:
+
+include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=authenticationProvider]
+
+And it all gets enabled in the filter chain:
+
+include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=filterChain]
+
+See:
+
+* link:{source}/com/example/rest_hateoas/common/security/JwtTokenFilter.kt[]
+* link:{source}/com/example/rest_hateoas/common/security/JwtTokenProvider.kt[]
+* link:{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[]

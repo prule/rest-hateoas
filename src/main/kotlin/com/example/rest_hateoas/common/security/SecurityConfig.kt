@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.*
 import org.springframework.security.config.annotation.web.configuration.*
@@ -34,6 +33,9 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
 
+    /**
+     * Set up unauthenticated paths.
+     */
     @Bean
     fun configure(): WebSecurityCustomizer {
         return WebSecurityCustomizer { web: WebSecurity ->
@@ -46,38 +48,32 @@ class SecurityConfig(
         }
     }
 
+    /**
+     * Set up the filter chain - authentication, jwt token filter, and stateless
+     */
+    // tag::filterChain[]
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http.authorizeHttpRequests(Customizer { authz ->
+        return http.authorizeHttpRequests(Customizer { authz ->
             authz.anyRequest().authenticated()
-        }).addFilterBefore(
-            JwtTokenFilter(jwtTokenProvider, restExceptionHandler, objectMapper),
-            UsernamePasswordAuthenticationFilter::class.java
-        ).sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+        })
+            // JWT token filter
+            .addFilterBefore(
+                JwtTokenFilter(jwtTokenProvider, restExceptionHandler, objectMapper),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
+            // no state on the server (not using sessions)
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            // set up cors
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#
             .cors(Customizer { corsConfigurationSource() })
+            // disable csrf since JWT is being used
+            // https://stackoverflow.com/questions/52363487/what-is-the-reason-to-disable-csrf-in-spring-boot-web-application
             .csrf(Customizer { csrf -> csrf.disable() })
-
-        return http.build()
+            .build()
     }
-
-    @Bean
-    fun authenticationProvider(): DaoAuthenticationProvider {
-        val authProvider: DaoAuthenticationProvider = DaoAuthenticationProvider()
-        authProvider.setUserDetailsService(userDetailsService)
-        authProvider.setPasswordEncoder(encoder())
-        return authProvider
-    }
-
-    @Bean
-    fun encoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager {
-        return config.authenticationManager
-    }
+    // end::filterChain[]
 
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
@@ -90,6 +86,28 @@ class SecurityConfig(
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
+    }
+
+    // tag::authenticationProvider[]
+    @Bean
+    fun authenticationProvider(): DaoAuthenticationProvider {
+        val authProvider: DaoAuthenticationProvider = DaoAuthenticationProvider()
+        authProvider.setUserDetailsService(userDetailsService)
+        authProvider.setPasswordEncoder(encoder())
+        return authProvider
+    }
+    // end::authenticationProvider[]
+
+    // tag::encoder[]
+    @Bean
+    fun encoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
+    }
+    // end::encoder[]
+
+    @Bean
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager {
+        return config.authenticationManager
     }
 
 }
