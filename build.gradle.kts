@@ -4,7 +4,7 @@ import org.asciidoctor.gradle.jvm.pdf.AsciidoctorPdfTask
 
 //https://spring.io/guides/tutorials/spring-boot-kotlin
 plugins {
-    id("org.springframework.boot") version "3.3.2"
+    id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
     alias(libs.plugins.jvm)
     alias(libs.plugins.spring)
