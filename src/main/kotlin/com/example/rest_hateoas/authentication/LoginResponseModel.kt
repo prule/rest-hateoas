@@ -1,10 +1,10 @@
-package com.example.rest_hateoas.user
+package com.example.rest_hateoas.authentication
 
 import org.springframework.hateoas.RepresentationModel
 
 
-class LoginResponseModel(
-    var username: String,
+open class LoginResponseModel(
+    val username: String,
     val token: String
 ) : RepresentationModel<LoginResponseModel>() {
 

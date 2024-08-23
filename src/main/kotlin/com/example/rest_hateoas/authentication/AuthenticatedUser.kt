@@ -1,5 +1,6 @@
-package com.example.rest_hateoas.user
+package com.example.rest_hateoas.authentication
 
+import com.example.rest_hateoas.user.UserGroup
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
