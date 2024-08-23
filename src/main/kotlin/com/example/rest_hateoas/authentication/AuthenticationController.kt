@@ -20,7 +20,7 @@ class AuthenticationController(
     protected val logger = LogFactory.getLog(javaClass)
 
     @PostMapping("/api/1/auth/login")
-    fun login(@RequestBody resource: LoginRequestModel): LoginResponseModel {
+    fun login(@RequestBody resource: AuthenticationRequestModel): AuthenticationResponseModel {
         val username: String = resource.username
         val password: String = resource.password
 
@@ -28,7 +28,7 @@ class AuthenticationController(
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
             logger.debug("Authentication successful: ${username}")
             val token: String = jwtTokenProvider.createToken(username, emptyList())
-            return LoginResponseModel(username, token)
+            return AuthenticationResponseModel(username, token)
         } catch (e: org.springframework.security.core.AuthenticationException) {
             logger.debug("Authentication failed: ${username}")
             throw BadCredentialsException("Invalid username/password")

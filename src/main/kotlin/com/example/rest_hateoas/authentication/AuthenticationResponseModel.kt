@@ -3,9 +3,9 @@ package com.example.rest_hateoas.authentication
 import org.springframework.hateoas.RepresentationModel
 
 
-class LoginRequestModel(
+open class AuthenticationResponseModel(
     val username: String,
-    val password: String
-) : RepresentationModel<LoginRequestModel>() {
+    val token: String
+) : RepresentationModel<AuthenticationResponseModel>() {
 
 }
