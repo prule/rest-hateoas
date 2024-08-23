@@ -1,12 +1,10 @@
-package com.example.rest_hateoas.data
+package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.common.Address
 import com.example.rest_hateoas.common.Key
-import com.example.rest_hateoas.person.Person
-import com.example.rest_hateoas.person.PersonName
 import java.time.LocalDate
 
-class Fixtures {
+class PersonFixtures {
     enum class Persons(val person: Person) {
         Fred(
             Person(

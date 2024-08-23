@@ -14,7 +14,7 @@ class UserGroupSampleLoader(
 ) : Loader {
 
     override fun load() {
-        createOrUpdate("data/sample/userGroups.json5") { obj: UserGroup -> createOrUpdateUser(obj) }
+        createOrUpdate("data/sample/userGroups.json5") { obj: UserGroup -> createOrUpdateUserGroup(obj) }
     }
 
     private fun createOrUpdate(path: String, runnable: Function<UserGroup, UserGroup>) {
@@ -26,7 +26,7 @@ class UserGroupSampleLoader(
         }
     }
 
-    private fun createOrUpdateUser(newUserGroup: UserGroup): UserGroup {
+    private fun createOrUpdateUserGroup(newUserGroup: UserGroup): UserGroup {
         val userGroup = userGroupRepository.findByKey(newUserGroup.key) ?: newUserGroup
         userGroup.name = newUserGroup.name
         userGroup.description = newUserGroup.description

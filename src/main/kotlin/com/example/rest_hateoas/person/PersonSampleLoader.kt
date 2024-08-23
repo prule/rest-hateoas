@@ -1,20 +1,19 @@
-package com.example.rest_hateoas.data
+package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.common.Address
 import com.example.rest_hateoas.common.Key
 import com.example.rest_hateoas.common.Loader
-import com.example.rest_hateoas.data.Fixtures.Persons
-import com.example.rest_hateoas.person.Person
-import com.example.rest_hateoas.person.PersonName
-import com.example.rest_hateoas.person.PersonRepository
+import com.example.rest_hateoas.person.PersonFixtures.Persons
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.util.function.Function
 
 @Component
-class SampleLoader(val personRepository: PersonRepository): Loader {
+@Order(3)
+class PersonSampleLoader(val personRepository: PersonRepository): Loader {
 
     override fun load() {
         // example loading from yaml
