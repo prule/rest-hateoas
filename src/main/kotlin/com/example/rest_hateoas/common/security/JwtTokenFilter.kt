@@ -1,6 +1,7 @@
 package com.example.rest_hateoas.common.security
 
 import com.example.rest_hateoas.common.errorhandling.RestExceptionHandler
+import com.example.rest_hateoas.common.http.ResponseWriter
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
@@ -30,9 +31,11 @@ class JwtTokenFilter(
             }
         } catch (e: InvalidAuthenticationTokenException) {
             val responseEntity: ResponseEntity<Any> = restExceptionHandler.handleInvalidAuthenticationToken(e, null)
-            val httpServletResponse: HttpServletResponse = response as HttpServletResponse
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED)
-            httpServletResponse.getWriter().write(objectMapper.writeValueAsString(responseEntity))
+            ResponseWriter(objectMapper).write(
+                response as HttpServletResponse,
+                HttpServletResponse.SC_UNAUTHORIZED,
+                responseEntity
+            )
             return
         }
 

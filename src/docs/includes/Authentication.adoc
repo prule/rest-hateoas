@@ -1,0 +1,18 @@
+== Authentication
+
+In this example I've tried to keep it simple. There is a `User` entity that holds the username and (hashed) password. And the user can have a colleciton of `UserGroup` entities which can be used for "role" based access permissions.
+
+To log in:
+
+* The user posts username and password to `AuthenicationController`
+* Spring AuthenticationManager authenticates the user by using a `DaoAuthenticationProvider` configured with `UserDetailsService`
+** `UserDetailsService` is the only custom code here - and it simply looks up the user by username
+** Spring security applies logic such as:
+*** checking the encoded password matches that retrieved in the user details,
+*** checking the user is enabled
+*** checking credentials aren't expired
+*** and more!
+
+If authentication is successful, the `AuthenticationController` uses `JwtTokenProvider` to generate a token containing the users username. and this token is returned to the client. The client application needs to hold on to this token and send it to the server with each request.
+
+Now, with each request the client subsequently makes, `JwtTokenFilter` checks the provided token. If the token is present and valid, it is decoded to reveal the username, and then the user is registered in the Spring Security Context - making it available throughout the current request.
