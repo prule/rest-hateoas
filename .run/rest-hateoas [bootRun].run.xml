@@ -3,7 +3,7 @@
     <ExternalSystemSettings>
       <option name="env">
         <map>
-          <entry key="spring.profiles.active" value="debug" />
+          <entry key="spring.profiles.active" value="debug,db-postgres,db-init" />
         </map>
       </option>
       <option name="executionName" />

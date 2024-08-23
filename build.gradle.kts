@@ -94,13 +94,22 @@ dependencies {
 
     testImplementation(libs.bundles.kotest)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
 
     runtimeOnly("com.h2database:h2")
 
     kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
     implementation(kotlin("script-runtime"))
+
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    // https://mvnrepository.com/artifact/org.testcontainers/postgresql
+    testImplementation("org.testcontainers:postgresql:1.20.1")
+    // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
+    testImplementation("org.testcontainers:junit-jupiter:1.20.1")
+        // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.3")
 
 }
 
