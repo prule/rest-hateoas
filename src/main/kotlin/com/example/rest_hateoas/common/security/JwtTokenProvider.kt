@@ -1,6 +1,5 @@
 package com.example.rest_hateoas.common.security
 
-import com.example.rest_hateoas.user.UserDetailsService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import io.jsonwebtoken.JwtException
@@ -12,9 +11,14 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import java.util.*
 
+/**
+ * Provides a way to generate, validate, and extract data from the JWT.
+ * See https://www.devglan.com/online-tools/hmac-sha256-online for a way to generate a valid secret key (as found via https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac)
+ */
 @Component
 class JwtTokenProvider(
     private val userDetailsService: UserDetailsService,

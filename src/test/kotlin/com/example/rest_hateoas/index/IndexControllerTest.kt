@@ -39,11 +39,12 @@ class IndexControllerTest {
     }
 
     @Test
-    fun `should return index page`() {
+    fun `index page should contain links`() {
         given().contentType(ContentType.JSON)
             .`when`()
             .get("/api/1/index")
             .then()
             .statusCode(200)
+
     }
 }
