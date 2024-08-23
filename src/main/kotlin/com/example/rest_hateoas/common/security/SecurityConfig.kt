@@ -34,13 +34,6 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
 
-
-//    @Bean
-//    @Throws(Exception::class)
-//    fun authenticationManagerBean(): AuthenticationManager {
-//        return super.authenticationManagerBean()
-//    }
-
     @Bean
     fun configure(): WebSecurityCustomizer {
         return WebSecurityCustomizer { web: WebSecurity ->
@@ -67,32 +60,6 @@ class SecurityConfig(
 
         return http.build()
     }
-
-//    @Throws(Exception::class)
-//    protected fun configure(http: HttpSecurity):SecurityFilterChain {
-//        http
-//            .httpBasic().disable()
-//            .csrf().disable()
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            .and()
-//            .cors() // so that the OPTIONS requests will return 200 instead of 403
-//            .and()
-//            .authorizeRequests()
-//            .anyRequest().authenticated()
-//            .and()
-//            .apply<SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>>(
-//                JwtConfigurer(
-//                    jwtTokenProvider,
-//                    restExceptionHandler,
-//                    objectMapper
-//                )
-//            )
-//    }
-//
-//    @Throws(Exception::class)
-//    protected override fun configure(auth: AuthenticationManagerBuilder) {
-//        auth.authenticationProvider(authenticationProvider())
-//    }
 
     @Bean
     fun authenticationProvider(): DaoAuthenticationProvider {

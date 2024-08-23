@@ -39,6 +39,7 @@ class JwtTokenProvider(
 
     fun getAuthentication(token: String): Authentication {
         val userDetails: UserDetails = userDetailsService.loadUserByUsername(getUsername(token))
+        // org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.DefaultPreAuthenticationChecks.check(userDetails) will check that the user is not disabled.
         return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities())
     }
 

@@ -1,6 +1,26 @@
 [
   {
     key: {
+      key: "disabled"
+    },
+    username: "disabled",
+    password: "password",
+    firstName: "disabled",
+    lastName: "Doe",
+    enabled: false,
+    groups: [
+      {
+        key: {
+          key: "user"
+        },
+        name: "",
+        description: "",
+        enabled: true
+      }
+    ]
+  },
+  {
+    key: {
       key: "bob"
     },
     username: "bob",
