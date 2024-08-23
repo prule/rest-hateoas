@@ -6,12 +6,12 @@ import org.asciidoctor.gradle.jvm.pdf.AsciidoctorPdfTask
 plugins {
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
-    kotlin("jvm") version "1.9.24"
-    kotlin("plugin.spring") version "1.9.24"
-    kotlin("plugin.jpa") version "1.9.24"
-    kotlin("plugin.allopen") version "1.9.24"
-    kotlin("kapt") version "1.9.24"
-    kotlin("plugin.serialization") version "1.9.24"
+    alias(libs.plugins.jvm)
+    alias(libs.plugins.spring)
+    alias(libs.plugins.jpa)
+    alias(libs.plugins.allopen)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.serialization)
 
     alias(libs.plugins.asciidoctor.pdf)
     alias(libs.plugins.asciidoctor.convert)

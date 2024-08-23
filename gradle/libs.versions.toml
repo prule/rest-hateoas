@@ -26,9 +26,21 @@ logging = ["kotlin-logging-jvm"]
 
 [plugins]
 jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
 asciidoctor-convert = { id = "org.asciidoctor.jvm.convert", version.ref = "asciidocter" }
 asciidoctor-pdf = { id = "org.asciidoctor.jvm.pdf", version.ref = "asciidocter" }
 asciidoctor-epub = { id = "org.asciidoctor.jvm.epub", version.ref = "asciidocter" }
 asciidoctor-leanpub = { id = "org.asciidoctor.jvm.leanpub", version.ref = "asciidocter" }
 asciidoctor-revealjs = { id = "org.asciidoctor.jvm.revealjs", version.ref = "asciidocter" }
 asciidoctor-gems = { id = "org.asciidoctor.jvm.gems", version.ref = "asciidocter" }
+
+#kotlin("plugin.spring") version "1.9.24"
+#kotlin("plugin.jpa") version "1.9.24"
+#kotlin("plugin.allopen") version "1.9.24"
+#kotlin("kapt") version "1.9.24"
+#kotlin("plugin.serialization") version "1.9.24"
