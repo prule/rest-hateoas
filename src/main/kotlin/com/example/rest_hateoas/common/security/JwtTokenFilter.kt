@@ -29,28 +29,34 @@ class JwtTokenFilter(
             if (token != null && jwtTokenProvider.validateToken(token)) {
                 val auth = jwtTokenProvider.getAuthentication(token)
                 SecurityContextHolder.getContext().setAuthentication(auth)
+            } else {
+                writeUnauthorizedResponse(
+                    restExceptionHandler.handleInvalidAuthenticationToken(InvalidAuthenticationTokenException("No token"), null),
+                    response
+                )
+                return
             }
         } catch (e: InvalidAuthenticationTokenException) {
-            val responseEntity: ResponseEntity<Any> = restExceptionHandler.handleInvalidAuthenticationToken(e, null)
-            ResponseWriter(objectMapper).write(
-                response as HttpServletResponse,
-                HttpServletResponse.SC_UNAUTHORIZED,
-                responseEntity
-            )
+            writeUnauthorizedResponse(restExceptionHandler.handleInvalidAuthenticationToken(e, null), response)
             return
         } catch (e: Exception) {
             // catch all scenario that won't expose specific details
-            val responseEntity: ResponseEntity<Any> = restExceptionHandler.handleBadCredentials(BadCredentialsException("Invalid username/password combination", e), null)
-            ResponseWriter(objectMapper).write(
-                response as HttpServletResponse,
-                HttpServletResponse.SC_UNAUTHORIZED,
-                responseEntity
+            writeUnauthorizedResponse(
+                restExceptionHandler.handleBadCredentials(BadCredentialsException("Unexpected", e), null),
+                response
             )
             return
         }
 
-
         filterChain.doFilter(request, response)
+    }
+
+    fun writeUnauthorizedResponse(responseEntity: ResponseEntity<Any>, response: ServletResponse) {
+        ResponseWriter(objectMapper).write(
+            response as HttpServletResponse,
+            HttpServletResponse.SC_UNAUTHORIZED,
+            responseEntity
+        )
     }
 
     fun resolveToken(req: HttpServletRequest): String? {

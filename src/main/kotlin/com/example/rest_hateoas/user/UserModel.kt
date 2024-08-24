@@ -7,13 +7,13 @@ open class UserModel : VersionedRepresentationModel<UserModel>() {
 
     override var version: Long = 0
 
-    private var key: String? = null
-    private var username: String? = null
+    var key: String? = null
+    var username: String? = null
 
-    private var firstName: String? = null
-    private var lastName: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
 
-    private var enabled = false
+    var enabled = false
 
     fun fromModel(model: User): UserModel {
 

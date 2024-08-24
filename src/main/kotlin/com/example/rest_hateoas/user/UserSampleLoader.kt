@@ -2,6 +2,7 @@ package com.example.rest_hateoas.user
 
 import com.example.rest_hateoas.common.Loader
 import com.example.rest_hateoas.person.Person
+import com.example.rest_hateoas.person.PersonFixtures.Persons
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order
@@ -19,6 +20,12 @@ class UserSampleLoader(
 
     override fun load() {
         createOrUpdate("data/sample/users.json5") { obj: User -> createOrUpdateUser(obj) }
+
+        // fixture driven
+        for (fixture in UserFixtures.Users.entries) {
+            createOrUpdateUser(fixture.user)
+        }
+
     }
 
     private fun createOrUpdate(path: String, runnable: Function<User, User>) {
