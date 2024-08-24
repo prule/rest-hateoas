@@ -7,7 +7,7 @@ dokka = "1.9.20"
 guava = "33.3.0-jre"
 junit-jupiter-engine = "5.10.0"
 kotest = "5.9.1"
-logback-classic = "1.4.12"
+logback-classic = "1.5.7"
 kotlin-logging-jvm = "3.0.5"
 asciidocter = "4.0.3"
 
