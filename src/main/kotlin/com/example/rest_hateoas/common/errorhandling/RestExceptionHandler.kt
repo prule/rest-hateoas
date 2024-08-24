@@ -289,7 +289,7 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(BadCredentialsException::class)
-    protected fun handleBadCredentials(ex: BadCredentialsException, request: WebRequest?): ResponseEntity<Any> {
+    fun handleBadCredentials(ex: BadCredentialsException, request: WebRequest?): ResponseEntity<Any> {
         val apiError = ApiError(
             HttpStatus.UNAUTHORIZED,
             message = String.format("Invalid username/password combination"),

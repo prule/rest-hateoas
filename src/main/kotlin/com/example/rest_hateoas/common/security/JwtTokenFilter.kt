@@ -10,6 +10,7 @@ import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.GenericFilterBean
 import java.io.IOException
@@ -37,22 +38,28 @@ class JwtTokenFilter(
                 responseEntity
             )
             return
+        } catch (e: Exception) {
+            // catch all scenario that won't expose specific details
+            val responseEntity: ResponseEntity<Any> = restExceptionHandler.handleBadCredentials(BadCredentialsException("Invalid username/password combination", e), null)
+            ResponseWriter(objectMapper).write(
+                response as HttpServletResponse,
+                HttpServletResponse.SC_UNAUTHORIZED,
+                responseEntity
+            )
+            return
         }
+
 
         filterChain.doFilter(request, response)
     }
 
     fun resolveToken(req: HttpServletRequest): String? {
-        val bearerToken: String? = req.getHeader(AUTH_HEADER)
-        if (bearerToken != null && bearerToken.startsWith(BEAR_TOKEN_PREFIX)) {
-            return bearerToken.substring(BEAR_TOKEN_PREFIX.length)
-        }
-        return null
+        return BearerToken.extractTokenFromHeaderValue(req.getHeader(AUTH_HEADER))
     }
 
     companion object {
-        const val BEAR_TOKEN_PREFIX: String = "Bearer "
         const val AUTH_HEADER: String = "Authorization"
+
     }
 
 }
