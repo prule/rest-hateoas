@@ -7,5 +7,5 @@ import java.util.*
 @Serializable
 @Embeddable
 class Key(
-    var key: String = (UUID.randomUUID().toString()).replace("-", "")
+    var key: String? = (UUID.randomUUID().toString()).replace("-", "")
 )

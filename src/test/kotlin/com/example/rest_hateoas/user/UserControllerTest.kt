@@ -80,7 +80,6 @@ class UserControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
             .body("apierror", nullValue())
             .extract().body().asString()
 
-
         val expectedResponseBody = """
             {
                 "version": 0,

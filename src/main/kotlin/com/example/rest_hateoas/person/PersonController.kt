@@ -2,7 +2,6 @@ package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.common.Key
 import com.example.rest_hateoas.common.NotFoundException
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.IanaLinkRelations
@@ -10,7 +9,6 @@ import org.springframework.hateoas.PagedModel
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
@@ -55,7 +53,7 @@ class PersonController(private val repository: PersonRepository) {
         @RequestBody model: PersonModel,
     ): ResponseEntity<PersonModel> {
         // in a more complex application this would probably go through a service to create the new entity and apply business logic
-        val entity = Person(Key(), model.name, model.address, model.dateOfBirth)
+        val entity = Person(Key(model.key), model.name, model.address, model.dateOfBirth)
         val personModel = personModelAssembler.toModel(repository.save(entity))
         return ResponseEntity.created(personModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(personModel)
     }
@@ -78,7 +76,7 @@ class PersonController(private val repository: PersonRepository) {
         @PathVariable(name = "key", required = true) key: String?,
     ): ResponseEntity<PersonModel> {
         // in a more complex application this would probably go through a service to delete the entity and apply business logic
-        repository.findOneByKey(Key(key!!));
+        repository.findOneByKey(Key(key!!)).ifPresent(repository::delete);
         return ResponseEntity.noContent().build()
     }
 

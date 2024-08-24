@@ -4,15 +4,18 @@ import com.example.rest_hateoas.common.Address
 import com.example.rest_hateoas.common.VersionedRepresentationModel
 import java.time.LocalDate
 
-open class PersonModel : VersionedRepresentationModel<PersonModel>() {
+open class PersonModel(
+    override var version: Long = 0,
 
-    override var version: Long = 0
+    var key: String? = null,
 
-    var key: String? = null
-
-    var name: PersonName = PersonName()
-    var address: Address = Address()
+    var name: PersonName = PersonName(),
+    var address: Address = Address(),
     var dateOfBirth: LocalDate? = null
+
+) : VersionedRepresentationModel<PersonModel>() {
+
+    constructor() : this(0, null, PersonName(), Address(), null)
 
     fun fromEntity(entity: Person): PersonModel {
 
