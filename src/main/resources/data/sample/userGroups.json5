@@ -1,5 +1,6 @@
 [
   {
+    id: -1,
     key: {
       key: "admin"
     },
@@ -8,6 +9,7 @@
     enabled: true
   },
   {
+    id: -1,
     key: {
       key: "user"
     },
@@ -16,6 +18,7 @@
     enabled: true
   },
   {
+    id: -1,
     key: {
       key: "disabled"
     },

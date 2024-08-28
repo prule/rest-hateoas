@@ -75,7 +75,7 @@ tasks {
 
 dependencies {
 
-    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jpa")
+    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
     annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
     annotationProcessor("javax.annotation:javax.annotation-api:1.3.2")
 

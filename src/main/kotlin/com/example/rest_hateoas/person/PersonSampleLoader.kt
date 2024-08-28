@@ -1,6 +1,12 @@
 package com.example.rest_hateoas.person
 
-import com.example.rest_hateoas.common.Address
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonNameRestModel
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
+import com.example.rest_hateoas.application.domain.model.Person
+import com.example.rest_hateoas.application.domain.model.PersonAddress
+import com.example.rest_hateoas.application.domain.model.PersonName
+import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
+import com.example.rest_hateoas.application.port.out.persistence.PersonSpringDataRepository
 import com.example.rest_hateoas.common.Key
 import com.example.rest_hateoas.common.Loader
 import com.example.rest_hateoas.person.PersonFixtures.Persons
@@ -17,16 +23,18 @@ class PersonSampleLoader(val personRepository: PersonRepository): Loader {
 
     override fun load() {
         // example loading from yaml
-        createOrUpdate("data/sample/persons.json5") { obj: Any -> createOrUpdatePerson(obj as Person) }
+        loadData("data/sample/persons.json5").iterator().forEach {
+            personRepository.save(it)
+        }
 
         // fixture driven
         for (fixture in Persons.entries.toTypedArray()) {
-            createOrUpdatePerson(fixture.person)
+            personRepository.save(fixture.person)
         }
 
         // programmatic creation
         for (i in 0..9) {
-            createOrUpdatePerson(generatePerson(i))
+            personRepository.save(generatePerson(i))
         }
     }
 
@@ -35,30 +43,9 @@ class PersonSampleLoader(val personRepository: PersonRepository): Loader {
         return Person(
             Key(key),
             PersonName("$key.firstName", "$key.lastName", "$key.otherNames"),
-            Address("line1", "line2", "city", "state", "country", "postcode"),
+            PersonAddress("line1", "line2", "city", "state", "country", "postcode"),
             LocalDate.now()
         )
-    }
-
-    private fun createOrUpdate(path: String, runnable: Function<Person, Person>) {
-        // load object graph
-        val objects = loadData(path)
-        // create or update accordingly
-        for (obj in objects) {
-            runnable.apply(obj)
-        }
-    }
-
-    private fun createOrUpdatePerson(newPerson: Person): Person {
-        val person = personRepository.findByKey(newPerson.key) ?: newPerson
-
-        // copy fields we wish to update
-        person.name = person.name
-        person.address = person.address
-        person.dateOfBirth = person.dateOfBirth
-        personRepository.save(person)
-
-        return person
     }
 
     private fun loadData(path: String): Iterable<Person> {

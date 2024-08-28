@@ -1,6 +1,5 @@
 package com.example.rest_hateoas
 
-import com.example.rest_hateoas.user.User
 import com.example.rest_hateoas.user.UserPrincipal
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

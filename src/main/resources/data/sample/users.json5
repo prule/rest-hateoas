@@ -50,6 +50,7 @@
     enabled: true,
     groups: [
       {
+        id: -1,
         key: {
           key: "admin"
         },

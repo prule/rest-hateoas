@@ -1,5 +1,9 @@
 package com.example.rest_hateoas.user
 
+import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
+import com.example.rest_hateoas.application.domain.model.UserGroup
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupSpringDataRepository
 import com.example.rest_hateoas.common.Loader
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
@@ -14,24 +18,12 @@ class UserGroupSampleLoader(
 ) : Loader {
 
     override fun load() {
-        createOrUpdate("data/sample/userGroups.json5") { obj: UserGroup -> createOrUpdateUserGroup(obj) }
-    }
-
-    private fun createOrUpdate(path: String, runnable: Function<UserGroup, UserGroup>) {
         // load object graph
-        val objects = loadData(path)
+        val objects = loadData("data/sample/userGroups.json5")
         // create or update accordingly
         for (obj in objects) {
-            runnable.apply(obj)
+            userGroupRepository.save(obj)
         }
-    }
-
-    private fun createOrUpdateUserGroup(newUserGroup: UserGroup): UserGroup {
-        val userGroup = userGroupRepository.findByKey(newUserGroup.key) ?: newUserGroup
-        userGroup.name = newUserGroup.name
-        userGroup.description = newUserGroup.description
-        userGroup.enabled = newUserGroup.enabled
-        return userGroupRepository.save(userGroup)
     }
 
     private fun loadData(path: String): Iterable<UserGroup> {

@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.authentication
 
 import com.example.rest_hateoas.common.security.JwtTokenProvider
-import com.example.rest_hateoas.user.UserRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserSpringDataRepository
 import org.apache.commons.logging.LogFactory
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthenticationController(
     private val authenticationManager: AuthenticationManager,
     private val jwtTokenProvider: JwtTokenProvider,
-    private val userRepository: UserRepository
+    private val userRepository: UserSpringDataRepository
 ) {
     protected val logger = LogFactory.getLog(javaClass)
 

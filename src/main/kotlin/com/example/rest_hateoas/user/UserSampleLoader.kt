@@ -1,14 +1,14 @@
 package com.example.rest_hateoas.user
 
+import com.example.rest_hateoas.application.domain.model.User
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import com.example.rest_hateoas.common.Loader
-import com.example.rest_hateoas.person.Person
-import com.example.rest_hateoas.person.PersonFixtures.Persons
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
-import java.util.function.Function
 
 @Component
 @Order(2)
@@ -19,40 +19,24 @@ class UserSampleLoader(
 ) : Loader {
 
     override fun load() {
-        createOrUpdate("data/sample/users.json5") { obj: User -> createOrUpdateUser(obj) }
-
-        // fixture driven
-        for (fixture in UserFixtures.Users.entries) {
-            createOrUpdateUser(fixture.user)
-        }
-
-    }
-
-    private fun createOrUpdate(path: String, runnable: Function<User, User>) {
         // load object graph
-        val objects = loadData(path)
+        val objects = loadData("data/sample/users.json5")
         // create or update accordingly
         for (obj in objects) {
-            runnable.apply(obj)
+            obj.password = passwordEncoder.encode(obj.password)
+            userRepository.save(obj)
         }
-    }
 
-    private fun createOrUpdateUser(newUser: User): User {
-        val newGroups = newUser.groups.map { userGroupRepository.findByKey(it.key) }.filterNotNull()
-
-        val user: User = userRepository.findByKey(newUser.key) ?: newUser
-        user.password = passwordEncoder.encode(newUser.password)
-        user.firstName = newUser.firstName
-        user.lastName = newUser.lastName
-        user.groups.clear()
-        user.groups.addAll(newGroups)
-
-        userRepository.save(user)
-        return user
+        // fixture driven
+        for (obj in UserFixtures.Users.entries) {
+            obj.user.password = passwordEncoder.encode(obj.user.password)
+            userRepository.save(obj.user)
+        }
     }
 
     private fun loadData(path: String): Iterable<User> {
-        val inputStream = this.javaClass.classLoader.getResourceAsStream(path) ?: throw IllegalArgumentException("Resource not found: $path")
+        val inputStream = this.javaClass.classLoader.getResourceAsStream(path)
+            ?: throw IllegalArgumentException("Resource not found: $path")
         return Json5.decodeFromStream<List<User>>(inputStream)
     }
 }

@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.authentication
 
-import com.example.rest_hateoas.user.UserGroup
+import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
@@ -10,7 +10,7 @@ class AuthenticatedUser(val authentication: Authentication) {
 
     val principal: UserDetails get() = authentication.principal as UserDetails
 
-    fun hasGroup(group: UserGroup.Group): Boolean {
+    fun hasGroup(group: UserGroupJpaEntity.Group): Boolean {
         return authentication.authorities.stream().anyMatch { g: GrantedAuthority? -> g?.getAuthority() == group.id }
     }
 
