@@ -20,10 +20,10 @@ class PersonRepository(
 
     fun findIfExists(key: Key): Person? {
         val value = springDataRepository.findOneByKey(key)
-        if (value.isPresent) {
-            return PersonMapper.toDomain(value.get())
+        return if (value.isPresent) {
+            PersonMapper.toDomain(value.get())
         } else {
-            return null
+            null
         }
     }
 
@@ -33,11 +33,17 @@ class PersonRepository(
     }
 
     fun save(value: Person) {
+        // todo: could load the existing object here so we have some fields we don't get from the frontend
+        // like ID
         entityManagerFactory.createEntityManager().use { entityManager ->
             entityManager.getTransaction().begin()
             entityManager.merge(PersonMapper.toJpaEntity(value))
             entityManager.getTransaction().commit()
         }
+    }
+
+    fun delete(key: Key) {
+        springDataRepository.delete(springDataRepository.findOneByKey(key).get())
     }
 
 

@@ -22,6 +22,7 @@ class PersonMapper {
             return domain
         }
 
+        // need to consider what fields can be set by what type of user
         fun toJpaEntity(value: Person): PersonJpaEntity {
             val person = PersonJpaEntity(
                 value.key,
