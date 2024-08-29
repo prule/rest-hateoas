@@ -1,6 +1,7 @@
 package com.example.rest_hateoas.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.person.PersonAddressRestModel
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonCreateRestModel
 import com.example.rest_hateoas.adapter.`in`.rest.person.PersonNameRestModel
 import com.example.rest_hateoas.adapter.`in`.rest.person.PersonRestModel
 import com.example.rest_hateoas.common.security.BearerToken
@@ -12,7 +13,11 @@ import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.Customization
 import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
+import org.skyscreamer.jsonassert.RegularExpressionValueMatcher
+import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -84,7 +89,7 @@ class PersonJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenPro
                     "country": "country",
                     "postcode": "postcode"
                 },
-                "dateOfBirth": "2024-08-24",
+                "dateOfBirth": "1990-01-01",
                 "_links": {
                     "self": {
                         "href": "http://localhost:$port/api/1/persons/fred"
@@ -109,10 +114,7 @@ class PersonJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenPro
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .body(
-                PersonRestModel(
-                    0,
-                    -1,
-                    "should_create_person",
+                PersonCreateRestModel(
                     PersonNameRestModel("firstname", "lastname", "othernames"),
                     PersonAddressRestModel("line1", "line2", "city", "state", "country", "postcode"),
                     LocalDate.of(2024, 8, 24)
@@ -127,7 +129,7 @@ class PersonJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenPro
         val expectedResponseBody = """
             {
                 "version": 0,
-                "key": "should_create_person",
+                "key": "<key goes here>",
                 "name": {
                     "firstName": "firstname",
                     "lastName": "lastname",
@@ -144,19 +146,30 @@ class PersonJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenPro
                 "dateOfBirth": "2024-08-24",
                 "_links": {
                     "self": {
-                        "href": "http://localhost:$port/api/1/persons/should_create_person"
+                        "href": "http://localhost:$port/api/1/persons/"
                     },
                     "persons-update": {
-                        "href": "http://localhost:$port/api/1/persons/should_create_person"
+                        "href": "http://localhost:$port/api/1/persons/"
                     },
                     "persons-delete": {
-                        "href": "http://localhost:$port/api/1/persons/should_create_person"
+                        "href": "http://localhost:$port/api/1/persons/"
                     }
                 }
             }
         """.trimIndent()
 
-        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+        JSONAssert.assertEquals(
+            expectedResponseBody, actualResponseBody,
+            // need to account for the random key in the response
+            CustomComparator(
+                JSONCompareMode.STRICT,
+                Customization(
+                    "_links.*.href",
+                    RegularExpressionValueMatcher<Any>("^http://localhost:$port/api/1/persons/\\w+$")
+                ),
+                Customization("key", RegularExpressionValueMatcher<Any>("^\\w+$"))
+            )
+        )
 
     }
 
@@ -168,7 +181,6 @@ class PersonJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenPro
             .body(
                 PersonRestModel(
                     0,
-                    -1,
                     null,
                     PersonNameRestModel("firstname'", "lastname'", "othernames'"),
                     PersonAddressRestModel("line1'", "line2'", "city'", "state'", "country'", "postcode'"),

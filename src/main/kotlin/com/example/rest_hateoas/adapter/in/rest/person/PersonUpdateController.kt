@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@Transactional
 class PersonUpdateController(
     private val personUpdateUseCase: PersonUpdateUseCase,
     private val personFindUseCase: PersonFindUseCase,
@@ -21,15 +20,14 @@ class PersonUpdateController(
 
     @PutMapping("/api/1/persons/{key}")
     fun update(
-        @PathVariable(name = "key", required = true) key: String?,
+        @PathVariable(name = "key", required = true) key: String,
         @RequestBody model: PersonRestModel
     ): ResponseEntity<PersonRestModel> {
-        val value = personRestMapper.toDomain(model)
+        val value = personRestMapper.toExistingDomain(key, model)
         personUpdateUseCase.update(value)
         val personModel = personRestMapper.fromDomain(
-            personFindUseCase.find(Key(model.key!!))
+            personFindUseCase.find(Key(key))
         )
-//        val personModel = PersonRestModel.fromDomain(value)
         return ResponseEntity.created(personModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(personModel)
     }
 

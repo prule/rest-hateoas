@@ -6,6 +6,7 @@ import jakarta.persistence.*
 import kotlinx.serialization.Serializable
 
 @Entity
+@Table(name = "user_group")
 class UserGroupJpaEntity(
 
     @Basic(optional = false)

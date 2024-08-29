@@ -1,7 +1,5 @@
 package com.example.rest_hateoas.person
 
-import com.example.rest_hateoas.adapter.`in`.rest.person.PersonNameRestModel
-import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.application.domain.model.PersonAddress
 import com.example.rest_hateoas.application.domain.model.PersonName
@@ -15,7 +13,7 @@ class PersonFixtures {
                 Key("fred"),
                 PersonName("Fred", "Flinstone", "Freddy"),
                 PersonAddress("line1", "line2", "city", "state", "country", "postcode"),
-                LocalDate.now()
+                LocalDate.of(1990, 1, 1)
             )
         )
     }

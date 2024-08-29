@@ -20,9 +20,9 @@ class PersonCreateController(
 
     @PostMapping("/api/1/persons")
     fun create(
-        @RequestBody model: PersonRestModel
+        @RequestBody model: PersonCreateRestModel
     ): ResponseEntity<PersonRestModel> {
-        val value = personRestMapper.toDomain(model)
+        val value = personRestMapper.toNewDomain(model)
         personCreateUseCase.create(value)
         val personModel = personRestMapper.fromDomain(
             personFindUseCase.find(value.key)

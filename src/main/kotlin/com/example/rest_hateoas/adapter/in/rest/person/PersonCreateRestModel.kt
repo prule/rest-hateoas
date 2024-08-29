@@ -5,14 +5,12 @@ import com.example.rest_hateoas.common.Key
 import com.example.rest_hateoas.common.LocalDateSerializer
 import com.example.rest_hateoas.common.VersionedRepresentationModel
 import kotlinx.serialization.Serializable
+import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import java.time.LocalDate
 
 @Serializable
-open class PersonRestModel(
-    override var version: Long? = 0,
-
-    var key: String? = null,
+open class PersonCreateRestModel(
 
     var name: PersonNameRestModel,
     var address: PersonAddressRestModel,
@@ -20,14 +18,11 @@ open class PersonRestModel(
     @Serializable(with = LocalDateSerializer::class)
     var dateOfBirth: LocalDate? = null
 
-) : VersionedRepresentationModel<PersonRestModel>() {
+) {
 
     companion object {
-
-        fun empty(): PersonRestModel {
-            return PersonRestModel(
-                0,
-                null,
+        fun empty(): PersonCreateRestModel {
+            return PersonCreateRestModel(
                 PersonNameRestModel.empty(),
                 PersonAddressRestModel.empty(),
                 null
@@ -35,3 +30,4 @@ open class PersonRestModel(
         }
     }
 }
+

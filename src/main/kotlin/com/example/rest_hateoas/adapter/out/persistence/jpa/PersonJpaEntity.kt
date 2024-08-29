@@ -8,10 +8,10 @@ import jakarta.validation.Valid
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
-@Entity
+@Entity(name = "person")
 class PersonJpaEntity(
 
-    @Basic(optional = false)
+    @Column(nullable = false, unique = true)
     val key: Key,
 
     @Embedded

@@ -14,7 +14,6 @@ class PersonRestMapper(
     fun fromDomain(value: Person): PersonRestModel {
         val model = PersonRestModel(
             value.version,
-            value.id,
             value.key.key,
             PersonNameRestModel.fromDomain(value.name),
             PersonAddressRestModel.fromDomain(value.address),
@@ -33,26 +32,47 @@ class PersonRestMapper(
                 WebMvcLinkBuilder.methodOn(PersonUpdateController::class.java).update(value.key.key, model)
             ).withRel("persons-update")
         )
-//        model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonController::class.java).delete(value.key.key)).withRel("persons-delete"))
+        model.add(
+            WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(PersonDeleteController::class.java).delete(value.key.key)
+            ).withRel("persons-delete")
+        )
         return model
     }
 
-    fun toDomain(value: PersonRestModel): Person {
+    fun toNewDomain(value: PersonCreateRestModel): Person {
 
-        val person = Person(
-            if (value.key != null) {
-                Key(value.key!!)
-            } else {
-                Key()
-            },
+        return Person(
+            Key(),
             PersonNameRestModel.toDomain(value.name),
             PersonAddressRestModel.toDomain(value.address),
-            value.dateOfBirth,
+            value.dateOfBirth
         )
-        person.id = value.id
+
+    }
+
+    fun toExistingDomain(key: String, value: PersonRestModel): Person {
+
+        val name = PersonNameRestModel.toDomain(value.name)
+        val address = PersonAddressRestModel.toDomain(value.address)
+
+        // load the current version of the entity from the database so we have all the fields populated appropriately
+        // (not all fields are exposed in the rest model, so we need to load the full entity from the database)
+        // (not all fields are updateable by the user eg key, id, created/modified etc)
+
+        val person = personFindUseCase.find(Key(key))
+
+        // update the fields of the entity with the values from the rest model
+        person.name = name
+        person.address = address
+        person.dateOfBirth = value.dateOfBirth
+
+        // set the version to that version the user was working with - so that conflicts can be detected
+        // todo how would we protect version from being manipulated by the user?
         person.version = value.version
 
         return person
     }
+
 
 }

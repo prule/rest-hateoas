@@ -28,13 +28,13 @@ class PersonSearchController(
     // But I haven't found a reasonable way to do this.
     @GetMapping("/api/1/persons")
     fun search(
-        criteria: PersonSearchCriteria,
-        pageable: Pageable,
-        assembler: PagedResourcesAssembler<Person>
+        criteria: PersonSearchCriteria?,
+        pageable: Pageable?,
+        assembler: PagedResourcesAssembler<Person>?
     ): HttpEntity<PagedModel<PersonRestModel>> {
-        val page = personSearchUseCase.search(criteria, pageable)
+        val page = personSearchUseCase.search(criteria!!, pageable!!)
         return ResponseEntity(
-            assembler.toModel(page) { person: Person -> personRestMapper.fromDomain(person) },
+            assembler!!.toModel(page) { person: Person -> personRestMapper.fromDomain(person) },
             HttpStatus.OK
         )
     }

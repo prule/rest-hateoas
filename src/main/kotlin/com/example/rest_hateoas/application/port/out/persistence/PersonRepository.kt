@@ -3,6 +3,7 @@ package com.example.rest_hateoas.application.port.out.persistence
 import com.example.rest_hateoas.adapter.`in`.rest.person.PersonSearchCriteria
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.common.Key
+import com.example.rest_hateoas.common.NotFoundException
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -15,7 +16,11 @@ class PersonRepository(
     val entityManagerFactory: EntityManagerFactory
 ) {
     fun findOneByKey(key: Key): Person {
-        return PersonMapper.toDomain(springDataRepository.findOneByKey(key).get())
+        val value = findIfExists(key)
+        if (value == null) {
+            throw NotFoundException("Person $key not found")
+        } else
+            return value
     }
 
     fun findIfExists(key: Key): Person? {
@@ -33,13 +38,7 @@ class PersonRepository(
     }
 
     fun save(value: Person) {
-        // todo: could load the existing object here so we have some fields we don't get from the frontend
-        // like ID
-        entityManagerFactory.createEntityManager().use { entityManager ->
-            entityManager.getTransaction().begin()
-            entityManager.merge(PersonMapper.toJpaEntity(value))
-            entityManager.getTransaction().commit()
-        }
+        springDataRepository.save(PersonMapper.toJpaEntity(value))
     }
 
     fun delete(key: Key) {
