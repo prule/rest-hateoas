@@ -1,13 +1,16 @@
-package com.example.rest_hateoas.index
+package com.example.rest_hateoas.adapter.`in`.rest.index
 
-
+import com.example.rest_hateoas.common.security.BearerToken
+import com.example.rest_hateoas.common.security.JwtTokenFilter
+import com.example.rest_hateoas.common.security.JwtTokenProvider
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import org.hamcrest.CoreMatchers.hasItems
+import jakarta.servlet.http.HttpServletResponse
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
@@ -18,14 +21,10 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 
-// https://medium.com/@hsielei/end-to-end-testing-spring-boot-rest-apis-with-rest-assured-e21765f74263
-// https://github.com/rest-assured/rest-assured/wiki/Usage
-
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
-@ActiveProfiles(profiles = ["db-postgres-test","db-init"])
-class IndexControllerTest {
-
+@ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
+class IndexControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
     companion object {
         @Container
         @ServiceConnection
@@ -33,6 +32,7 @@ class IndexControllerTest {
             DockerImageName.parse("postgres:latest")
         )
     }
+
 
     @LocalServerPort
     private val port: Int? = null

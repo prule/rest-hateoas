@@ -1,18 +1,21 @@
-package com.example.rest_hateoas.user
+package com.example.rest_hateoas.adapter.`in`.rest.person
 
 import com.example.rest_hateoas.common.security.BearerToken
 import com.example.rest_hateoas.common.security.JwtTokenFilter
 import com.example.rest_hateoas.common.security.JwtTokenProvider
+import com.example.rest_hateoas.person.PersonFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
-import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.Customization
 import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
+import org.skyscreamer.jsonassert.RegularExpressionValueMatcher
+import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -23,11 +26,12 @@ import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
+import java.time.LocalDate
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
-@ActiveProfiles(profiles = ["db-postgres-test","db-init"])
-class UserJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
+@ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
+class PersonFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
     companion object {
         @Container
         @ServiceConnection
@@ -35,6 +39,7 @@ class UserJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvi
             DockerImageName.parse("postgres:latest")
         )
     }
+
 
     @LocalServerPort
     private val port: Int? = null
@@ -45,52 +50,50 @@ class UserJpaEntityControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvi
     }
 
     @Test
-    fun `should return apierror when user does not exist`() {
-        val token = jwtTokenProvider.createToken("doesnotexist", listOf())
-        given().contentType(ContentType.JSON)
-            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
-            .`when`()
-            .get("/api/1/user/me")
-            .then()
-            .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
-            .body("apierror", notNullValue())
-            .body("apierror.message", notNullValue())
-    }
-
-    @Test
-    fun `should return apierror when no token is supplied`() {
-        given().contentType(ContentType.JSON)
-            .`when`()
-            .get("/api/1/user/me")
-            .then()
-            .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
-            .body("apierror", notNullValue())
-            .body("apierror.message", notNullValue())
-    }
-
-    @Test
-    fun `should return me when logged in`() {
-        val token = jwtTokenProvider.createToken(UserFixtures.Users.Fred.user.username, listOf())
+    fun `should find person`() {
+        val token = jwtTokenProvider.createToken("boss", listOf())
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()
-            .get("/api/1/user/me")
+            .get("/api/1/persons/${PersonFixtures.Persons.Fred.person.key.key}")
             .then()
             .statusCode(HttpServletResponse.SC_OK)
-            .body("apierror", nullValue())
             .extract().body().asString()
 
         val expectedResponseBody = """
             {
                 "version": 0,
                 "key": "fred",
-                "username": "fred",
-                "firstName": "Fred",
-                "lastName": "Doe",
-                "enabled": true
+                "name": {
+                    "firstName": "Fred",
+                    "lastName": "Flinstone",
+                    "otherNames": "Freddy"
+                },
+                "address": {
+                    "line1": "line1",
+                    "line2": "line2",
+                    "city": "city",
+                    "state": "state",
+                    "country": "country",
+                    "postcode": "postcode"
+                },
+                "dateOfBirth": "1990-01-01",
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:$port/api/1/persons/fred"
+                    },
+                    "persons-update": {
+                        "href": "http://localhost:$port/api/1/persons/fred"
+                    },
+                    "persons-delete": {
+                        "href": "http://localhost:$port/api/1/persons/fred"
+                    }
+                }
             }
         """.trimIndent()
 
         JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+
     }
+
 }
