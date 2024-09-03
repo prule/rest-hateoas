@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.common.LocalDateSerializer
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.`in`.rest.support.http
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

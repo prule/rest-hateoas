@@ -2,6 +2,7 @@ package com.example.rest_hateoas.user
 
 import com.example.rest_hateoas.application.domain.model.UserGroup
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import com.example.rest_hateoas.common.Loader
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component
 @Component
 @Order(1)
 class UserGroupSampleLoader(
-    private val userGroupRepository: UserGroupJpaRepository,
+    private val userGroupRepository: UserGroupRepository,
 ) : Loader {
 
     override fun load() {

@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.common.LocalDateSerializer
-import com.example.rest_hateoas.common.VersionedRepresentationModel
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.VersionedRepresentationModel
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 

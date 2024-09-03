@@ -1,6 +1,5 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaEntity
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.NoRepositoryBean
 

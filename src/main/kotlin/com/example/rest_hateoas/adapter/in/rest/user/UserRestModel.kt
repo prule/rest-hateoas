@@ -1,8 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.user
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaEntity
 import com.example.rest_hateoas.application.domain.model.User
-import com.example.rest_hateoas.common.VersionedRepresentationModel
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.VersionedRepresentationModel
 
 
 open class UserRestModel : VersionedRepresentationModel<UserRestModel>() {

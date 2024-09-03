@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling
 
-import com.example.rest_hateoas.common.NotFoundException
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.InvalidAuthenticationTokenException
 import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.RollbackException

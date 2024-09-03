@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.`in`.rest.support.http
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer

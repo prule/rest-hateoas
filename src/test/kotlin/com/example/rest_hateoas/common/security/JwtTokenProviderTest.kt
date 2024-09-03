@@ -2,7 +2,7 @@ package com.example.rest_hateoas.common.security
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.user.UserFixtures
-import com.example.rest_hateoas.user.UserPrincipal
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.UserPrincipal
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.equals.shouldBeEqual
 import org.junit.jupiter.api.Test

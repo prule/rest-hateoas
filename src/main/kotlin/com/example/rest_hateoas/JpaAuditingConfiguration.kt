@@ -1,6 +1,6 @@
 package com.example.rest_hateoas
 
-import com.example.rest_hateoas.user.UserPrincipal
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.UserPrincipal
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider

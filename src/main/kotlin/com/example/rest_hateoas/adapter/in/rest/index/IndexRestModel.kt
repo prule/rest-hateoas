@@ -3,7 +3,6 @@ package com.example.rest_hateoas.adapter.`in`.rest.index
 import com.example.rest_hateoas.adapter.`in`.rest.person.*
 import com.example.rest_hateoas.greeting.GreetingController
 import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
-import com.example.rest_hateoas.person.PersonController
 import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationRequestModel
 import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.RepresentationModel

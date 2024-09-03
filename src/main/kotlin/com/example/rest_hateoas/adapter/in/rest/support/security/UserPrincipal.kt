@@ -1,7 +1,5 @@
-package com.example.rest_hateoas.user
+package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaEntity
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import com.example.rest_hateoas.application.domain.model.User
 import com.example.rest_hateoas.application.domain.model.UserGroup
 import org.springframework.security.core.GrantedAuthority

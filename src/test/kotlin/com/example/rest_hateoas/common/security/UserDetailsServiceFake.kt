@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.common.security
 
-import com.example.rest_hateoas.user.UserPrincipal
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.UserPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 

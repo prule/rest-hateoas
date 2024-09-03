@@ -3,6 +3,8 @@ package com.example.rest_hateoas.user
 import com.example.rest_hateoas.application.domain.model.User
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaRepository
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
+import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import com.example.rest_hateoas.common.Loader
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component
 @Component
 @Order(2)
 class UserSampleLoader(
-    private val userRepository: UserJpaRepository,
-    private val userGroupRepository: UserGroupJpaRepository,
+    private val userRepository: UserRepository,
+    private val userGroupRepository: UserGroupRepository,
     private val passwordEncoder: PasswordEncoder
 ) : Loader {
 

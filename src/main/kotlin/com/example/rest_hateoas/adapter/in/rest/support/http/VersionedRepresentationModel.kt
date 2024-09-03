@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.`in`.rest.support.http
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.AbstractJpaEntity
 import org.hibernate.dialect.lock.OptimisticEntityLockException

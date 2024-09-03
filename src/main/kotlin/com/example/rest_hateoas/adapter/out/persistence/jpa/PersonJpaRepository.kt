@@ -4,7 +4,7 @@ import com.example.rest_hateoas.adapter.`in`.rest.person.PersonSearchCriteria
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
 import com.example.rest_hateoas.application.domain.model.Key
-import com.example.rest_hateoas.common.NotFoundException
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl

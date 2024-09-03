@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.common.ZonedDateTimeSerializer
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.ZonedDateTimeSerializer
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
 import org.springframework.data.annotation.CreatedBy

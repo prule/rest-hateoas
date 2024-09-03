@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.out.persistence.jpa
 
 import com.querydsl.core.types.Predicate
 
