@@ -1,6 +1,5 @@
-package com.example.rest_hateoas.application.port.out.persistence
+package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaEntity
 import com.example.rest_hateoas.application.domain.model.User
 
 class UserMapper {
@@ -11,7 +10,7 @@ class UserMapper {
                 return null
             }
             return User(
-                value.key,
+                KeyMapper.toDomain(value.key),
                 value.username,
                 value.password,
                 value.firstName,
@@ -24,13 +23,13 @@ class UserMapper {
 
         fun toJpaEntity(value: User, userGroupSpringDataRepository: UserGroupSpringDataRepository): UserJpaEntity {
             return UserJpaEntity(
-                value.key,
+                KeyMapper.toJpaEntity(value.key),
                 value.username,
                 value.password,
                 value.firstName,
                 value.lastName,
                 value.enabled,
-                value.groups.map { userGroupSpringDataRepository.findByKey(it.key)!! },
+                value.groups.map { userGroupSpringDataRepository.findByKey(KeyMapper.toJpaEntity(it.key))!! },
                 value.id
             )
         }

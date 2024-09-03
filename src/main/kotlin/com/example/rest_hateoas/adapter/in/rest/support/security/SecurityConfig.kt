@@ -1,6 +1,6 @@
-package com.example.rest_hateoas.common.security
+package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
-import com.example.rest_hateoas.common.errorhandling.RestExceptionHandler
+import com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling.RestExceptionHandler
 import com.example.rest_hateoas.user.UserDetailsService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean

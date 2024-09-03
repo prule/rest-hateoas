@@ -2,7 +2,6 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 
 import com.example.rest_hateoas.application.port.`in`.PersonCreateUseCase
 import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
-import com.example.rest_hateoas.common.Key
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional

@@ -1,9 +1,8 @@
-package com.example.rest_hateoas.common
+package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaEntity
+import com.example.rest_hateoas.common.ZonedDateTimeSerializer
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
-import org.hibernate.annotations.CreationTimestamp
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -13,7 +12,7 @@ import java.time.ZonedDateTime
 
 @EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
-open class AbstractEntity(
+open class AbstractJpaEntity(
 
     @Basic
     @Version

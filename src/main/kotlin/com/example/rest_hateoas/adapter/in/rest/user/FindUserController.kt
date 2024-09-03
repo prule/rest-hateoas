@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.user
 
 import com.example.rest_hateoas.application.port.`in`.FindUserUseCase
-import com.example.rest_hateoas.authentication.AuthenticatedUser
+import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticatedUser
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 

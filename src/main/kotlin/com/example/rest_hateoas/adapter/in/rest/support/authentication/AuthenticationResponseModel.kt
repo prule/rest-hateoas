@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.authentication
+package com.example.rest_hateoas.adapter.`in`.rest.support.authentication
 
 import org.springframework.hateoas.RepresentationModel
 

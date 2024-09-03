@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.common.security.BearerToken
-import com.example.rest_hateoas.common.security.JwtTokenFilter
-import com.example.rest_hateoas.common.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType

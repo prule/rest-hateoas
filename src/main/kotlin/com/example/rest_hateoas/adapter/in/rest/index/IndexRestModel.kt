@@ -4,11 +4,11 @@ import com.example.rest_hateoas.adapter.`in`.rest.person.*
 import com.example.rest_hateoas.greeting.GreetingController
 import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
 import com.example.rest_hateoas.person.PersonController
-import com.example.rest_hateoas.authentication.AuthenticationController
-import com.example.rest_hateoas.authentication.AuthenticationRequestModel
+import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationRequestModel
 import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
+import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationController
 
 class IndexRestModel(pagedResourcesAssembler: PagedResourcesAssembler<PersonJpaEntity>) : RepresentationModel<IndexRestModel?>() {
 

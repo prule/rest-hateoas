@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.authentication
+package com.example.rest_hateoas.adapter.`in`.rest.support.authentication
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import org.springframework.security.core.Authentication

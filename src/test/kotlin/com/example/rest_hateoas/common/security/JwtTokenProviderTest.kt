@@ -1,5 +1,6 @@
 package com.example.rest_hateoas.common.security
 
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.user.UserFixtures
 import com.example.rest_hateoas.user.UserPrincipal
 import io.kotest.matchers.booleans.shouldBeTrue

@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common.http
+package com.example.rest_hateoas.adapter.`in`.rest.support.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletResponse

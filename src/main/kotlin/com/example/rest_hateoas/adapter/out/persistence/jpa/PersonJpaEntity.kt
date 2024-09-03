@@ -1,8 +1,6 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.common.AbstractEntity
 import com.example.rest_hateoas.common.LocalDateSerializer
-import com.example.rest_hateoas.common.Key
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import kotlinx.serialization.Serializable
@@ -12,7 +10,7 @@ import java.time.LocalDate
 class PersonJpaEntity(
 
     @Column(nullable = false, unique = true)
-    val key: Key,
+    val key: KeyJpaEntity,
 
     @Embedded
     @field:Valid
@@ -29,7 +27,7 @@ class PersonJpaEntity(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
-) : AbstractEntity() {
+    ) : AbstractJpaEntity() {
 
 }
 

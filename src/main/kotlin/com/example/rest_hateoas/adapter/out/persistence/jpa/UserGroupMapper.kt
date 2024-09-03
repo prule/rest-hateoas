@@ -1,6 +1,5 @@
-package com.example.rest_hateoas.application.port.out.persistence
+package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import com.example.rest_hateoas.application.domain.model.UserGroup
 
 class UserGroupMapper {
@@ -9,7 +8,7 @@ class UserGroupMapper {
         fun toDomain(value: UserGroupJpaEntity): UserGroup {
             return UserGroup(
                 value.id,
-                value.key,
+                KeyMapper.toDomain(value.key),
                 value.name,
                 value.description,
                 value.enabled
@@ -18,7 +17,7 @@ class UserGroupMapper {
 
         fun toJpaEntity(value: UserGroup): UserGroupJpaEntity {
             return UserGroupJpaEntity(
-                value.key,
+                KeyMapper.toJpaEntity(value.key),
                 value.name,
                 value.description,
                 value.enabled,

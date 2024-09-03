@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common.security
+package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws

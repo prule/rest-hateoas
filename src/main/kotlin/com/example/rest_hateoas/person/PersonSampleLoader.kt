@@ -1,13 +1,10 @@
 package com.example.rest_hateoas.person
 
-import com.example.rest_hateoas.adapter.`in`.rest.person.PersonNameRestModel
-import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.application.domain.model.PersonAddress
 import com.example.rest_hateoas.application.domain.model.PersonName
-import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
-import com.example.rest_hateoas.application.port.out.persistence.PersonSpringDataRepository
-import com.example.rest_hateoas.common.Key
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaRepository
+import com.example.rest_hateoas.application.domain.model.Key
 import com.example.rest_hateoas.common.Loader
 import com.example.rest_hateoas.person.PersonFixtures.Persons
 import io.github.xn32.json5k.Json5
@@ -15,11 +12,10 @@ import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.time.LocalDate
-import java.util.function.Function
 
 @Component
 @Order(3)
-class PersonSampleLoader(val personRepository: PersonRepository): Loader {
+class PersonSampleLoader(val personRepository: PersonJpaRepository): Loader {
 
     override fun load() {
         // example loading from yaml

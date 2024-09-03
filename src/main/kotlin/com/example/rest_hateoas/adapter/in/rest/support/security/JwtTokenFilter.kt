@@ -1,7 +1,7 @@
-package com.example.rest_hateoas.common.security
+package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
-import com.example.rest_hateoas.common.errorhandling.RestExceptionHandler
-import com.example.rest_hateoas.common.http.ResponseWriter
+import com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling.RestExceptionHandler
+import com.example.rest_hateoas.adapter.`in`.rest.support.http.ResponseWriter
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException

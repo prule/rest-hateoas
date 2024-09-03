@@ -2,11 +2,11 @@ package com.example.rest_hateoas.application.domain.service.person
 
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.application.port.`in`.PersonCreateUseCase
-import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaRepository
 import org.springframework.stereotype.Service
 
 @Service
-class PersonCreateService(val personRepository: PersonRepository): PersonCreateUseCase {
+class PersonCreateService(val personRepository: PersonJpaRepository): PersonCreateUseCase {
     override fun create(value: Person) {
         personRepository.save(value)
     }

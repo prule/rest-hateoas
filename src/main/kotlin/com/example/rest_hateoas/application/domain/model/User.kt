@@ -1,6 +1,5 @@
 package com.example.rest_hateoas.application.domain.model
 
-import com.example.rest_hateoas.common.Key
 import kotlinx.serialization.Serializable
 
 @Serializable

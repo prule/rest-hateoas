@@ -1,7 +1,7 @@
-package com.example.rest_hateoas.common.errorhandling
+package com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling
 
 import com.example.rest_hateoas.common.NotFoundException
-import com.example.rest_hateoas.common.security.InvalidAuthenticationTokenException
+import com.example.rest_hateoas.adapter.`in`.rest.support.security.InvalidAuthenticationTokenException
 import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.RollbackException
 import jakarta.validation.ConstraintViolationException

@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common.errorhandling
+package com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonTypeInfo

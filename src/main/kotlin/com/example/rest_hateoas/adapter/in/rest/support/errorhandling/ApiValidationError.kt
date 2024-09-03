@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.common.errorhandling
+package com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling
 
 internal data class ApiValidationError(
     val `object`: String,

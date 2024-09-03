@@ -1,20 +1,17 @@
 package com.example.rest_hateoas.user
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import com.example.rest_hateoas.application.domain.model.UserGroup
-import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
-import com.example.rest_hateoas.application.port.out.persistence.UserGroupSpringDataRepository
+import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaRepository
 import com.example.rest_hateoas.common.Loader
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import java.util.function.Function
 
 @Component
 @Order(1)
 class UserGroupSampleLoader(
-    private val userGroupRepository: UserGroupRepository,
+    private val userGroupRepository: UserGroupJpaRepository,
 ) : Loader {
 
     override fun load() {
