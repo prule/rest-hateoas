@@ -1,4 +1,3 @@
-
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.pdf.AsciidoctorPdfTask
 
@@ -11,6 +10,7 @@ plugins {
     alias(libs.plugins.spring)
     alias(libs.plugins.jpa)
     alias(libs.plugins.allopen)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.serialization)
 
     alias(libs.plugins.asciidoctor.pdf)
@@ -78,7 +78,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":port"))
 
-    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
+    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jpa")
     annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
     annotationProcessor("javax.annotation:javax.annotation-api:1.3.2")
 
@@ -102,6 +102,7 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
 
+    kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
     implementation(kotlin("script-runtime"))
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
@@ -110,7 +111,7 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:1.20.1")
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation("org.testcontainers:junit-jupiter:1.20.1")
-        // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation("org.postgresql:postgresql:42.7.4")
 
 }

@@ -15,7 +15,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="bootRun" />
+          <option value="bootstrap:bootRun" />
         </list>
       </option>
       <option name="vmOptions" value="" />

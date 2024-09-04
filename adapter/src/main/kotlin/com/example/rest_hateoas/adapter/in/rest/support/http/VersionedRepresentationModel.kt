@@ -5,11 +5,11 @@ import org.hibernate.dialect.lock.OptimisticEntityLockException
 import org.springframework.hateoas.RepresentationModel
 
 abstract class VersionedRepresentationModel<T : RepresentationModel<out T>?> : RepresentationModel<T>() {
-    fun checkVersion(model: AbstractJpaEntity) {
-        if (model.version != this.version) {
-            throw OptimisticEntityLockException(model, "Concurrent edit detected")
-        }
-    }
+//    fun checkVersion(model: AbstractJpaEntity) {
+//        if (model.version != this.version) {
+//            throw OptimisticEntityLockException(model, "Concurrent edit detected")
+//        }
+//    }
 
-    abstract val version: Long?
+//    abstract val version: Long?
 }

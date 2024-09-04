@@ -3,11 +3,12 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.VersionedRepresentationModel
 import kotlinx.serialization.Serializable
+import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDate
 
 @Serializable
 open class PersonRestModel(
-    override var version: Long? = 0,
+    var version: Long? = 0,
 
     var key: String? = null,
 
@@ -17,7 +18,7 @@ open class PersonRestModel(
     @Serializable(with = LocalDateSerializer::class)
     var dateOfBirth: LocalDate? = null
 
-) : VersionedRepresentationModel<PersonRestModel>() {
+) : RepresentationModel<PersonRestModel>() {
 
     companion object {
 

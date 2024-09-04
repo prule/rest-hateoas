@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
+import com.example.rest_hateoas.application.domain.model.Key
 import com.example.rest_hateoas.application.domain.model.Person
 import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
-import com.example.rest_hateoas.application.domain.model.Key
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.stereotype.Service
 
@@ -27,17 +27,26 @@ class PersonRestMapper(
                 WebMvcLinkBuilder.methodOn(PersonFindController::class.java).find(value.key.key)
             ).withSelfRel()
         )
-        model.add(
-            WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(PersonUpdateController::class.java).update(value.key.key, model)
-            ).withRel("persons-update")
+        model.addIf(
+            hasPermission("persons-update"), {
+                WebMvcLinkBuilder.linkTo(
+                    WebMvcLinkBuilder.methodOn(PersonUpdateController::class.java).update(value.key.key, model)
+                ).withRel("persons-update")
+            }
         )
-        model.add(
-            WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(PersonDeleteController::class.java).delete(value.key.key)
-            ).withRel("persons-delete")
+        model.addIf(
+            hasPermission("persons-delete"), {
+                WebMvcLinkBuilder.linkTo(
+                    WebMvcLinkBuilder.methodOn(PersonDeleteController::class.java).delete(value.key.key)
+                ).withRel("persons-delete")
+            }
         )
         return model
+    }
+
+    private fun hasPermission(rel: String): Boolean {
+//        TODO("Not yet implemented")
+        return true
     }
 
     fun toNewDomain(value: PersonCreateRestModel): Person {

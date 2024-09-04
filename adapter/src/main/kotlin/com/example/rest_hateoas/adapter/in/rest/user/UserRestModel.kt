@@ -2,11 +2,12 @@ package com.example.rest_hateoas.adapter.`in`.rest.user
 
 import com.example.rest_hateoas.application.domain.model.User
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.VersionedRepresentationModel
+import org.springframework.hateoas.RepresentationModel
 
 
-open class UserRestModel : VersionedRepresentationModel<UserRestModel>() {
+open class UserRestModel : RepresentationModel<UserRestModel>() {
 
-    override var version: Long = 0
+    var version: Long = 0
 
     var key: String? = null
     var username: String? = null

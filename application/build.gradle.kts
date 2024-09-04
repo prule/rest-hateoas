@@ -1,3 +1,5 @@
+import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.asciidoctor.gradle.jvm.pdf.AsciidoctorPdfTask
 
 
 //https://spring.io/guides/tutorials/spring-boot-kotlin
@@ -8,17 +10,29 @@ plugins {
     alias(libs.plugins.spring)
     alias(libs.plugins.jpa)
     alias(libs.plugins.allopen)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.serialization)
 
+    alias(libs.plugins.asciidoctor.pdf)
+    alias(libs.plugins.asciidoctor.convert)
+    alias(libs.plugins.asciidoctor.epub)
+    alias(libs.plugins.asciidoctor.gems)
 }
 
 repositories {
     mavenCentral()
-
+    ruby {
+        gems()
+    }
 }
 
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
+}
 
-group = "com.example.rest_hateoas.application"
+group = "com.example"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -26,6 +40,38 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
+tasks.register("generateDocs") {
+    dependsOn("asciidoctor", "asciidoctorPdf")
+    group = "documentation"
+    description = "Generates both HTML and PDF documentation"
+}
+
+// tag::asciidoctor-gradle-configuration[]
+tasks {
+
+    val asciidocAttributes = mapOf(
+        // define a custom attribute to be used in the document eg as {source}
+        // unfortunately these won't work in the intellij preview, only in the gradle output
+        // so you would need to separately define these attributes in the intellij settings
+        "main_source" to project.sourceSets.main.get().kotlin.srcDirs.first(),
+        "test_source" to project.sourceSets.test.get().kotlin.srcDirs.first(),
+    )
+
+    "asciidoctor"(AsciidoctorTask::class) {
+        baseDirFollowsSourceDir()
+        attributes(asciidocAttributes)
+    }
+    "asciidoctorPdf"(AsciidoctorPdfTask::class) {
+        baseDirFollowsSourceDir()
+        attributes(asciidocAttributes)
+    }
+}
+// end::asciidoctor-gradle-configuration[]
 
 dependencies {
 
@@ -54,7 +100,17 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
 
+    kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
     implementation(kotlin("script-runtime"))
+
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    // https://mvnrepository.com/artifact/org.testcontainers/postgresql
+    testImplementation("org.testcontainers:postgresql:1.20.1")
+    // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
+    testImplementation("org.testcontainers:junit-jupiter:1.20.1")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.4")
 
 }
 
