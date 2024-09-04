@@ -41,8 +41,10 @@ java {
     }
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 tasks.register("generateDocs") {
