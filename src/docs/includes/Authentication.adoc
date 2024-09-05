@@ -1,6 +1,6 @@
 == Authentication
 
-In this example I've tried to keep it simple. There is a `User` entity that holds the username and (hashed) password. And the user can have a colleciton of `UserGroup` entities which can be used for "role" based access permissions.
+In this example I've tried to keep it simple. There is a `User` entity that holds the username and (hashed) password. And the user can have a collection of `UserGroup` entities which can be used for "role" based access permissions.
 
 To log in:
 
@@ -21,23 +21,23 @@ Configuring Spring is done in `SecurityConfig`.
 
 Password Encoder:
 
-include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=encoder]
+include::{root}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/SecurityConfig.kt[tag=encoder]
 
 The DAO Authentication Provider, using the custom UserDetailsService:
 
-include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=authenticationProvider]
+include::{root}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/SecurityConfig.kt[tag=authenticationProvider]
 
 And it all gets enabled in the filter chain:
 
-include::{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[tag=filterChain]
+include::{root}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/SecurityConfig.kt[tag=filterChain]
 
 A secret key is needed by `JwtTokenProvider` in order to sign the JWT - as found on https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac this site can be used to generate a valid key https://www.devglan.com/online-tools/hmac-sha256-online
 
 See:
 
-* link:{source}/com/example/rest_hateoas/common/security/JwtTokenFilter.kt[JwtTokenFilter]
-* link:{source}/com/example/rest_hateoas/common/security/JwtTokenProvider.kt[JwtTokenProvider]
-* link:{source}/com/example/rest_hateoas/common/security/SecurityConfig.kt[SecurityConfig]
+* link:{github}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/JwtTokenFilter.kt[JwtTokenFilter]
+* link:{github}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/JwtTokenProvider.kt[JwtTokenProvider]
+* link:{github}/adapter/src/main/kotlin/com/example/rest_hateoas/adapter/in/rest/support/security/SecurityConfig.kt[SecurityConfig]
 
 References:
 

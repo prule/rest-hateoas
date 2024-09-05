@@ -5,6 +5,7 @@
 I've been programming since I was a teenager - first on the link:https://en.wikipedia.org/wiki/Dick_Smith_Super-80_Computer[Dick Smith Super 80] kitset computer, then on a link:https://en.wikipedia.org/wiki/Amiga[Commodore Amiga] before moving to PC and then Mac - dabbling over the years with Assembly language on the Z80 and 68000 processors, Basic, PERL, C, and finally Java when it launched. Since then I've been programming professionally, and have worked on a wide variety of projects, but primarily web applications using Java (more recently Kotlin), Spring and React.
 
 * GitHub: https://github.com/prule
-* Newsletter: https://paulr70.substack.com
+* Substack: https://paulr70.substack.com
+* Medium: https://medium.com/@prule70
 * Blog: https://java-thinking.blogspot.com
 * LinkedIn: https://www.linkedin.com/in/paulrule/

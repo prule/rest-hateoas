@@ -49,6 +49,8 @@ tasks {
         // so you would need to separately define these attributes in the intellij settings
         "main_source" to project.sourceSets.main.get().kotlin.srcDirs.first(),
         "test_source" to project.sourceSets.test.get().kotlin.srcDirs.first(),
+        "root" to project.rootDir.absolutePath,
+        "github" to "https://github.com/prule/rest-hateoas/blob/version2"
     )
 
     "asciidoctor"(AsciidoctorTask::class) {
