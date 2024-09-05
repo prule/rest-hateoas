@@ -44,7 +44,7 @@ class PersonJpaRepository(
     }
 
     override fun delete(key: Key) {
-        springDataRepository.delete(springDataRepository.findOneByKey(KeyMapper.toJpaEntity(key)).get())
+        springDataRepository.deleteById(findOneByKey(key).id!!)
     }
 
 

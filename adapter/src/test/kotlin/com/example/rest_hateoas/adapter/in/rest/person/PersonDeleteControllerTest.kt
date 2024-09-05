@@ -3,19 +3,14 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.jsonassert.AssertApiError
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.skyscreamer.jsonassert.Customization
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
-import org.skyscreamer.jsonassert.RegularExpressionValueMatcher
-import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -26,7 +21,6 @@ import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
-import java.time.LocalDate
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
@@ -68,6 +62,33 @@ class PersonDeleteControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
             .then()
             .statusCode(HttpServletResponse.SC_NOT_FOUND)
 
+    }
+
+    @Test
+    fun `should return not found`() {
+        val token = jwtTokenProvider.createToken("boss", listOf())
+        // delete
+        val actualResponseBody = given().contentType(ContentType.JSON)
+            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
+            .`when`()
+            .delete("/api/1/persons/doesnotexist")
+            .then()
+            .statusCode(HttpServletResponse.SC_NOT_FOUND)
+            .extract().body().asString()
+
+        val expectedResponseBody = """
+        {
+            "apierror": {
+                "status": "NOT_FOUND",
+                "timestamp": "2024-09-05T15:26:02.309899+10:00",
+                "message": "Not Found",
+                "debugMessage": "Person Key(key='doesnotexist') not found",
+                "subErrors": null
+            }
+        }
+        """.trimIndent()
+
+        AssertApiError.assert(expectedResponseBody, actualResponseBody)
     }
 
 }

@@ -109,6 +109,44 @@ class PersonUpdateControllerTest(
     }
 
     @Test
+    fun `should return validation error`() {
+        val token = jwtTokenProvider.createToken("boss", listOf())
+        val personRestModel = personRestMapper.fromDomain(PersonFixtures.Persons.Fred.person)
+        personRestModel.name.firstName = ""
+
+        val actualResponseBody = given().contentType(ContentType.JSON)
+            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
+            .body(personRestModel)
+            .`when`()
+            .put("/api/1/persons/${PersonFixtures.Persons.Fred.person.key.key}")
+            .then()
+            .statusCode(HttpServletResponse.SC_BAD_REQUEST)
+            .extract().body().asString()
+
+        val expectedResponseBody = """
+            {
+                "apierror": {
+                    "status": "BAD_REQUEST",
+                    "timestamp": "2024-09-05T12:30:37.407567+10:00",
+                    "message": "Validation error",
+                    "debugMessage": null,
+                    "subErrors": [
+                        {
+                            "object": "personRestModel",
+                            "field": "name.firstName",
+                            "rejectedValue": "",
+                            "message": "must not be blank"
+                        }
+                    ]
+                }
+            }
+        """.trimIndent()
+
+        AssertApiError.assert(expectedResponseBody, actualResponseBody)
+
+    }
+
+    @Test
     fun `should return conflict when version is not correct`() {
         val token = jwtTokenProvider.createToken("boss", listOf())
         val personRestModel = personRestMapper.fromDomain(PersonFixtures.Persons.Fred.person)

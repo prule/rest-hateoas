@@ -8,12 +8,12 @@ import kotlinx.serialization.Serializable
 class PersonNameRestModel(
 
     @field:NotBlank
-    val firstName: String,
+    var firstName: String,
 
     @field:NotBlank
-    val lastName: String,
+    var lastName: String,
 
-    val otherNames: String? = null
+    var otherNames: String? = null
 
 ) {
     companion object {
