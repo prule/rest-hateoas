@@ -8,8 +8,8 @@ import java.time.LocalDate
 @Serializable
 open class PersonCreateRestModel(
 
-    @Valid var name: PersonNameRestModel,
-    @Valid var address: PersonAddressRestModel,
+    @field:Valid var name: PersonNameRestModel,
+    @field:Valid var address: PersonAddressRestModel,
 
     @Serializable(with = LocalDateSerializer::class)
     var dateOfBirth: LocalDate? = null

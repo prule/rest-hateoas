@@ -10,10 +10,7 @@ import org.hibernate.validator.internal.engine.path.PathImpl
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.dao.DataIntegrityViolationException
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.http.converter.HttpMessageNotWritableException
 import org.springframework.security.authentication.BadCredentialsException
@@ -42,12 +39,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
      * @param request WebRequest
      * @return the ApiError object
      */
-    protected fun handleMissingServletRequestParameter(
+    override protected fun handleMissingServletRequestParameter(
         ex: MissingServletRequestParameterException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
-        request: WebRequest?
-    ): ResponseEntity<Any> {
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
         val error: String = ex.getParameterName() + " parameter is missing"
         return buildResponseEntity(ApiError(HttpStatus.BAD_REQUEST, error, ex))
     }
@@ -62,12 +59,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
      * @param request WebRequest
      * @return the ApiError object
      */
-    protected fun handleHttpMediaTypeNotSupported(
+    override protected fun handleHttpMediaTypeNotSupported(
         ex: HttpMediaTypeNotSupportedException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
-        request: WebRequest?
-    ): ResponseEntity<Any> {
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
         val builder = StringBuilder()
         builder.append(ex.getContentType())
         builder.append(" media type is not supported. Supported media types are ")
@@ -81,21 +78,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
         )
     }
 
-    /**
-     * Handle MethodArgumentNotValidException. Triggered when an object fails @Valid validation.
-     *
-     * @param ex      the MethodArgumentNotValidException that is thrown when @Valid validation fails
-     * @param headers HttpHeaders
-     * @param status  HttpStatus
-     * @param request WebRequest
-     * @return the ApiError object
-     */
-    protected fun handleMethodArgumentNotValid(
+    override protected fun handleMethodArgumentNotValid(
         ex: MethodArgumentNotValidException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
-        request: WebRequest?
-    ): ResponseEntity<Any> {
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
         val apiError = ApiError(
             HttpStatus.BAD_REQUEST,
             message = "Validation error",
@@ -161,12 +149,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
      * @param request WebRequest
      * @return the ApiError object
      */
-    protected fun handleHttpMessageNotReadable(
+    override protected fun handleHttpMessageNotReadable(
         ex: HttpMessageNotReadableException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
         request: WebRequest
-    ): ResponseEntity<Any> {
+    ): ResponseEntity<Any>? {
         return buildResponseEntity(
             ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -185,12 +173,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
      * @param request WebRequest
      * @return the ApiError object
      */
-    protected fun handleHttpMessageNotWritable(
+    override protected fun handleHttpMessageNotWritable(
         ex: HttpMessageNotWritableException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
-        request: WebRequest?
-    ): ResponseEntity<Any> {
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
         return buildResponseEntity(
             ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR,
@@ -209,12 +197,12 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
      * @param request
      * @return
      */
-    protected fun handleNoHandlerFoundException(
+    override protected fun handleNoHandlerFoundException(
         ex: NoHandlerFoundException,
-        headers: HttpHeaders?,
-        status: HttpStatus?,
-        request: WebRequest?
-    ): ResponseEntity<Any> {
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
         val apiError = ApiError(
             HttpStatus.BAD_REQUEST,
             message = String.format(

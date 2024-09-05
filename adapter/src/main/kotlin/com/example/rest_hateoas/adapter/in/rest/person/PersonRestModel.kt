@@ -1,19 +1,21 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
-import com.example.rest_hateoas.adapter.`in`.rest.support.http.VersionedRepresentationModel
+import jakarta.validation.Valid
 import kotlinx.serialization.Serializable
 import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDate
 
+/**
+ * In our rest model, we don't expose the internal IDs, only the KEY.
+ */
 @Serializable
 open class PersonRestModel(
-    var version: Long? = 0,
+    var version: Long = 0,
+    var key: String,
 
-    var key: String? = null,
-
-    var name: PersonNameRestModel,
-    var address: PersonAddressRestModel,
+    @field:Valid var name: PersonNameRestModel,
+    @field:Valid var address: PersonAddressRestModel,
 
     @Serializable(with = LocalDateSerializer::class)
     var dateOfBirth: LocalDate? = null
@@ -25,7 +27,7 @@ open class PersonRestModel(
         fun empty(): PersonRestModel {
             return PersonRestModel(
                 0,
-                null,
+                "",
                 PersonNameRestModel.empty(),
                 PersonAddressRestModel.empty(),
                 null

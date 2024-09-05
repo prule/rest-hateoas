@@ -13,7 +13,7 @@ class PersonRestMapper(
 
     fun fromDomain(value: Person): PersonRestModel {
         val model = PersonRestModel(
-            value.version,
+            value.version ?: 0,
             value.key.key,
             PersonNameRestModel.fromDomain(value.name),
             PersonAddressRestModel.fromDomain(value.address),

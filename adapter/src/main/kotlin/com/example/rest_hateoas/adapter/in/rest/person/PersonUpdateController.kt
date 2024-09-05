@@ -3,6 +3,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
 import com.example.rest_hateoas.application.port.`in`.PersonUpdateUseCase
 import com.example.rest_hateoas.application.domain.model.Key
+import jakarta.validation.Valid
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,7 +21,7 @@ class PersonUpdateController(
     @PutMapping("/api/1/persons/{key}")
     fun update(
         @PathVariable(name = "key", required = true) key: String,
-        @RequestBody model: PersonRestModel
+        @Valid @RequestBody model: PersonRestModel
     ): ResponseEntity<PersonRestModel> {
         val value = personRestMapper.toExistingDomain(key, model)
         personUpdateUseCase.update(value)

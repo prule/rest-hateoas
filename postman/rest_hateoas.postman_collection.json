@@ -55,7 +55,355 @@
 			"response": []
 		},
 		{
-			"name": "greeting",
+			"name": "login (boss)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"boss\",\n    \"password\": \"password\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "login (boss) - wrong password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"boss\",\n    \"password\": \"wrongpassword\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "login (bob)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"bob\",\n    \"password\": \"password\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "login (fred)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"fred\",\n    \"password\": \"password\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "login (disabled)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"disabled\",\n    \"password\": \"password\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "login (doesnotexist)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"username\": \"doesnotexist\",\n    \"password\": \"password\"\n  }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "users - me",
 			"event": [
 				{
 					"listen": "test",
@@ -84,20 +432,118 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/1/greeting?name=World",
+					"raw": "{{host}}/api/1/user/me",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"1",
-						"greeting"
+						"user",
+						"me"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "users - me - no token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/user/me",
+					"host": [
+						"{{host}}"
 					],
-					"query": [
+					"path": [
+						"api",
+						"1",
+						"user",
+						"me"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "users - me - doesnotexist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "name",
-							"value": "World"
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRvZXNub3RleGlzdCIsImlhdCI6MTcyNDQ2NzM1NCwiZXhwIjoxNzI0NDcwOTU0fQ.AhHw9gyIc5nplRFPMF5HMbtJyjJNVnZcn3FkAIG4WF7OOslP6EAUBnbPj3Qi8bVtrbf_W2b9l5Xiv5cypjYx-g",
+							"type": "string"
 						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/1/user/me",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"user",
+						"me"
 					]
 				},
 				"description": "Call the greeting endpoint"
@@ -134,7 +580,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/1/persons/homer",
+					"raw": "{{host}}/api/1/persons/fred",
 					"host": [
 						"{{host}}"
 					],
@@ -142,7 +588,7 @@
 						"api",
 						"1",
 						"persons",
-						"homer"
+						"fred"
 					]
 				},
 				"description": "Call the greeting endpoint"
@@ -428,188 +874,14 @@
 			"response": []
 		},
 		{
-			"name": "login (boss)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    var jsonData = pm.response.json();",
-							"    pm.globals.set(\"token\", jsonData.token);",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"username\": \"boss\",\n    \"password\": \"password\"\n  }\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/1/auth/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"1",
-						"auth",
-						"login"
-					]
-				},
-				"description": "Call the greeting endpoint"
-			},
-			"response": []
-		},
-		{
-			"name": "login (bob)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    var jsonData = pm.response.json();",
-							"    pm.globals.set(\"token\", jsonData.token);",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"username\": \"bob\",\n    \"password\": \"password\"\n  }\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/1/auth/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"1",
-						"auth",
-						"login"
-					]
-				},
-				"description": "Call the greeting endpoint"
-			},
-			"response": []
-		},
-		{
-			"name": "login (bob) Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    var jsonData = pm.response.json();",
-							"    pm.globals.set(\"token\", jsonData.token);",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"username\": \"bob\",\n    \"password\": \"password\"\n  }\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/1/auth/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"1",
-						"auth",
-						"login"
-					]
-				},
-				"description": "Call the greeting endpoint"
-			},
-			"response": []
-		},
-		{
 			"name": "persons - create - invalid",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
 							"});"
 						],
 						"type": "text/javascript",
@@ -655,6 +927,70 @@
 			"response": []
 		},
 		{
+			"name": "persons - delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/1/persons/4ef59afd0e8340649c2153fc59d349b2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"persons",
+						"4ef59afd0e8340649c2153fc59d349b2"
+					]
+				},
+				"description": "Call the greeting endpoint"
+			},
+			"response": []
+		},
+		{
 			"name": "persons - update",
 			"event": [
 				{
@@ -685,7 +1021,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": 0,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"Simpson\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
+					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": 0,\n                \"name\": {\n                    \"firstName\": \"Homer6\",\n                    \"lastName\": \"Simpson2\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1981-01-01\"\n            }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -715,8 +1051,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
 							"});"
 						],
 						"type": "text/javascript",
@@ -793,7 +1129,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": -1,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
+					"raw": "            {\n                \"key\": \"homer\",\n                \"version\": -1,\n                \"name\": {\n                    \"firstName\": \"Homer2\",\n                    \"lastName\": \"Simpson2\",\n                    \"otherNames\": \"Jay\"\n                },\n                \"address\": {\n                    \"line1\": \"Level 33\",\n                    \"line2\": \"10000 York St\",\n                    \"city\": \"Sydney\",\n                    \"state\": \"NSW\",\n                    \"country\": \"Australia\",\n                    \"postcode\": \"2000\"\n                },\n                \"dateOfBirth\": \"1980-01-01\"\n            }",
 					"options": {
 						"raw": {
 							"language": "json"

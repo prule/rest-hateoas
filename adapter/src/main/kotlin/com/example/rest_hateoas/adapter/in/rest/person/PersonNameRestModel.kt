@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class PersonNameRestModel(
+
     @field:NotBlank
     val firstName: String,
 
@@ -13,6 +14,7 @@ class PersonNameRestModel(
     val lastName: String,
 
     val otherNames: String? = null
+
 ) {
     companion object {
         fun fromDomain(value: PersonName): PersonNameRestModel {

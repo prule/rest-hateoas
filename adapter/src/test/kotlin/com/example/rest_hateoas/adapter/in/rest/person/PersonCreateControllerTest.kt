@@ -113,4 +113,27 @@ class PersonCreateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
 
     }
 
+    @Test
+    fun `should return validation error`() {
+        val token = jwtTokenProvider.createToken("boss", listOf())
+        val actualResponseBody = given().contentType(ContentType.JSON)
+            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
+            .body(
+                PersonCreateRestModel(
+                    PersonNameRestModel("", "lastname", "othernames"), // firstname should not be blank
+                    PersonAddressRestModel("line1", "line2", "city", "state", "country", "postcode"),
+                    LocalDate.of(2024, 8, 24)
+                )
+            )
+            .`when`()
+            .post("/api/1/persons")
+            .then()
+            .statusCode(HttpServletResponse.SC_BAD_REQUEST)
+            .extract().body().asString()
+
+
+
+    }
+
+
 }

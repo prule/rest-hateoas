@@ -18,9 +18,9 @@ class PersonFindController(
 
     @GetMapping("/api/1/persons/{key}")
     fun find(
-        @PathVariable(required = true) key: String?,
+        @PathVariable(required = true) key: String,
     ): ResponseEntity<PersonRestModel> {
-        val value = personFindUseCase.find(Key(key!!))
+        val value = personFindUseCase.find(Key(key))
         return ResponseEntity(
             personRestMapper.fromDomain(value),
             HttpStatus.OK

@@ -57,7 +57,7 @@ class PersonUpdateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
             .body(
                 PersonRestModel(
                     0,
-                    null,
+                    PersonFixtures.Persons.Fred.person.key.key,
                     PersonNameRestModel("firstname'", "lastname'", "othernames'"),
                     PersonAddressRestModel("line1'", "line2'", "city'", "state'", "country'", "postcode'"),
                     LocalDate.of(2025, 8, 24)
