@@ -13,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.*
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.http.converter.HttpMessageNotWritableException
+import org.springframework.orm.ObjectOptimisticLockingFailureException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.transaction.TransactionSystemException
 import org.springframework.web.HttpMediaTypeNotSupportedException
@@ -286,8 +287,8 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
         return buildResponseEntity(apiError)
     }
 
-    @ExceptionHandler(OptimisticEntityLockException::class)
-    protected fun handleConcurrentEdit(ex: OptimisticEntityLockException, request: WebRequest?): ResponseEntity<Any> {
+    @ExceptionHandler(ObjectOptimisticLockingFailureException::class)
+    protected fun handleConcurrentEdit(ex: ObjectOptimisticLockingFailureException, request: WebRequest?): ResponseEntity<Any> {
         val apiError = ApiError(HttpStatus.CONFLICT, "Concurrent Edit Detected", ex)
         return buildResponseEntity(apiError)
     }

@@ -3,18 +3,18 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.jsonassert.AssertApiError
+import com.example.rest_hateoas.adapter.jsonassert.Customizations
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.skyscreamer.jsonassert.Customization
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
-import org.skyscreamer.jsonassert.RegularExpressionValueMatcher
 import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -31,7 +31,10 @@ import java.time.LocalDate
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
 @ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
-class PersonUpdateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
+class PersonUpdateControllerTest(
+    @Autowired val jwtTokenProvider: JwtTokenProvider,
+    @Autowired val personRestMapper: PersonRestMapper
+) {
     companion object {
         @Container
         @ServiceConnection
@@ -104,5 +107,38 @@ class PersonUpdateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
         JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
 
     }
+
+    @Test
+    fun `should return conflict when version is not correct`() {
+        val token = jwtTokenProvider.createToken("boss", listOf())
+        val personRestModel = personRestMapper.fromDomain(PersonFixtures.Persons.Fred.person)
+        // set version to an incorrect value
+        personRestModel.version = -100
+
+        val actualResponseBody = given().contentType(ContentType.JSON)
+            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
+            .body(personRestModel)
+            .`when`()
+            .put("/api/1/persons/${PersonFixtures.Persons.Fred.person.key.key}")
+            .then()
+            .statusCode(HttpServletResponse.SC_CONFLICT)
+            .extract().body().asString()
+
+        val expectedResponseBody = """
+            {
+                "apierror": {
+                    "status": "CONFLICT",
+                    "timestamp": "2024-09-05T12:02:12.246711+10:00",
+                    "message": "Concurrent Edit Detected",
+                    "debugMessage": "Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity#1]",
+                    "subErrors": null
+                }
+            }
+        """.trimIndent()
+
+        AssertApiError.assert(expectedResponseBody, actualResponseBody, Customizations.conflict("apierror.debugMessage"))
+
+    }
+
 
 }

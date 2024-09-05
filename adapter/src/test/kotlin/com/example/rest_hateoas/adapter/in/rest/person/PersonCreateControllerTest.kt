@@ -3,6 +3,8 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.jsonassert.AssertApiError
+import com.example.rest_hateoas.adapter.jsonassert.Customizations
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
@@ -103,11 +105,8 @@ class PersonCreateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
             // need to account for the random key in the response
             CustomComparator(
                 JSONCompareMode.STRICT,
-                Customization(
-                    "_links.*.href",
-                    RegularExpressionValueMatcher<Any>("^http://localhost:$port/api/1/persons/\\w+$")
-                ),
-                Customization("key", RegularExpressionValueMatcher<Any>("^\\w+$"))
+                Customizations.link("_links.*.href", "http://localhost:$port/api/1/persons/"),
+                Customizations.key("key")
             )
         )
 
@@ -131,7 +130,26 @@ class PersonCreateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
             .statusCode(HttpServletResponse.SC_BAD_REQUEST)
             .extract().body().asString()
 
+        val expectedResponseBody = """
+            {
+                "apierror": {
+                    "status": "BAD_REQUEST",
+                    "timestamp": "2024-09-05T12:30:37.407567+10:00",
+                    "message": "Validation error",
+                    "debugMessage": null,
+                    "subErrors": [
+                        {
+                            "object": "personCreateRestModel",
+                            "field": "name.firstName",
+                            "rejectedValue": "",
+                            "message": "must not be blank"
+                        }
+                    ]
+                }
+            }
+        """.trimIndent()
 
+        AssertApiError.assert(expectedResponseBody, actualResponseBody)
 
     }
 
