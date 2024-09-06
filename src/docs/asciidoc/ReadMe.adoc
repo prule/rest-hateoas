@@ -12,6 +12,7 @@ Paul Rule
 This is a work in progress!
 
 
+include::../includes/Authentication.adoc[]
 include::../includes/Jpa.adoc[]
 include::../includes/Apis.adoc[]
 include::../includes/Hateoas.adoc[]
