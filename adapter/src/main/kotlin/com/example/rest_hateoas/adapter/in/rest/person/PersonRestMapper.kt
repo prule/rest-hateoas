@@ -11,6 +11,7 @@ class PersonRestMapper(
     private val personFindUseCase: PersonFindUseCase
 ) {
 
+    // tag::PersonRestMapper_fromDomain[]
     fun fromDomain(value: Person): PersonRestModel {
         val model = PersonRestModel(
             value.version ?: 0,
@@ -48,6 +49,7 @@ class PersonRestMapper(
 //        TODO("Not yet implemented")
         return true
     }
+    // end::PersonRestMapper_fromDomain[]
 
     fun toNewDomain(value: PersonCreateRestModel): Person {
 

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
+// tag::PersonSearchController[]
 @RestController
 @Transactional
 class PersonSearchController(
@@ -41,3 +42,4 @@ class PersonSearchController(
     }
 
 }
+// end::PersonSearchController[]
