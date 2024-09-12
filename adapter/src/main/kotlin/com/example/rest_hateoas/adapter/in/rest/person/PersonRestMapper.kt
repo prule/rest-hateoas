@@ -31,7 +31,7 @@ class PersonRestMapper(
         model.addIf(
             hasPermission("persons-update"), {
                 WebMvcLinkBuilder.linkTo(
-                    WebMvcLinkBuilder.methodOn(PersonUpdateController::class.java).update(value.key.key, model)
+                    WebMvcLinkBuilder.methodOn(PersonUpdateController::class.java).update(value.key.key, PersonUpdateRestModel.empty())
                 ).withRel("persons-update")
             }
         )
@@ -62,7 +62,7 @@ class PersonRestMapper(
 
     }
 
-    fun toExistingDomain(key: String, value: PersonRestModel): Person {
+    fun toExistingDomain(key: String, value: PersonUpdateRestModel): Person {
 
         val name = PersonNameRestModel.toDomain(value.name)
         val address = PersonAddressRestModel.toDomain(value.address)

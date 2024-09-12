@@ -21,17 +21,6 @@ class JpaAuditingConfiguration {
                 if (principal != null) (principal as UserPrincipal).id else null
             )
         }
-//            SecurityContextHolder.getContext().authentication?.principal?.let {
-//                Optional.ofNullable(
-//                    (it as User).id
-//                )
-//            Optional.ofNullable(
-//                if (SecurityContextHolder.getContext().authentication != null)
-//                ( as User).id
-//                else
-//                    null
-//            )
-//        }
     }
 
     @Bean

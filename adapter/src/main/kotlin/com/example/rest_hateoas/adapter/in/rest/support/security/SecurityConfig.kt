@@ -40,6 +40,8 @@ class SecurityConfig(
         return WebSecurityCustomizer { web: WebSecurity ->
             web.ignoring().requestMatchers(
                 "/h2-console/**",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
                 "/static/**",
                 "/api/*/index",
                 "/api/*/auth/*",

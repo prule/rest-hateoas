@@ -8,15 +8,15 @@ import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationController
 
-class IndexRestModel(pagedResourcesAssembler: PagedResourcesAssembler<PersonJpaEntity>) : RepresentationModel<IndexRestModel?>() {
+class IndexRestModel() : RepresentationModel<IndexRestModel?>() {
 
     init {
-        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(GetIndexController::class.java).index(pagedResourcesAssembler)).withSelfRel())
+        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(GetIndexController::class.java).index()).withSelfRel())
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(AuthenticationController::class.java).login(
             AuthenticationRequestModel("","")
         )).withRel("login"))
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonSearchController::class.java).search(null, null, null)).withRel("persons-search"))
-        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonFindController::class.java).find("")).withRel("persons-find")).
+        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonFindController::class.java).find()).withRel("persons-find")).
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonCreateController::class.java).create(
             PersonCreateRestModel.empty())).withRel("persons-create"))
     }

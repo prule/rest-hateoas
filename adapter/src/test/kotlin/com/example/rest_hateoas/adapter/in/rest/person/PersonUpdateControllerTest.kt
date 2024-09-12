@@ -132,7 +132,7 @@ class PersonUpdateControllerTest(
                     "debugMessage": null,
                     "subErrors": [
                         {
-                            "object": "personRestModel",
+                            "object": "personUpdateRestModel",
                             "field": "name.firstName",
                             "rejectedValue": "",
                             "message": "must not be blank"

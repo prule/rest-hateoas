@@ -6,6 +6,4 @@ import org.springframework.hateoas.RepresentationModel
 open class AuthenticationResponseModel(
     val username: String,
     val token: String
-) : RepresentationModel<AuthenticationResponseModel>() {
-
-}
+)

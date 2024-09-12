@@ -3,6 +3,11 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.application.port.`in`.PersonDeleteUseCase
 import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
 import com.example.rest_hateoas.application.domain.model.Key
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,6 +22,17 @@ class PersonDeleteController(
     private val personRestMapper: PersonRestMapper
 ) {
 
+    @Operation(summary = "Delete person by key", description = "Delete person by key", tags = ["Person"])
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "204",
+                description = "Delete Person",
+                content = [(Content(mediaType = "application/json"))]
+            ),
+            ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
+            ApiResponse(responseCode = "404", description = "Did not find person with given key", content = [Content()])]
+    )
     @DeleteMapping("/api/1/persons/{key}")
     fun delete(
         @PathVariable(name = "key", required = true) key: String,
