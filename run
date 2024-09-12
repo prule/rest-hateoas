@@ -94,6 +94,14 @@ case "$1" in
     echo ""
     ;;
 
+  'swagger')
+    echo ""
+    echo "Opening api docs"
+    echo ""
+    open http://localhost:8080/swagger-ui/index.html
+    echo ""
+    ;;
+
   *)
     echo -e ""
     echo "Usage:"
