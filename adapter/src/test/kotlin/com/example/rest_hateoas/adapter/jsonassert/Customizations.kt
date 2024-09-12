@@ -8,7 +8,7 @@ class Customizations {
         fun timestamp(path: String): Customization {
             return Customization(
                 path,
-                RegularExpressionValueMatcher<Any>("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}[+\\-]\\d{2}:\\d{2}$")
+                RegularExpressionValueMatcher<Any>("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+[+\\-]\\d{2}:\\d{2}$")
             )
         }
 
