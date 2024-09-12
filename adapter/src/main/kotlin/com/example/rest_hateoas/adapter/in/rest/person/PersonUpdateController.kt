@@ -21,7 +21,7 @@ class PersonUpdateController(
     @PutMapping("/api/1/persons/{key}")
     fun update(
         @PathVariable(name = "key", required = true) key: String,
-        @Valid @RequestBody model: PersonRestModel
+        @Valid @RequestBody model: PersonUpdateRestModel
     ): ResponseEntity<PersonRestModel> {
         val value = personRestMapper.toExistingDomain(key, model)
         personUpdateUseCase.update(value)
