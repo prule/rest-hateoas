@@ -96,7 +96,7 @@ case "$1" in
 
   'swagger')
     echo ""
-    echo "Opening api docs"
+    echo "Opening api docs (ensure server is running first)"
     echo ""
     open http://localhost:8080/swagger-ui/index.html
     echo ""
@@ -121,5 +121,6 @@ case "$1" in
     echo "$(tput setaf 3)    docs:all                                   $(tput sgr0)      Generate asciidoc documentation"
     echo "$(tput setaf 3)    docs:html                                  $(tput sgr0)      Generate asciidoc documentation as HTML only"
     echo "$(tput setaf 3)    docs:pdf                                   $(tput sgr0)      Generate asciidoc documentation as PDF only"
+    echo "$(tput setaf 3)    swagger                                    $(tput sgr0)      Open swagger documentation"
 
 esac
