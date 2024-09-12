@@ -3,6 +3,10 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
 import com.example.rest_hateoas.application.port.`in`.PersonUpdateUseCase
 import com.example.rest_hateoas.application.domain.model.Key
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.http.ResponseEntity
@@ -18,6 +22,17 @@ class PersonUpdateController(
     private val personRestMapper: PersonRestMapper
 ) {
 
+    @Operation(summary = "Update person by key", description = "Update person by key", tags = ["Person"])
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Update Person",
+                content = [(Content(mediaType = "application/json"))]
+            ),
+            ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
+            ApiResponse(responseCode = "404", description = "Did not find person with given key", content = [Content()])]
+    )
     @PutMapping("/api/1/persons/{key}")
     fun update(
         @PathVariable(name = "key", required = true) key: String,
