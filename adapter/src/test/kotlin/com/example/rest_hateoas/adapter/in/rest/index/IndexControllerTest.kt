@@ -1,11 +1,9 @@
 package com.example.rest_hateoas.adapter.`in`.rest.index
 
-import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import jakarta.servlet.http.HttpServletResponse
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,7 +1,5 @@
 package com.example.rest_hateoas.adapter.`in`.rest.index
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
-import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

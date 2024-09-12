@@ -10,8 +10,7 @@ version = "0.0.1-SNAPSHOT"
 
 dependencies {
     implementation(project(":adapter"))
-    implementation(project(":domain"))
-    implementation(project(":port"))
+    implementation(project(":application"))
 
     testImplementation(libs.bundles.kotest)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

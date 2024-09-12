@@ -1,13 +1,12 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.*
-import com.example.rest_hateoas.application.domain.model.Person
-import com.example.rest_hateoas.application.domain.model.PersonAddress
-import com.example.rest_hateoas.application.domain.model.PersonName
-import com.example.rest_hateoas.application.domain.model.Key
-import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures.Persons
+import com.example.rest_hateoas.domain.model.Key
+import com.example.rest_hateoas.domain.model.Person
+import com.example.rest_hateoas.domain.model.PersonAddress
+import com.example.rest_hateoas.domain.model.PersonName
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order

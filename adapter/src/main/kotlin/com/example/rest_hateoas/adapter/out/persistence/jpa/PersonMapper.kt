@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.application.domain.model.Person
+import com.example.rest_hateoas.domain.model.Person
 
 class PersonMapper {
     companion object {

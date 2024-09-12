@@ -1,9 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.application.domain.model.PersonAddress
-import com.example.rest_hateoas.application.domain.model.PersonName
-import jakarta.persistence.Embeddable
-import jakarta.validation.constraints.NotBlank
+import com.example.rest_hateoas.domain.model.PersonAddress
 import kotlinx.serialization.Serializable
 
 @Serializable

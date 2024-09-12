@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
-import com.example.rest_hateoas.application.domain.model.User
+import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

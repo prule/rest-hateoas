@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.application.port.`in`
 
-import com.example.rest_hateoas.application.domain.model.User
-import com.example.rest_hateoas.application.domain.model.Key
+import com.example.rest_hateoas.domain.model.Key
+import com.example.rest_hateoas.domain.model.User
 
 interface FindUserUseCase {
     fun findByKey(key: Key): User?

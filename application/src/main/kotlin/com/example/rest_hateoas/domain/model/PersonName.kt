@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.application.domain.model
+package com.example.rest_hateoas.domain.model
 
 
 class PersonName(

@@ -2,9 +2,8 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.user
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
 import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupMapper
-import com.example.rest_hateoas.application.domain.model.UserGroup
-import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
+import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order

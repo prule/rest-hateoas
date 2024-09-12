@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
-import com.example.rest_hateoas.application.domain.model.User
-import com.example.rest_hateoas.application.domain.model.UserGroup
+import com.example.rest_hateoas.domain.model.User
+import com.example.rest_hateoas.domain.model.UserGroup
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

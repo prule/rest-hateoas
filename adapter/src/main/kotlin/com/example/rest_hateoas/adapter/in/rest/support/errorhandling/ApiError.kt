@@ -1,18 +1,11 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
-import jakarta.validation.ConstraintViolation
-import org.hibernate.validator.internal.engine.path.PathImpl
 import org.springframework.http.HttpStatus
-import org.springframework.validation.FieldError
-import org.springframework.validation.ObjectError
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.util.*
-import java.util.function.Consumer
 
 @JsonTypeInfo(
     include = JsonTypeInfo.As.WRAPPER_OBJECT,

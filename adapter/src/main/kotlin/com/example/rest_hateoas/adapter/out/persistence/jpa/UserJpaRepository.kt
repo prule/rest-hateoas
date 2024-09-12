@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
-import com.example.rest_hateoas.application.domain.model.User
+import com.example.rest_hateoas.domain.model.Key
+import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
-import com.example.rest_hateoas.application.domain.model.Key
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl

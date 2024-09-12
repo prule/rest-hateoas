@@ -5,7 +5,6 @@ import com.example.rest_hateoas.adapter.`in`.rest.support.security.InvalidAuthen
 import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.RollbackException
 import jakarta.validation.ConstraintViolationException
-import org.hibernate.dialect.lock.OptimisticEntityLockException
 import org.hibernate.validator.internal.engine.path.PathImpl
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order

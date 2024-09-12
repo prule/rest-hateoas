@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.application.service.person
 
 import com.example.rest_hateoas.application.port.`in`.PersonDeleteUseCase
-import com.example.rest_hateoas.application.domain.model.Key
 import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
+import com.example.rest_hateoas.domain.model.Key
 import org.springframework.stereotype.Service
 
 @Service
