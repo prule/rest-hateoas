@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.application.port.`in`
+package com.example.rest_hateoas.application.port.`in`.person
 
 class PersonSearchCriteria(
     val filter: String? = null,

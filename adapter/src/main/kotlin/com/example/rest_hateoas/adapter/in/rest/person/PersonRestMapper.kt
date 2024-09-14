@@ -2,7 +2,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
-import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
+import com.example.rest_hateoas.application.port.`in`.person.PersonFindUseCase
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.stereotype.Service
 

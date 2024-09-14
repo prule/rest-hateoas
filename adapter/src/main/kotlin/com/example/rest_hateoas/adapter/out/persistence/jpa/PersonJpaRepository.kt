@@ -3,7 +3,7 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
-import com.example.rest_hateoas.application.port.`in`.PersonSearchCriteria
+import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
 import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.data.domain.Page

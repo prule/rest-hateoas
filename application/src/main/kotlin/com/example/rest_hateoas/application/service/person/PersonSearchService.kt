@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.application.service.person
 
-import com.example.rest_hateoas.application.port.`in`.PersonSearchCriteria
-import com.example.rest_hateoas.application.port.`in`.PersonSearchUseCase
+import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
+import com.example.rest_hateoas.application.port.`in`.person.PersonSearchUseCase
 import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
 import com.example.rest_hateoas.domain.model.Person
 import org.springframework.data.domain.Page
