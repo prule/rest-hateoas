@@ -1,11 +1,11 @@
 package com.example.rest_hateoas.domain.model
 
 
-class PersonName(
-    var firstName: String,
+data class PersonName(
+    val firstName: String,
 
-    var lastName: String,
+    val lastName: String,
 
-    var otherNames: String? = null
+    val otherNames: String? = null
 )
 

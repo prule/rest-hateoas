@@ -1,11 +1,11 @@
 package com.example.rest_hateoas.domain.model
 
 
-class PersonAddress(
-    var line1: String? = null,
-    var line2: String? = null,
-    var city: String? = null,
-    var state: String? = null,
-    var country: String? = null,
-    var postcode: String? = null // zipcode etc
+data class PersonAddress(
+    val line1: String? = null,
+    val line2: String? = null,
+    val city: String? = null,
+    val state: String? = null,
+    val country: String? = null,
+    val postcode: String? = null // zipcode etc
 )
