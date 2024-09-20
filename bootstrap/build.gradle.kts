@@ -1,5 +1,5 @@
 plugins {
-    id("org.springframework.boot") version "3.3.3"
+    id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
     alias(libs.plugins.jvm)
     alias(libs.plugins.spring)
