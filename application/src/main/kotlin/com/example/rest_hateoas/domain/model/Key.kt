@@ -1,10 +1,11 @@
 package com.example.rest_hateoas.domain.model
 
+import com.example.rest_hateoas.domain.Validator
 import java.util.*
 
 class Key(
     var key: String = (UUID.randomUUID().toString()).replace("-", "")
-) {
+) : Validator() {
     override fun toString(): String {
         return "Key(key='$key')"
     }
@@ -22,6 +23,11 @@ class Key(
         return key.hashCode()
     }
 
+    fun isValid(validator: Validator) {
+        validator.check(key.isNotBlank()) {
+            "Key cannot be blank"
+        }
+    }
 }
 
 

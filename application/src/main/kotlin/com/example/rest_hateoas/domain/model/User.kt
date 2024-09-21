@@ -1,7 +1,9 @@
 package com.example.rest_hateoas.domain.model
 
+import com.example.rest_hateoas.domain.Validator
 
-class User (
+
+class User(
 
     val key: Key,
     var username: String,
@@ -12,7 +14,35 @@ class User (
     var groups: List<UserGroup>,
     var id: Long? = null
 
-    ) {
+) : Validator() {
+
+    fun isValid(validator: Validator) {
+        validator.validate("key") {
+            key.isValid(validator)
+        }
+        validator.check(username.isNotBlank()) {
+            "Username cannot be blank"
+        }
+        validator.check(password.isNotBlank()) {
+            "Password cannot be blank"
+        }
+        validator.check(firstName.isNotBlank()) {
+            "First name cannot be blank"
+        }
+        validator.check(lastName.isNotBlank()) {
+            "Last name cannot be blank"
+        }
+        
+    }
+
+    fun addGroup(group: UserGroup) {
+        check(!hasGroup(group)) {
+            "User already has group ${group.key}"
+        }
+        validate()
+
+        groups = groups + group
+    }
 
     fun hasGroup(group: UserGroup): Boolean {
         return groups.contains(group)
