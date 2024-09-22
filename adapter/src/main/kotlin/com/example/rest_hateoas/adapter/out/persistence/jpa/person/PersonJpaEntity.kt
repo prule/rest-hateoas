@@ -1,6 +1,8 @@
-package com.example.rest_hateoas.adapter.out.persistence.jpa
+package com.example.rest_hateoas.adapter.out.persistence.jpa.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
+import com.example.rest_hateoas.adapter.out.persistence.jpa.AbstractJpaEntity
+import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaEntity
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import kotlinx.serialization.Serializable

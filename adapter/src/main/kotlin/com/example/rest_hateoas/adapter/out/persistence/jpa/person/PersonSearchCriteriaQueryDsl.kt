@@ -1,5 +1,6 @@
-package com.example.rest_hateoas.adapter.out.persistence.jpa
+package com.example.rest_hateoas.adapter.out.persistence.jpa.person
 
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PredicateBuilder
 import com.querydsl.core.types.Predicate
 import kotlinx.serialization.Serializable
 import java.time.LocalDate

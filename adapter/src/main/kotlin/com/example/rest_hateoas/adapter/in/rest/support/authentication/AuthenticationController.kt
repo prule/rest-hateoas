@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.authentication
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserSpringDataRepository
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserSpringDataRepository
 import org.apache.commons.logging.LogFactory
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException

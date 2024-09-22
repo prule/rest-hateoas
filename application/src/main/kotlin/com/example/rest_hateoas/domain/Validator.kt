@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.domain
 
-open class Validator {
+class Validator {
     val errors: MutableList<String> = mutableListOf()
 
     fun validate(path: String, checks: () -> Unit) {

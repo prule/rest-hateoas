@@ -1,6 +1,7 @@
-package com.example.rest_hateoas.adapter.out.persistence.jpa
+package com.example.rest_hateoas.adapter.out.persistence.jpa.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
+import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyMapper
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria

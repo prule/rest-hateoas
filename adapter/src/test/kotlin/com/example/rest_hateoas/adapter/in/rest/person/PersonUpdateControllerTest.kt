@@ -165,7 +165,7 @@ class PersonUpdateControllerTest(
                     "status": "CONFLICT",
                     "timestamp": "2024-09-05T12:02:12.246711+10:00",
                     "message": "Concurrent Edit Detected",
-                    "debugMessage": "Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity#1]",
+                    "debugMessage": "Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonJpaEntity#1]",
                     "subErrors": null
                 }
             }

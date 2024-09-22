@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.adapter.out.persistence.jpa
+package com.example.rest_hateoas.adapter.out.persistence.jpa.person
 
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable

@@ -1,6 +1,8 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.*
+import com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonJpaEntity
+import com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonJpaRepository
+import com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures.Persons
 import com.example.rest_hateoas.domain.model.Key

@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.authentication
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserGroupJpaEntity
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupJpaEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder

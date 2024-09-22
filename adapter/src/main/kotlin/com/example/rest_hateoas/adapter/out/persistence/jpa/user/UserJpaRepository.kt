@@ -1,5 +1,6 @@
-package com.example.rest_hateoas.adapter.out.persistence.jpa
+package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 
+import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyMapper
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository

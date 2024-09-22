@@ -5,7 +5,7 @@ import java.util.*
 
 class Key(
     var key: String = (UUID.randomUUID().toString()).replace("-", "")
-) : Validator() {
+) {
     override fun toString(): String {
         return "Key(key='$key')"
     }

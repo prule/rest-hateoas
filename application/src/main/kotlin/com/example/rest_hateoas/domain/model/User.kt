@@ -14,7 +14,7 @@ class User(
     var groups: List<UserGroup>,
     var id: Long? = null
 
-) : Validator() {
+) {
 
     fun isValid(validator: Validator) {
         validator.validate("key") {
@@ -32,14 +32,12 @@ class User(
         validator.check(lastName.isNotBlank()) {
             "Last name cannot be blank"
         }
-        
     }
 
     fun addGroup(group: UserGroup) {
         check(!hasGroup(group)) {
             "User already has group ${group.key}"
         }
-        validate()
 
         groups = groups + group
     }
