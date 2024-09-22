@@ -28,7 +28,6 @@ java {
 
 dependencies {
 
-    implementation(project(":port"))
     implementation(project(":application"))
 
     annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")

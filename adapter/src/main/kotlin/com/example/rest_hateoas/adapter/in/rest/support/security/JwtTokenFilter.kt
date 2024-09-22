@@ -1,7 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.errorhandling.RestExceptionHandler
-import com.example.rest_hateoas.adapter.`in`.rest.support.http.ResponseWriter
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException

@@ -1,11 +1,10 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.user
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserJpaEntity
-import com.example.rest_hateoas.adapter.out.persistence.jpa.UserMapper
-import com.example.rest_hateoas.application.domain.model.User
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserJpaEntity
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
-import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import io.github.xn32.json5k.Json5
 import io.github.xn32.json5k.decodeFromStream
 import org.springframework.core.annotation.Order

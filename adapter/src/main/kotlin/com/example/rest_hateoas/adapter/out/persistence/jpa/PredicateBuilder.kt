@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa
 
 import com.google.common.base.Strings
-import com.querydsl.core.types.Predicate
 import com.querydsl.core.BooleanBuilder
+import com.querydsl.core.types.Predicate
 
 class PredicateBuilder {
     private val builder: BooleanBuilder = BooleanBuilder()

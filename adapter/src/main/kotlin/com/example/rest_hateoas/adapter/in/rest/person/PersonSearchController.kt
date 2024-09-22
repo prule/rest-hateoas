@@ -1,8 +1,8 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.application.domain.model.Person
-import com.example.rest_hateoas.application.port.`in`.PersonSearchCriteria
-import com.example.rest_hateoas.application.port.`in`.PersonSearchUseCase
+import com.example.rest_hateoas.domain.model.Person
+import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
+import com.example.rest_hateoas.application.port.`in`.person.PersonSearchUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema

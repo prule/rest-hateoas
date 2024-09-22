@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.application.port.`in`.PersonCreateUseCase
-import com.example.rest_hateoas.application.port.`in`.PersonFindUseCase
+import com.example.rest_hateoas.application.port.`in`.person.PersonCreateUseCase
+import com.example.rest_hateoas.application.port.`in`.person.PersonFindUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.responses.ApiResponse

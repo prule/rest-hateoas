@@ -20,8 +20,6 @@ java {
 
 dependencies {
 
-    implementation(project(":port"))
-    implementation(project(":domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")

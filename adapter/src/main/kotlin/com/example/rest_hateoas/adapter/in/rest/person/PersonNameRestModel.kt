@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.application.domain.model.PersonName
+import com.example.rest_hateoas.domain.model.PersonName
 import jakarta.validation.constraints.NotBlank
 import kotlinx.serialization.Serializable
 

@@ -1,9 +1,9 @@
 package com.example.rest_hateoas.application.service.user
 
-import com.example.rest_hateoas.application.domain.model.User
-import com.example.rest_hateoas.application.port.`in`.FindUserUseCase
-import com.example.rest_hateoas.application.domain.model.Key
+import com.example.rest_hateoas.application.port.`in`.user.FindUserUseCase
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
+import com.example.rest_hateoas.domain.model.Key
+import com.example.rest_hateoas.domain.model.User
 import org.springframework.stereotype.Service
 
 @Service

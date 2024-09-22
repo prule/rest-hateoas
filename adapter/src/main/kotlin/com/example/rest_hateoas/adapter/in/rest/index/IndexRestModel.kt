@@ -1,12 +1,13 @@
 package com.example.rest_hateoas.adapter.`in`.rest.index
 
-import com.example.rest_hateoas.adapter.`in`.rest.person.*
-import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonCreateController
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonCreateRestModel
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonFindController
+import com.example.rest_hateoas.adapter.`in`.rest.person.PersonSearchController
+import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationController
 import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationRequestModel
-import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
-import com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationController
 
 class IndexRestModel() : RepresentationModel<IndexRestModel?>() {
 

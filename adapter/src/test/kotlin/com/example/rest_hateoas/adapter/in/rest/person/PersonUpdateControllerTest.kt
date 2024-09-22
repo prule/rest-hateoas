@@ -5,7 +5,6 @@ import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilte
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.adapter.jsonassert.AssertApiError
 import com.example.rest_hateoas.adapter.jsonassert.Customizations
-import com.example.rest_hateoas.adapter.out.persistence.jpa.PersonMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
@@ -14,8 +13,6 @@ import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
-import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -168,7 +165,7 @@ class PersonUpdateControllerTest(
                     "status": "CONFLICT",
                     "timestamp": "2024-09-05T12:02:12.246711+10:00",
                     "message": "Concurrent Edit Detected",
-                    "debugMessage": "Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.example.rest_hateoas.adapter.out.persistence.jpa.PersonJpaEntity#1]",
+                    "debugMessage": "Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonJpaEntity#1]",
                     "subErrors": null
                 }
             }
