@@ -3,15 +3,17 @@ package com.example.rest_hateoas.adapter.`in`.rest.person
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.jsonassert.Customizations
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
+import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -73,6 +75,10 @@ class PersonFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider
                     "postcode": "postcode"
                 },
                 "dateOfBirth": "1990-01-01",
+                "metadata": {
+                    "createdDate": "2024-09-28T22:58:56.443439+10:00",
+                    "lastModifiedDate": "2024-09-28T22:58:56.443439+10:00"
+                 },
                 "_links": {
                     "self": {
                         "href": "http://localhost:$port/api/1/persons/fred"
@@ -87,7 +93,14 @@ class PersonFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider
             }
         """.trimIndent()
 
-        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+        JSONAssert.assertEquals(
+            expectedResponseBody, actualResponseBody,
+            CustomComparator(
+                JSONCompareMode.STRICT,
+                Customizations.timestampZ("metadata.createdDate"),
+                Customizations.timestampZ("metadata.lastModifiedDate"),
+            )
+        )
 
     }
 

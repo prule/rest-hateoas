@@ -4,6 +4,7 @@ import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.adapter.jsonassert.AssertApiError
+import com.example.rest_hateoas.adapter.jsonassert.AssertModelMetadata
 import com.example.rest_hateoas.adapter.jsonassert.Customizations
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.person.PersonFixtures
 import io.restassured.RestAssured
@@ -13,6 +14,8 @@ import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
+import org.skyscreamer.jsonassert.comparator.CustomComparator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -55,9 +58,8 @@ class PersonUpdateControllerTest(
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .body(
-                PersonRestModel(
+                PersonUpdateRestModel(
                     0,
-                    PersonFixtures.Persons.Fred.person.key.key,
                     PersonNameRestModel("firstname'", "lastname'", "othernames'"),
                     PersonAddressRestModel("line1'", "line2'", "city'", "state'", "country'", "postcode'"),
                     LocalDate.of(2025, 8, 24)
@@ -87,7 +89,11 @@ class PersonUpdateControllerTest(
                     "postcode": "postcode'"
                 },
                 "dateOfBirth": "2025-08-24",
-                "_links": {
+                 "metadata": {
+                    "createdDate": "2024-09-28T22:58:56.443439+10:00",
+                    "lastModifiedDate": "2024-09-28T22:58:56.443439+10:00"
+                 },
+                 "_links": {
                     "self": {
                         "href": "http://localhost:$port/api/1/persons/fred"
                     },
@@ -101,7 +107,7 @@ class PersonUpdateControllerTest(
             }
         """.trimIndent()
 
-        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+        AssertModelMetadata.assert(expectedResponseBody, actualResponseBody)
 
     }
 

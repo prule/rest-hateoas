@@ -12,5 +12,8 @@ import java.util.*
 interface PersonSpringDataRepository : KeyedCrudRepository<PersonJpaEntity, Long>, PagingAndSortingRepository<PersonJpaEntity?, Long?>, QuerydslPredicateExecutor<PersonJpaEntity> {
     fun findOneByKey(key: KeyJpaEntity): Optional<PersonJpaEntity>
 
+    fun deleteByKey(key: KeyJpaEntity)
+
     override fun findAll(predicate: Predicate, pageable: Pageable): Page<PersonJpaEntity>
+
 }

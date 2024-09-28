@@ -5,14 +5,16 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.skyscreamer.jsonassert.comparator.CustomComparator
 
-class AssertApiError {
+class AssertModelMetadata {
     companion object {
         fun assert(expectedResponseBody: String, actualResponseBody: String, vararg customizations: Customization) {
             JSONAssert.assertEquals(
-                expectedResponseBody, actualResponseBody,
+                expectedResponseBody,
+                actualResponseBody,
                 CustomComparator(
                     JSONCompareMode.STRICT,
-                    Customizations.timestampZ("apierror.timestamp"),
+                    Customizations.timestampZ("metadata.createdDate"),
+                    Customizations.timestampZ("metadata.lastModifiedDate"),
                     *customizations
                 )
             )

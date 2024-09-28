@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 class Person(
 
-    val key: Key,
+    val key: Key = Key(),
 
     var name: PersonName,
 
@@ -12,7 +12,9 @@ class Person(
 
     var dateOfBirth: LocalDate? = null,
 
-    ) : BaseModel() {
+    val metaData: ModelMetadata = ModelMetadata(),
+
+    ) {
 
     override fun toString(): String {
         return "Person(key=$key, name=$name, address=$address, dateOfBirth=$dateOfBirth)"

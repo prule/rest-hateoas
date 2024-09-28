@@ -2,7 +2,7 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa
 
 import com.example.rest_hateoas.domain.model.Key
 
-class KeyMapper {
+class KeyJpaMapper {
     companion object {
         fun toDomain(value: KeyJpaEntity): Key {
             return Key(
