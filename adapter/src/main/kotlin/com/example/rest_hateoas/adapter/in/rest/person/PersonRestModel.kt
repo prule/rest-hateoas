@@ -1,5 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
+import com.example.rest_hateoas.adapter.`in`.rest.ModelMetadataRestModel
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.LocalDateSerializer
 import jakarta.validation.Valid
 import kotlinx.serialization.Serializable
@@ -18,7 +19,9 @@ open class PersonRestModel(
     @field:Valid var address: PersonAddressRestModel,
 
     @Serializable(with = LocalDateSerializer::class)
-    var dateOfBirth: LocalDate? = null
+    var dateOfBirth: LocalDate? = null,
+
+    var metadata: ModelMetadataRestModel
 
 ) : RepresentationModel<PersonRestModel>() {
 
@@ -30,7 +33,8 @@ open class PersonRestModel(
                 "",
                 PersonNameRestModel.empty(),
                 PersonAddressRestModel.empty(),
-                null
+                null,
+                ModelMetadataRestModel.empty()
             )
         }
     }

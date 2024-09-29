@@ -12,6 +12,13 @@ class Customizations {
             )
         }
 
+        fun timestampZ(path: String): Customization {
+            return Customization(
+                path,
+                RegularExpressionValueMatcher<Any>  ("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z$")
+            )
+        }
+
         fun conflict(path: String): Customization {
             return Customization(
                 path,

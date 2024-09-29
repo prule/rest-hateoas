@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.runApplication
 import org.springframework.context.event.EventListener
+import java.util.*
 
 @SpringBootApplication(scanBasePackages = [
     "com.example.rest_hateoas.adapter",
@@ -16,9 +17,13 @@ class RestHateoasApplication(val sampleLoaders: List<Loader>) {
 
     @EventListener(ApplicationReadyEvent::class)
     fun postStartup() {
+        // so that all rest responses are in UTC
+        TimeZone.setDefault(TimeZone.getTimeZone("Etc/UTC"));
+
         logger.info("Data loading started")
         sampleLoaders.forEach { it.load() }
         logger.info("Data loading finished")
+
     }
 
 }

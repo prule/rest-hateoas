@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 
-import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
@@ -19,23 +19,23 @@ class UserJpaRepository(
 
     override fun findAll(pageable: Pageable): Page<User> {
         val result = springDataRepository.findAll(pageable)
-        return PageImpl(result.content.map { UserMapper.toDomain(it!!) }, result.pageable, result.totalElements)
+        return PageImpl(result.content.map { UserJpaMapper.toDomain(it!!) }, result.pageable, result.totalElements)
     }
 
     override fun findByUsername(username: String): User? {
         val result = springDataRepository.findByUsername(username)
-        return result?.let { UserMapper.toDomain(it) }
+        return result?.let { UserJpaMapper.toDomain(it) }
     }
 
     override fun findByKey(key: Key): User? {
-        val result = springDataRepository.findByKey(KeyMapper.toJpaEntity(key))
-        return result?.let { UserMapper.toDomain(it) }
+        val result = springDataRepository.findByKey(KeyJpaMapper.toJpaEntity(key))
+        return result?.let { UserJpaMapper.toDomain(it) }
     }
 
     override fun save(user: User) {
         entityManagerFactory.createEntityManager().use { entityManager ->
             entityManager.getTransaction().begin()
-            entityManager.merge(UserMapper.toJpaEntity(user, userGroupSpringDataRepository))
+            entityManager.merge(UserJpaMapper.toJpaEntity(user, userGroupSpringDataRepository))
             entityManager.getTransaction().commit()
         }
     }

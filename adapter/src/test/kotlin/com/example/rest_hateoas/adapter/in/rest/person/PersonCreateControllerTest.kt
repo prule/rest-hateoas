@@ -83,6 +83,10 @@ class PersonCreateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
                     "postcode": "postcode"
                 },
                 "dateOfBirth": "2024-08-24",
+                 "metadata": {
+                    "createdDate": "2024-09-28T22:58:56.443439+10:00",
+                    "lastModifiedDate": "2024-09-28T22:58:56.443439+10:00"
+                 },
                 "_links": {
                     "self": {
                         "href": "http://localhost:$port/api/1/persons/"
@@ -103,7 +107,9 @@ class PersonCreateControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
             CustomComparator(
                 JSONCompareMode.STRICT,
                 Customizations.link("_links.*.href", "http://localhost:$port/api/1/persons/"),
-                Customizations.key("key")
+                Customizations.key("key"),
+                Customizations.timestampZ("metadata.createdDate"),
+                Customizations.timestampZ("metadata.lastModifiedDate"),
             )
         )
 

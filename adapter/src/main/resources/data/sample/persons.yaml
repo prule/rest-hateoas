@@ -1,0 +1,16 @@
+---
+  !!com.example.demo.person.Person
+key:
+  key: homer
+dateOfBirth: 1980-01-01
+name:
+  firstName: Homer
+  lastName: Simpson
+  otherNames: Jay
+address:
+  line1: Level 3
+  line2: 10000 York St
+  city: Sydney
+  state: NSW
+  postcode: 2000
+  country: Australia

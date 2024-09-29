@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.user
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserJpaEntity
-import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserJpaMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
@@ -25,7 +25,7 @@ class UserSampleLoader(
         // create or update accordingly
         for (obj in objects) {
             obj.password = passwordEncoder.encode(obj.password)
-            userRepository.save(UserMapper.toDomain(obj)!!)
+            userRepository.save(UserJpaMapper.toDomain(obj)!!)
         }
 
         // fixture driven
