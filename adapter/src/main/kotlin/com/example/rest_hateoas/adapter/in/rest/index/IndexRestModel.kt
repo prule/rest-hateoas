@@ -16,7 +16,7 @@ class IndexRestModel() : RepresentationModel<IndexRestModel?>() {
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(AuthenticationController::class.java).login(
             AuthenticationRequestModel("","")
         )).withRel("login"))
-        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonSearchController::class.java).search(null, null, null)).withRel("persons-search"))
+        add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonSearchController::class.java).search(null)).withRel("persons-search"))
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonFindController::class.java).find()).withRel("persons-find")).
         add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonCreateController::class.java).create(
             PersonCreateRestModel.empty())).withRel("persons-create"))

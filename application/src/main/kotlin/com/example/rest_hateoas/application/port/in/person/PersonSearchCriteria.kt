@@ -1,8 +1,12 @@
 package com.example.rest_hateoas.application.port.`in`.person
 
+import com.example.rest_hateoas.domain.Page
+import com.example.rest_hateoas.domain.Sort
+
 class PersonSearchCriteria(
     val filter: String? = null,
     val from: Int? = null,
-    val to: Int? = null
+    val to: Int? = null,
+    val page: Page? = Page(0,20, Sort(listOf()))
 ) {
 }
