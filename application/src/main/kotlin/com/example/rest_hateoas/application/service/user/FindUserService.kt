@@ -8,11 +8,17 @@ import org.springframework.stereotype.Service
 
 @Service
 class FindUserService(val userRepository: UserRepository): FindUserUseCase {
-    override fun findByKey(key: Key): User? {
-        return userRepository.findByKey(key)
+    override fun findByKey(key: Key): User {
+        userRepository.findOneByKey(key)?.let {
+            return it
+        }
+        throw RuntimeException("User not found")
     }
 
-    override fun findByUsername(username: String): User? {
-        return userRepository.findByUsername(username)
+    override fun findByUsername(username: String): User {
+        userRepository.findByUsername(username)?.let {
+            return it
+        }
+        throw RuntimeException("User not found")
     }
 }

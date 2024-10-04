@@ -4,7 +4,6 @@ import com.example.rest_hateoas.domain.Validator
 
 
 class User(
-
     val key: Key,
     var username: String,
     var password: String,
@@ -12,7 +11,8 @@ class User(
     var lastName: String,
     var enabled: Boolean,
     var groups: List<UserGroup>,
-    var id: Long? = null
+
+    val metaData: ModelMetadata = ModelMetadata(),
 
 ) {
 
@@ -38,8 +38,14 @@ class User(
         check(!hasGroup(group)) {
             "User already has group ${group.key}"
         }
-
         groups = groups + group
+    }
+
+    fun removeGroup(group: UserGroup) {
+        check(hasGroup(group)) {
+            "User does not have group ${group.key}"
+        }
+        groups = groups.filter { it != group }
     }
 
     fun hasGroup(group: UserGroup): Boolean {
@@ -47,7 +53,7 @@ class User(
     }
 
     override fun toString(): String {
-        return "User(key=$key, username='$username', password='$password', firstName='$firstName', lastName='$lastName', enabled=$enabled, groups=$groups, id=$id)"
+        return "User(key=$key, username='$username', password='$password', firstName='$firstName', lastName='$lastName', enabled=$enabled, groups=$groups)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -57,14 +63,13 @@ class User(
         other as User
 
         if (key != other.key) return false
-        if (id != other.id) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = key.hashCode()
-        result = 31 * result + (id?.hashCode() ?: 0)
+        result = 31 * result
         return result
     }
 

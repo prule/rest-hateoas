@@ -1,32 +1,24 @@
 package com.example.rest_hateoas.adapter.`in`.rest.user
 
+import com.example.rest_hateoas.adapter.`in`.rest.ModelMetadataRestModel
 import com.example.rest_hateoas.domain.model.User
+import kotlinx.serialization.Serializable
 import org.springframework.hateoas.RepresentationModel
 
+@Serializable
+open class UserRestModel (
+    val version: Long = 0,
+    val key: String? = null,
 
-open class UserRestModel : RepresentationModel<UserRestModel>() {
+    val username: String,
+    val firstName: String? = null,
+    val lastName: String? = null,
 
-    var version: Long = 0
+    val enabled: Boolean = false,
 
-    var key: String? = null
-    var username: String? = null
+    val metadata: ModelMetadataRestModel
 
-    var firstName: String? = null
-    var lastName: String? = null
+): RepresentationModel<UserRestModel>() {
 
-    var enabled = false
-
-    fun fromModel(model: User): UserRestModel {
-
-        key = model.key.key
-        username = model.username
-
-        firstName = model.firstName
-        lastName = model.lastName
-
-        enabled = model.enabled
-
-        return this
-    }
 
 }

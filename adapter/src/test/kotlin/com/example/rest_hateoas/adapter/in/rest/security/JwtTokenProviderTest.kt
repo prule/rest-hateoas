@@ -15,7 +15,7 @@ class JwtTokenProviderTest {
     fun `username should be contained in token`() {
         // prepare
         val provider = JwtTokenProvider(
-            UserDetailsServiceFake(UserPrincipal(UserFixtures.Users.Fred.user)),
+            UserDetailsServiceFake(UserPrincipal(1, UserFixtures.Users.Fred.user)),
             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             9999
         )
@@ -31,7 +31,7 @@ class JwtTokenProviderTest {
     fun `token should be valid`() {
         // prepare
         val provider = JwtTokenProvider(
-            UserDetailsServiceFake(UserPrincipal(UserFixtures.Users.Fred.user)),
+            UserDetailsServiceFake(UserPrincipal(1, UserFixtures.Users.Fred.user)),
             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             9999
         )
