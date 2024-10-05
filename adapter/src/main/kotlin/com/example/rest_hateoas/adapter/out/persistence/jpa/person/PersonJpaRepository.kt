@@ -2,14 +2,16 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.PageJpaMapper
 import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
 import com.example.rest_hateoas.application.port.out.persistence.PersonRepository
+import com.example.rest_hateoas.domain.Order
+import com.example.rest_hateoas.domain.Page
+import com.example.rest_hateoas.domain.PageData
+import com.example.rest_hateoas.domain.Sort
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import jakarta.persistence.EntityManagerFactory
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -34,15 +36,25 @@ class PersonJpaRepository(
         }
     }
 
-    override fun findAll(criteria: PersonSearchCriteria, pageable: Pageable): Page<Person> {
+    override fun findAll(criteria: PersonSearchCriteria): PageData<Person> {
         val page = springDataRepository.findAll(
             PersonSearchCriteriaQueryDsl(
                 criteria.filter,
                 criteria.from,
                 criteria.to
-            ).toPredicate(), pageable
+            ).toPredicate(), PageJpaMapper.toJpaEntity(criteria.page)
         )
-        return PageImpl(page.content.map { PersonJpaMapper.toDomain(it!!) }, page.pageable, page.totalElements)
+        return PageData(
+            page.content.map { PersonJpaMapper.toDomain(it!!) },
+            page.totalElements,
+            Page(
+                page.pageable.pageNumber,
+                page.pageable.pageSize,
+                Sort(
+                    page.pageable.sort.map { Order(it.property, it.direction.name) }.toList()
+                )
+            )
+        )
     }
 
     override fun save(value: Person) {
@@ -54,8 +66,14 @@ class PersonJpaRepository(
         )
     }
 
+
     override fun delete(key: Key) {
-        springDataRepository.deleteByKey(KeyJpaMapper.toJpaEntity(key))
+        springDataRepository.deleteByKey(
+            KeyJpaMapper.toJpaEntity(
+                // invoke findOneByKey to ensure that the key exists - if not, throw NotFoundException
+                findOneByKey(key).key
+            )
+        )
     }
 
 

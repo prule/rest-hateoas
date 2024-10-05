@@ -1,6 +1,7 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaEntity
+import com.example.rest_hateoas.adapter.out.persistence.jpa.ModelMetadataJpaEntity
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
 
@@ -20,5 +21,13 @@ class UserJpaEntity(
     val groups: List<UserGroupJpaEntity>,
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? = null
+    val id: Long? = null,
+
+    @Basic
+    @Version
+    var version: Long = 0,
+
+    @Embedded
+    var metadata: ModelMetadataJpaEntity = ModelMetadataJpaEntity()
+
 )

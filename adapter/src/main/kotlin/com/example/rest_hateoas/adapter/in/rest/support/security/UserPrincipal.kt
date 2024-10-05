@@ -1,14 +1,15 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupJpaEntity
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.domain.model.UserGroup
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.stream.Collectors
+import javax.print.attribute.standard.RequestingUserName
 
-class UserPrincipal(user: User) : UserDetails {
-    val id = user.id
+class UserPrincipal(val id: Long, user: User) : UserDetails {
     private val password = user.password
     private val username = user.username
     private val enabled: Boolean
@@ -27,7 +28,7 @@ class UserPrincipal(user: User) : UserDetails {
     }
 
     override fun getPassword(): String {
-        return password
+        return ""
     }
 
     override fun getUsername(): String {

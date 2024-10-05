@@ -3,7 +3,7 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
 import com.example.rest_hateoas.domain.model.UserGroup
 
-class UserGroupMapper {
+class UserGroupJpaMapper {
 
     companion object {
         fun toDomain(value: UserGroupJpaEntity): UserGroup {

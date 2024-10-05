@@ -1,13 +1,14 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.domain.model.Person
 import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
 import com.example.rest_hateoas.application.port.`in`.person.PersonSearchUseCase
+import com.example.rest_hateoas.domain.model.Person
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
 import org.springframework.hateoas.PagedModel
@@ -15,7 +16,8 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
 
 // tag::PersonSearchController[]
 @RestController
@@ -39,7 +41,10 @@ class PersonSearchController(
             ApiResponse(
                 responseCode = "200",
                 description = "Search Person",
-                content = [(Content(mediaType = "application/json", schema = Schema(implementation = PersonPage::class)))]
+                content = [(Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = PersonPage::class)
+                ))]
 //                content = [(Content(mediaType = "application/json", schema = Schema(implementation = PagedModel::class)))] <-- how to provide the "PersonRestModel" type for PagedModel<PersonRestModel> ??
             ),
             ApiResponse(responseCode = "400", description = "Bad request", content = [Content()])
@@ -48,12 +53,26 @@ class PersonSearchController(
     @GetMapping("/api/1/persons")
     fun search(
         criteria: PersonSearchCriteriaRestModel?,
-        pageable: Pageable?,
-        assembler: PagedResourcesAssembler<Person>?
+        pageable: Pageable = Pageable.unpaged(),
+        assembler: PagedResourcesAssembler<Person>? = null
     ): HttpEntity<PersonPage> {
-        val page = personSearchUseCase.search(PersonSearchCriteria(criteria!!.filter, criteria.from, criteria.to), pageable!!)
+        val pageData = personSearchUseCase.search(
+            PersonSearchCriteria(
+                criteria!!.filter,
+                criteria.from,
+                criteria.to,
+                PageableMapper.toDomain(pageable)
+            )
+        )
         return ResponseEntity(
-            PersonPage(assembler!!.toModel(page) { person: Person -> personRestMapper.fromDomain(person) }),
+            PersonPage(
+                assembler!!.toModel(
+                    PageImpl(
+                        pageData.content,
+                        PageableMapper.toModel(pageData.page),
+                        pageData.total
+                    )
+                ) { person: Person -> personRestMapper.fromDomain(person) }),
             HttpStatus.OK
         )
     }
@@ -61,7 +80,8 @@ class PersonSearchController(
     // workaround to provide the right typing for swagger documentation
     // https://github.com/swagger-api/swagger-core/issues/3723
     // todo find a better solution for supplying the right typing for swagger documentation wrt pages
-    class PersonPage(pageable: PagedModel<PersonRestModel>) : PagedModel<PersonRestModel>(pageable.content, pageable.metadata, pageable.links)
+    class PersonPage(pageable: PagedModel<PersonRestModel>) :
+        PagedModel<PersonRestModel>(pageable.content, pageable.metadata, pageable.links)
 
 }
 // end::PersonSearchController[]

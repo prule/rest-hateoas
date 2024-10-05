@@ -32,6 +32,8 @@ allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
+test-logger = { id = "com.adarshr.test-logger", version = "4.0.0" }
+
 asciidoctor-convert = { id = "org.asciidoctor.jvm.convert", version.ref = "asciidocter" }
 asciidoctor-pdf = { id = "org.asciidoctor.jvm.pdf", version.ref = "asciidocter" }
 asciidoctor-epub = { id = "org.asciidoctor.jvm.epub", version.ref = "asciidocter" }

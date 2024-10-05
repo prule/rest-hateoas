@@ -1,5 +1,8 @@
 package com.example.rest_hateoas.adapter.`in`.rest.support.security
 
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupJpaMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserJpaMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserSpringDataRepository
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
@@ -8,11 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class UserDetailsService(val userRepository: UserRepository) : UserDetailsService {
+class UserDetailsService(val userRepository: UserSpringDataRepository) : UserDetailsService {
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val user: User = userRepository.findByUsername(username) ?: throw UsernameNotFoundException(username)
-        return UserPrincipal(user)
+        val user = userRepository.findByUsername(username) ?: throw UsernameNotFoundException(username)
+        return UserPrincipal(user.id!!, UserJpaMapper.toDomain(user))
     }
 }

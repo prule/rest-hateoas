@@ -1,7 +1,7 @@
 package com.example.rest_hateoas.adapter.out.persistence.jpa.sample.user
 
 import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupJpaEntity
-import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserGroupJpaMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.sample.common.Loader
 import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import io.github.xn32.json5k.Json5
@@ -20,7 +20,7 @@ class UserGroupSampleLoader(
         val objects = loadData("data/sample/userGroups.json5")
         // create or update accordingly
         for (obj in objects) {
-            userGroupRepository.save(UserGroupMapper.toDomain(obj))
+            userGroupRepository.save(UserGroupJpaMapper.toDomain(obj))
         }
     }
 

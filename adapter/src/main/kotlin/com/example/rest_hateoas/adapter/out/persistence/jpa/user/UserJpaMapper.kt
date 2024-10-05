@@ -6,10 +6,7 @@ import com.example.rest_hateoas.domain.model.User
 class UserJpaMapper {
 
     companion object {
-        fun toDomain(value: UserJpaEntity?): User? {
-            if (value == null) {
-                return null
-            }
+        fun toDomain(value: UserJpaEntity): User {
             return User(
                 KeyJpaMapper.toDomain(value.key),
                 value.username,
@@ -17,8 +14,7 @@ class UserJpaMapper {
                 value.firstName,
                 value.lastName,
                 value.enabled,
-                value.groups.map { UserGroupMapper.toDomain(it) },
-                value.id
+                value.groups.map { UserGroupJpaMapper.toDomain(it) },
             )
         }
 
@@ -31,7 +27,6 @@ class UserJpaMapper {
                 value.lastName,
                 value.enabled,
                 value.groups.map { userGroupSpringDataRepository.findByKey(KeyJpaMapper.toJpaEntity(it.key))!! },
-                value.id
             )
         }
     }
