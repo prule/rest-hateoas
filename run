@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+me=$(basename "$0")
+
 case "$1" in
 
   'build')
