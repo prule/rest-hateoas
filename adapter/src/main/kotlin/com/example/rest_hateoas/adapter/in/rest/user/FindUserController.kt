@@ -29,7 +29,7 @@ class FindUserController(
         throw RuntimeException("User not authenicated")
     }
 
-    @GetMapping("/api/1/persons/{key}")
+    @GetMapping("/api/1/user/{key}")
     fun find(
         @PathVariable(required = true) key: String? = null,
     ): ResponseEntity<UserRestModel> {

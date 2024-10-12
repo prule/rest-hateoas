@@ -19,8 +19,8 @@ import java.time.ZonedDateTime
 
 // TODO convert this to use domain objects
 
-@Component
-@Order(3)
+//@Component
+//@Order(3)
 class PersonSampleLoader(val personRepository: PersonJpaRepository, val personCreateUseCase: PersonCreateUseCase): Loader {
 
     override fun load() {

@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.bundles.logging)
 
+    implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")

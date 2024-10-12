@@ -3,15 +3,15 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.PageJpaMapper
-import com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonJpaMapper
-import com.example.rest_hateoas.domain.model.Key
-import com.example.rest_hateoas.domain.model.User
+import com.example.rest_hateoas.application.port.`in`.Filter
+import com.example.rest_hateoas.application.port.`in`.user.UserFilter
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import com.example.rest_hateoas.domain.Order
 import com.example.rest_hateoas.domain.Page
 import com.example.rest_hateoas.domain.PageData
 import com.example.rest_hateoas.domain.Sort
-import com.example.rest_hateoas.domain.model.Person
+import com.example.rest_hateoas.domain.model.Key
+import com.example.rest_hateoas.domain.model.User
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.stereotype.Repository
 
@@ -22,16 +22,17 @@ class UserJpaRepository(
     val entityManagerFactory: EntityManagerFactory
 ) : UserRepository {
 
-    override fun findAll(pageable: Page): PageData<User> {
-        val page = springDataRepository.findAll(PageJpaMapper.toJpaEntity(pageable))
+    override fun findAll(filter: UserFilter, page: Page): PageData<User> {
+        // TODO add filter
+        val pageable = springDataRepository.findAll(PageJpaMapper.toJpaEntity(page))
         return PageData(
-            page.content.map { UserJpaMapper.toDomain(it!!) },
-            page.totalElements,
+            pageable.content.map { UserJpaMapper.toDomain(it!!) },
+            pageable.totalElements,
             Page(
-                page.pageable.pageNumber,
-                page.pageable.pageSize,
+                pageable.pageable.pageNumber,
+                pageable.pageable.pageSize,
                 Sort(
-                    page.pageable.sort.map { Order(it.property, it.direction.name) }.toList()
+                    pageable.pageable.sort.map { Order(it.property, it.direction.name) }.toList()
                 )
             )
         )

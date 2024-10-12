@@ -4,5 +4,5 @@ import com.example.rest_hateoas.domain.PageData
 import com.example.rest_hateoas.domain.model.Person
 
 interface PersonSearchUseCase {
-    fun search(criteria: PersonSearchCriteria): PageData<Person>
+    fun search(criteria: PersonFilter): PageData<Person>
 }

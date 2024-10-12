@@ -1,17 +1,17 @@
-package com.example.rest_hateoas.application.port.`in`.user
+package com.example.rest_hateoas.application.port.`in`.usergroup
 
 import com.example.rest_hateoas.application.port.ValidatableCommand
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.domain.model.UserGroup
 
-data class AddUserGroupCommand(
+data class RemoveUserGroupCommand(
     val user: User,
     val group: UserGroup
 ): ValidatableCommand() {
     init {
-        // user cannot already have this group
-        check(!user.hasGroup(group)) {
-            "User ${user} already has group ${group}"
+        // user must already have this group
+        check(user.hasGroup(group)) {
+            "User ${user} does not have this group ${group}"
         }
         validate()
     }

@@ -4,9 +4,10 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import com.example.rest_hateoas.domain.model.PersonAddress
 import com.example.rest_hateoas.domain.model.PersonName
+import com.example.rest_hateoas.fixtures.Fixture
 import java.time.LocalDate
 
-class PersonFixtures {
+class PersonFixtures: Fixture<Person> {
     enum class Persons(val person: Person) {
         Fred(
             Person(
@@ -49,5 +50,9 @@ class PersonFixtures {
             )
         )
 
+    }
+
+    override fun entries(): List<Person> {
+        return Persons.values().map { it.person }
     }
 }

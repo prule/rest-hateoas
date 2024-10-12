@@ -5,5 +5,5 @@ import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.domain.model.UserGroup
 
 interface FindUserGroupUseCase {
-    fun findByKey(key: Key): UserGroup?
+    fun findByKey(key: Key): UserGroup
 }

@@ -8,7 +8,6 @@ class UserGroupJpaMapper {
     companion object {
         fun toDomain(value: UserGroupJpaEntity): UserGroup {
             return UserGroup(
-                value.id,
                 KeyJpaMapper.toDomain(value.key),
                 value.name,
                 value.description,
@@ -16,13 +15,12 @@ class UserGroupJpaMapper {
             )
         }
 
-        fun toJpaEntity(value: UserGroup): UserGroupJpaEntity {
+        fun toEntity(value: UserGroup): UserGroupJpaEntity {
             return UserGroupJpaEntity(
                 KeyJpaMapper.toJpaEntity(value.key),
                 value.name,
                 value.description,
                 value.enabled,
-                value.id
             )
         }
     }

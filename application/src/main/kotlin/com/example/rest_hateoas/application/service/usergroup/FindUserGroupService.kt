@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class FindUserGroupService(val userGroupRepository: UserGroupRepository): FindUserGroupUseCase {
-    override fun findByKey(key: Key): UserGroup? {
-        return userGroupRepository.findByKey(key)
+    override fun findByKey(key: Key): UserGroup {
+        userGroupRepository.findOneByKey(key)?.let {
+            return it
+        }
+        throw RuntimeException("User not found")
     }
 }

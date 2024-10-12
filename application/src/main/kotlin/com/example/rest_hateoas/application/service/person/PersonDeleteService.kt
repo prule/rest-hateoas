@@ -5,7 +5,6 @@ import com.example.rest_hateoas.application.port.out.persistence.PersonRepositor
 import com.example.rest_hateoas.domain.model.Key
 import org.springframework.stereotype.Service
 
-@Service
 class PersonDeleteService(val personRepository: PersonRepository): PersonDeleteUseCase {
     override fun delete(key: Key) {
         personRepository.delete(key)

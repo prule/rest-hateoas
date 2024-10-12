@@ -6,7 +6,6 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import org.springframework.stereotype.Service
 
-@Service
 class PersonFindService(val personRepository: PersonRepository): PersonFindUseCase {
     override fun find(value: Key): Person {
         return personRepository.findOneByKey(value)

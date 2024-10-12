@@ -3,6 +3,8 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.PageJpaMapper
+import com.example.rest_hateoas.application.port.`in`.Filter
+import com.example.rest_hateoas.application.port.`in`.usergroup.UserGroupFilter
 import com.example.rest_hateoas.domain.model.UserGroup
 import com.example.rest_hateoas.application.port.out.persistence.UserGroupRepository
 import com.example.rest_hateoas.domain.Order
@@ -12,7 +14,6 @@ import com.example.rest_hateoas.domain.Sort
 import com.example.rest_hateoas.domain.model.Key
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.stereotype.Repository
-
 
 @Repository
 class UserGroupJpaRepository(
@@ -41,25 +42,26 @@ class UserGroupJpaRepository(
         return result?.let { UserGroupJpaMapper.toDomain(it) }
     }
 
-    override fun findAll(pageable: Page): PageData<UserGroup> {
-        val page = springDataRepository.findAll(PageJpaMapper.toJpaEntity(pageable))
+    override fun findAll(filter: UserGroupFilter, page: Page): PageData<UserGroup> {
+        // todo add filter
+        val pageable = springDataRepository.findAll(PageJpaMapper.toJpaEntity(page))
         return PageData(
-            page.content.map { UserGroupJpaMapper.toDomain(it!!) },
-            page.totalElements,
+            pageable.content.map { UserGroupJpaMapper.toDomain(it!!) },
+            pageable.totalElements,
             com.example.rest_hateoas.domain.Page(
-                page.pageable.pageNumber,
-                page.pageable.pageSize,
+                pageable.pageable.pageNumber,
+                pageable.pageable.pageSize,
                 Sort(
-                    page.pageable.sort.map { Order(it.property, it.direction.name) }.toList()
+                    pageable.pageable.sort.map { Order(it.property, it.direction.name) }.toList()
                 )
             )
         )
     }
 
-    override fun save(userGroup: UserGroup) {
+    override fun save(value: UserGroup) {
         entityManagerFactory.createEntityManager().use { entityManager ->
             entityManager.getTransaction().begin()
-            entityManager.merge(UserGroupJpaMapper.toJpaEntity(userGroup))
+            entityManager.merge(UserGroupJpaMapper.toEntity(value))
             entityManager.getTransaction().commit()
         }
     }

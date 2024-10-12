@@ -3,14 +3,15 @@ package com.example.rest_hateoas.adapter.`in`.rest.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.`in`.rest.user.AddUserGroupController.Companion.ADD_GROUP_PATH
+import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.fixtures.UserFixtures
+import com.example.rest_hateoas.fixtures.UserGroupFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
-import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.CoreMatchers.nullValue
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
@@ -28,7 +29,7 @@ import org.testcontainers.utility.DockerImageName
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
 @ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
-class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
+class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
     companion object {
         @Container
         @ServiceConnection
@@ -36,7 +37,6 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
             DockerImageName.parse("postgres:latest")
         )
     }
-
 
     @LocalServerPort
     private val port: Int? = null
@@ -47,36 +47,12 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
     }
 
     @Test
-    fun `should return apierror when user does not exist`() {
-        val token = jwtTokenProvider.createToken("doesnotexist", listOf())
-        given().contentType(ContentType.JSON)
-            .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
-            .`when`()
-            .get("/api/1/user/me")
-            .then()
-            .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
-            .body("apierror", notNullValue())
-            .body("apierror.message", notNullValue())
-    }
-
-    @Test
-    fun `should return apierror when no token is supplied`() {
-        given().contentType(ContentType.JSON)
-            .`when`()
-            .get("/api/1/user/me")
-            .then()
-            .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
-            .body("apierror", notNullValue())
-            .body("apierror.message", notNullValue())
-    }
-
-    @Test
-    fun `should return me when logged in`() {
+    fun `add group`() {
         val token = jwtTokenProvider.createToken(UserFixtures.Users.Fred.user.username, listOf())
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()
-            .get("/api/1/user/me")
+            .put(AddGroupRequest(UserFixtures.Users.Fred.user.key, UserGroupFixtures.UserGroups.Admin.group.key).toString())
             .then()
             .statusCode(HttpServletResponse.SC_OK)
             .body("apierror", nullValue())
@@ -96,4 +72,9 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
         JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
     }
 
+    class AddGroupRequest(val userKey: Key, val groupKey: Key) {
+        override fun toString(): String {
+            return ADD_GROUP_PATH.replace("{userKey}", userKey.key).replace("{groupKey}", groupKey.key)
+        }
+    }
 }

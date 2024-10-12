@@ -3,6 +3,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.support.authentication
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.adapter.out.persistence.jpa.user.UserSpringDataRepository
 import org.apache.commons.logging.LogFactory
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -17,7 +18,7 @@ class AuthenticationController(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userRepository: UserSpringDataRepository
 ) {
-    protected val logger = LogFactory.getLog(javaClass)
+    protected val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping("/api/1/auth/login")
     fun login(@RequestBody resource: com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationRequestModel): com.example.rest_hateoas.adapter.`in`.rest.support.authentication.AuthenticationResponseModel {

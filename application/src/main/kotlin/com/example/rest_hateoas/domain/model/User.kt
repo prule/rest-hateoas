@@ -73,5 +73,8 @@ class User(
         return result
     }
 
+    fun withPassword(password: String): User {
+        return User(key, username, password, firstName, lastName, enabled, groups, metaData)
+    }
 
 }

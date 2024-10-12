@@ -1,4 +1,4 @@
-package com.example.rest_hateoas.bootstrap
+package com.example.rest_hateoas
 
 import com.example.rest_hateoas.adapter.RestHateoasApplication
 import org.springframework.boot.SpringApplication

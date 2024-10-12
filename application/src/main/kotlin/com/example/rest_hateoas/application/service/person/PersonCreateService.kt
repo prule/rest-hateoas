@@ -5,7 +5,6 @@ import com.example.rest_hateoas.application.port.out.persistence.PersonRepositor
 import com.example.rest_hateoas.domain.model.Person
 import org.springframework.stereotype.Service
 
-@Service
 class PersonCreateService(val personRepository: PersonRepository): PersonCreateUseCase {
     override fun create(value: Person) {
         personRepository.save(value)

@@ -1,6 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
-import com.example.rest_hateoas.application.port.`in`.person.PersonSearchCriteria
+import com.example.rest_hateoas.application.port.`in`.person.PersonFilter
 import com.example.rest_hateoas.application.port.`in`.person.PersonSearchUseCase
 import com.example.rest_hateoas.domain.model.Person
 import io.swagger.v3.oas.annotations.Operation
@@ -57,7 +57,7 @@ class PersonSearchController(
         assembler: PagedResourcesAssembler<Person>? = null
     ): HttpEntity<PersonPage> {
         val pageData = personSearchUseCase.search(
-            PersonSearchCriteria(
+            PersonFilter(
                 criteria!!.filter,
                 criteria.from,
                 criteria.to,
