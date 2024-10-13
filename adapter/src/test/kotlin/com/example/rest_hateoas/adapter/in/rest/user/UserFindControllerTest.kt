@@ -3,6 +3,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
+import com.example.rest_hateoas.adapter.jsonassert.AssertModelMetadata
 import com.example.rest_hateoas.fixtures.UserFixtures
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
@@ -84,16 +85,27 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
 
         val expectedResponseBody = """
             {
-                "version": 0,
-                "key": "fred",
-                "username": "fred",
-                "firstName": "Fred",
-                "lastName": "Doe",
-                "enabled": true
+              "version": 0,
+              "key": "fred",
+              "username": "fred",
+              "firstName": "Fred",
+              "lastName": "Doe",
+              "enabled": true,
+              "metadata": {
+                "createdDate": null,
+                "lastModifiedDate": null
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost:$port/api/1/user/fred"
+                }
+              }
             }
         """.trimIndent()
 
-        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+//        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+        AssertModelMetadata.assert(expectedResponseBody, actualResponseBody)
+
     }
 
 }

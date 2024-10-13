@@ -3,7 +3,6 @@ package com.example.rest_hateoas.adapter.out.persistence.jpa.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.http.NotFoundException
 import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaMapper
 import com.example.rest_hateoas.adapter.out.persistence.jpa.PageJpaMapper
-import com.example.rest_hateoas.application.port.`in`.Filter
 import com.example.rest_hateoas.application.port.`in`.user.UserFilter
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import com.example.rest_hateoas.domain.Order
@@ -65,10 +64,11 @@ class UserJpaRepository(
         return result?.let { UserJpaMapper.toDomain(it) }
     }
 
-    override fun save(user: User) {
+    override fun save(value: User) {
         entityManagerFactory.createEntityManager().use { entityManager ->
             entityManager.getTransaction().begin()
-            entityManager.merge(UserJpaMapper.toJpaEntity(user, userGroupSpringDataRepository))
+            val existing = springDataRepository.findByKey(KeyJpaMapper.toJpaEntity(value.key))
+            entityManager.merge(UserJpaMapper.toJpaEntity(value, existing, userGroupSpringDataRepository))
             entityManager.getTransaction().commit()
         }
     }

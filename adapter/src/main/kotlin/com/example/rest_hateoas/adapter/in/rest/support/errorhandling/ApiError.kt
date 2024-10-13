@@ -35,6 +35,8 @@ data class ApiError(
         message = message,
         debugMessage = ex.localizedMessage
     )
+
+
 //
 //    private fun addSubError(subError: ApiSubError) {
 //        if (subErrors == null) {
@@ -103,6 +105,10 @@ data class ApiError(
     class ApiValidationError(private val `object`: String, private val message: String) : ApiSubError() {
         private val field: String? = null
         private val rejectedValue: Any? = null
+    }
+
+    override fun toString(): String {
+        return "ApiError(status=$status, timestamp=$timestamp, message=$message, debugMessage=$debugMessage, subErrors=$subErrors)"
     }
 }
 

@@ -29,6 +29,7 @@ import java.util.function.Consumer
 @Order(Ordered.LOWEST_PRECEDENCE)
 @ControllerAdvice
 class RestExceptionHandler : ResponseEntityExceptionHandler() {
+    val logger = org.slf4j.LoggerFactory.getLogger(javaClass)
 
     /**
      * Handle MissingServletRequestParameterException. Triggered when a 'required' request parameter is missing.
@@ -314,6 +315,7 @@ class RestExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     private fun buildResponseEntity(apiError: ApiError): ResponseEntity<Any> {
+        logger.error("buildResponseEntity $apiError")
         return ResponseEntity<Any>(apiError, apiError.status)
     }
 }

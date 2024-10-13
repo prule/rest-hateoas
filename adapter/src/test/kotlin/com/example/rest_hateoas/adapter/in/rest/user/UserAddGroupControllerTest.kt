@@ -4,6 +4,7 @@ import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
 import com.example.rest_hateoas.adapter.`in`.rest.user.AddUserGroupController.Companion.ADD_GROUP_PATH
+import com.example.rest_hateoas.adapter.jsonassert.AssertModelMetadata
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.fixtures.UserFixtures
 import com.example.rest_hateoas.fixtures.UserGroupFixtures
@@ -60,16 +61,29 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
 
         val expectedResponseBody = """
             {
-                "version": 0,
-                "key": "fred",
-                "username": "fred",
-                "firstName": "Fred",
-                "lastName": "Doe",
-                "enabled": true
+              "version": 1,
+              "key": "fred",
+              "username": "fred",
+              "firstName": "Fred",
+              "lastName": "Doe",
+              "enabled": true,
+              "metadata": {
+                "createdDate": null,
+                "lastModifiedDate": null
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost:$port/api/1/user/fred"
+                }
+              }
             }
         """.trimIndent()
 
-        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
+        println(actualResponseBody)
+
+        AssertModelMetadata.assert(expectedResponseBody, actualResponseBody)
+
+//        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
     }
 
     class AddGroupRequest(val userKey: Key, val groupKey: Key) {
