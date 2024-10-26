@@ -38,8 +38,9 @@ class PersonUpdateController(
         @PathVariable(name = "key", required = true) key: String,
         @Valid @RequestBody model: PersonUpdateRestModel
     ): ResponseEntity<PersonRestModel> {
-        val value = personRestMapper.toDomain(key, model)
-        personUpdateUseCase.update(value)
+        val person = personFindUseCase.find(Key(key))
+        val command = personRestMapper.toUpdateCommand(person, model)
+        personUpdateUseCase.update(command)
         val personModel = personRestMapper.fromDomain(
             personFindUseCase.find(Key(key))
         )

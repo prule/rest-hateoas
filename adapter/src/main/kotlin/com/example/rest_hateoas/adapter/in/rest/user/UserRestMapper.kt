@@ -1,12 +1,10 @@
 package com.example.rest_hateoas.adapter.`in`.rest.user
 
 import com.example.rest_hateoas.adapter.`in`.rest.ModelMetadataRestMapper
-import com.example.rest_hateoas.domain.model.Key
-import com.example.rest_hateoas.domain.model.ModelMetadata
+import com.example.rest_hateoas.application.port.`in`.user.UpdateUserCommand
 import com.example.rest_hateoas.domain.model.User
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class UserRestMapper {
@@ -19,6 +17,7 @@ class UserRestMapper {
             value.firstName,
             value.lastName,
             value.enabled,
+            value.groups.map { UserGroupRestMapper().fromDomain(it) },
             ModelMetadataRestMapper.fromDomain(value.metaData)
         )
 
@@ -26,7 +25,7 @@ class UserRestMapper {
         // any logic could be applied here to control the presence of these links - user based permissions, or entity states etc
         model.add(
             WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(FindUserController::class.java).find(value.key.key)
+                WebMvcLinkBuilder.methodOn(UserFindController::class.java).find(value.key.key)
             ).withSelfRel()
         )
         return model
@@ -37,35 +36,19 @@ class UserRestMapper {
         return true
     }
 
-    fun toNewDomain(value: UserCreateRestModel): User {
+    fun toUpdateUserCommand(user: User, value: UserUpdateRestModel): UpdateUserCommand {
 
-        return User(
-            Key(),
-            value.username,
-            UUID.randomUUID().toString(),
-            value.firstName,
-            value.lastName,
-            value.enabled,
-            listOf(),
-            ModelMetadata()
+        return UpdateUserCommand(
+            user,
+            UpdateUserCommand.UpdateUserFields(
+                value.username,
+                value.firstName,
+                value.lastName,
+                value.enabled,
+                value.version,
+            )
         )
 
     }
-
-    fun toDomain(key: String, value: UserUpdateRestModel): User {
-
-        return User(
-            Key(),
-            value.username,
-            UUID.randomUUID().toString(),
-            value.firstName,
-            value.lastName,
-            value.enabled,
-            listOf(),
-            ModelMetadata()
-        )
-
-    }
-
 
 }

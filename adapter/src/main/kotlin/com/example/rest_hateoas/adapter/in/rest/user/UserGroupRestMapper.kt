@@ -29,20 +29,4 @@ class UserGroupRestMapper {
         return true
     }
 
-    fun toDomain(key: String, value: UserUpdateRestModel): User {
-
-        return User(
-            Key(),
-            value.username,
-            UUID.randomUUID().toString(),
-            value.firstName,
-            value.lastName,
-            value.enabled,
-            listOf(),
-            ModelMetadata()
-        )
-
-    }
-
-
 }

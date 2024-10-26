@@ -11,6 +11,11 @@ Paul Rule
 [sidebar]
 This is a work in progress!
 
+- web input validation
+- web security
+- rest api design
+- domain model
+- peristence layer
 
 include::../includes/Authentication.adoc[]
 include::../includes/Jpa.adoc[]

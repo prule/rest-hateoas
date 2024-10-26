@@ -18,7 +18,6 @@ class PersonJpaMapper {
             )
         }
 
-        // need to consider what fields can be set by what type of user
         fun toJpaEntity(value: Person, existingPerson: PersonJpaEntity?): PersonJpaEntity {
 
             return PersonJpaEntity(

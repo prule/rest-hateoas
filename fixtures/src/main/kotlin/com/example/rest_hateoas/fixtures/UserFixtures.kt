@@ -13,7 +13,7 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
                 "Fred",
                 "Doe",
                 true,
-                listOf()
+                listOf(UserGroupFixtures.UserGroups.User.group),
             )
         ),
         Boss(
@@ -24,7 +24,7 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
                 "Boss",
                 "Doe",
                 true,
-                listOf()
+                listOf(UserGroupFixtures.UserGroups.Admin.group)
             )
         )
     }

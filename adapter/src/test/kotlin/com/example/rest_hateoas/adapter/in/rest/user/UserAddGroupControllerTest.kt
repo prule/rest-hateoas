@@ -3,7 +3,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.user
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
-import com.example.rest_hateoas.adapter.`in`.rest.user.AddUserGroupController.Companion.ADD_GROUP_PATH
+import com.example.rest_hateoas.adapter.`in`.rest.user.UserAddUserGroupController.Companion.ADD_GROUP_PATH
 import com.example.rest_hateoas.adapter.jsonassert.AssertModelMetadata
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.fixtures.UserFixtures
@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -53,31 +52,44 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()
-            .put(AddGroupRequest(UserFixtures.Users.Fred.user.key, UserGroupFixtures.UserGroups.Admin.group.key).toString())
+            .put(AddGroupToUserRequest(UserFixtures.Users.Fred.user.key, UserGroupFixtures.UserGroups.Admin.group.key).toString())
             .then()
             .statusCode(HttpServletResponse.SC_OK)
             .body("apierror", nullValue())
             .extract().body().asString()
 
         val expectedResponseBody = """
-            {
+             {
               "version": 1,
               "key": "fred",
               "username": "fred",
               "firstName": "Fred",
               "lastName": "Doe",
               "enabled": true,
+              "groups": [
+                {
+                  "name": "User",
+                  "description": "User",
+                  "enabled": true
+                },
+                {
+                  "name": "Admin",
+                  "description": "Admin",
+                  "enabled": true
+                }
+
+              ],
               "metadata": {
-                "createdDate": null,
-                "lastModifiedDate": null
+                "createdDate": "2024-10-21T10:56:57.514462Z",
+                "lastModifiedDate": "2024-10-21T10:56:57.517327Z"
               },
               "_links": {
                 "self": {
-                  "href": "http://localhost:$port/api/1/user/fred"
+                  "href": "http://localhost:${port}/api/1/user/fred"
                 }
               }
             }
-        """.trimIndent()
+       """.trimIndent()
 
         println(actualResponseBody)
 
@@ -86,7 +98,7 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
 //        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
     }
 
-    class AddGroupRequest(val userKey: Key, val groupKey: Key) {
+    class AddGroupToUserRequest(val userKey: Key, val groupKey: Key) {
         override fun toString(): String {
             return ADD_GROUP_PATH.replace("{userKey}", userKey.key).replace("{groupKey}", groupKey.key)
         }

@@ -1,6 +1,8 @@
 package com.example.rest_hateoas.adapter.`in`.rest.person
 
 import com.example.rest_hateoas.adapter.`in`.rest.ModelMetadataRestMapper
+import com.example.rest_hateoas.adapter.out.persistence.jpa.person.PersonNameMapper
+import com.example.rest_hateoas.application.port.`in`.person.UpdatePersonCommand
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import com.example.rest_hateoas.domain.model.ModelMetadata
@@ -72,6 +74,18 @@ class PersonRestMapper {
             ModelMetadata(value.version)
         )
 
+    }
+
+    fun toUpdateCommand(person: Person, model: PersonUpdateRestModel): UpdatePersonCommand {
+        return UpdatePersonCommand(
+            person,
+            UpdatePersonCommand.UpdatePersonFields(
+                PersonNameRestModel.toDomain(model.name),
+                PersonAddressRestModel.toDomain(model.address),
+                model.dateOfBirth,
+                model.version
+            )
+        )
     }
 
 

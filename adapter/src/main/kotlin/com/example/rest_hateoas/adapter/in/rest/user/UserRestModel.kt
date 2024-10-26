@@ -16,6 +16,8 @@ open class UserRestModel (
 
     val enabled: Boolean = false,
 
+    val groups: List<UserGroupRestModel> = listOf(),
+
     val metadata: ModelMetadataRestModel
 
 ): RepresentationModel<UserRestModel>() {
