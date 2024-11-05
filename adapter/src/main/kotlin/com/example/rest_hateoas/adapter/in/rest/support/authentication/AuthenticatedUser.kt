@@ -10,6 +10,7 @@ class AuthenticatedUser(val authentication: Authentication) {
 
     val principal: UserDetails get() = authentication.principal as UserDetails
 
+    // todo change this parameter
     fun hasGroup(group: UserGroupJpaEntity.Group): Boolean {
         return authentication.authorities.stream().anyMatch { g: GrantedAuthority? -> g?.getAuthority() == group.id }
     }

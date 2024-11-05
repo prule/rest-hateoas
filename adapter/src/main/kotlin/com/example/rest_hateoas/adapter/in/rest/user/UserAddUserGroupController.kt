@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@org.springframework.transaction.annotation.Transactional
-class AddUserGroupController(
+//@org.springframework.transaction.annotation.Transactional
+class UserAddUserGroupController(
     private val manageUserGroupUseCase: AddUserGroupUseCase,
     private val findUserUseCase: FindUserUseCase,
     private val findUserGroupUseCase: FindUserGroupUseCase,
@@ -28,6 +28,7 @@ class AddUserGroupController(
         @PathVariable(required = true) userKey: String,
         @PathVariable(required = true) groupKey: String,
     ): UserRestModel {
+        val user1 = findUserUseCase.findByKey(Key(userKey))
         manageUserGroupUseCase.addGroup(
             AddUserGroupCommand(
                 user = findUserUseCase.findByKey(Key(userKey)),

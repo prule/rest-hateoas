@@ -4,9 +4,11 @@ import com.example.rest_hateoas.adapter.out.persistence.jpa.KeyJpaEntity
 import com.example.rest_hateoas.adapter.out.persistence.jpa.ModelMetadataJpaEntity
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 
 @Serializable
 @Entity(name = "usr") // name of table is changed to avoid naming conflicts with database
+@EntityListeners(AuditingEntityListener::class)
 class UserJpaEntity(
 
     @Basic(optional = false)
@@ -17,7 +19,7 @@ class UserJpaEntity(
     val firstName: String,
     val lastName: String,
     val enabled: Boolean,
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = UserGroupJpaEntity::class, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER)
     val groups: List<UserGroupJpaEntity>,
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

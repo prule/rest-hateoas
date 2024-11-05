@@ -26,6 +26,7 @@ class UserJpaMapper {
             existing: UserJpaEntity?,
             userGroupSpringDataRepository: UserGroupSpringDataRepository
         ): UserJpaEntity {
+
             return UserJpaEntity(
                 KeyJpaMapper.toJpaEntity(value.key),
                 value.username,

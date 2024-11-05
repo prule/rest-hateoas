@@ -13,7 +13,9 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.User
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Repository
 class UserJpaRepository(
     val springDataRepository: UserSpringDataRepository,
@@ -65,12 +67,9 @@ class UserJpaRepository(
     }
 
     override fun save(value: User) {
-        entityManagerFactory.createEntityManager().use { entityManager ->
-            entityManager.getTransaction().begin()
-            val existing = springDataRepository.findByKey(KeyJpaMapper.toJpaEntity(value.key))
-            entityManager.merge(UserJpaMapper.toJpaEntity(value, existing, userGroupSpringDataRepository))
-            entityManager.getTransaction().commit()
-        }
+        val existing = springDataRepository.findByKey(KeyJpaMapper.toJpaEntity(value.key))
+        val toJpaEntity = UserJpaMapper.toJpaEntity(value, existing, userGroupSpringDataRepository)
+        springDataRepository.save(toJpaEntity) // save will do a persist or merge
     }
 
 

@@ -11,10 +11,8 @@ import io.restassured.http.ContentType
 import jakarta.servlet.http.HttpServletResponse
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.CoreMatchers.nullValue
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -85,15 +83,22 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
 
         val expectedResponseBody = """
             {
-              "version": 0,
+              "version": 1,
               "key": "fred",
               "username": "fred",
               "firstName": "Fred",
               "lastName": "Doe",
               "enabled": true,
+              "groups": [
+                {
+                  "name": "User",
+                  "description": "User",
+                  "enabled": true
+                }
+              ],
               "metadata": {
-                "createdDate": null,
-                "lastModifiedDate": null
+                "createdDate": "2024-10-21T10:54:36.528794Z",
+                "lastModifiedDate": "2024-10-21T10:54:36.539443Z"
               },
               "_links": {
                 "self": {
@@ -103,6 +108,7 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
             }
         """.trimIndent()
 
+        println(actualResponseBody)
 //        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
         AssertModelMetadata.assert(expectedResponseBody, actualResponseBody)
 

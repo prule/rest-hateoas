@@ -4,8 +4,10 @@ import com.example.rest_hateoas.application.port.`in`.usergroup.AddUserGroupComm
 import com.example.rest_hateoas.application.port.`in`.usergroup.AddUserGroupUseCase
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class AddUserGroupService(val userRepository: UserRepository): AddUserGroupUseCase {
     override fun addGroup(command: AddUserGroupCommand) {
         command.user.addGroup(command.group)

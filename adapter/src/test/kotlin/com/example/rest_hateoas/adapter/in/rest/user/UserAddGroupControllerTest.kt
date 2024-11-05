@@ -1,5 +1,6 @@
 package com.example.rest_hateoas.adapter.`in`.rest.user
 
+import com.example.rest_hateoas.adapter.RestHateoasApplication
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.BearerToken
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenFilter
 import com.example.rest_hateoas.adapter.`in`.rest.support.security.JwtTokenProvider
@@ -20,23 +21,58 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
+import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+
+// https://testcontainers.com/guides/testing-spring-boot-rest-api-using-testcontainers/
+
+@SpringBootTest(webEnvironment = RANDOM_PORT, classes = arrayOf(RestHateoasApplication::class))
 @Testcontainers
-@ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
+@EnableTransactionManagement
+@ActiveProfiles(profiles = ["db-postgres-test", "db-init", "debug"])
 class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) {
     companion object {
         @Container
         @ServiceConnection
         var postgreSQLContainer: PostgreSQLContainer<*> = PostgreSQLContainer(
             DockerImageName.parse("postgres:latest")
-        )
+        ).withUsername("postgres")
+            .withPassword("postgres")
+            .withDatabaseName("postgres")
+            .withExposedPorts(5432)
+
+//        @BeforeAll
+//        fun beforeAll() {
+//            postgreSQLContainer.start()
+//        }
+//
+//        @AfterAll
+//        fun afterAll() {
+//            postgreSQLContainer.stop()
+//        }
+
+        @DynamicPropertySource
+        fun configureProperties(registry: DynamicPropertyRegistry) {
+            println("configureProperties")
+            println("spring.datasource.url ${postgreSQLContainer::getJdbcUrl}")
+            println("spring.datasource.username  ${postgreSQLContainer.getUsername()}")
+            println("spring.datasource.password ${postgreSQLContainer.getPassword()}")
+            registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl)
+            registry.add("spring.datasource.username", postgreSQLContainer::getUsername)
+            registry.add("spring.datasource.password", postgreSQLContainer::getPassword)
+        }
+
+
     }
+
 
     @LocalServerPort
     private val port: Int? = null
@@ -46,13 +82,19 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
         RestAssured.port = port!!
     }
 
+    @Rollback(false)
     @Test
     fun `add group`() {
-        val token = jwtTokenProvider.createToken(UserFixtures.Users.Fred.user.username, listOf())
+        val token = jwtTokenProvider.createToken(UserFixtures.Users.Boss.user.username, listOf())
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()
-            .put(AddGroupToUserRequest(UserFixtures.Users.Fred.user.key, UserGroupFixtures.UserGroups.Admin.group.key).toString())
+            .put(
+                AddGroupToUserRequest(
+                    UserFixtures.Users.Fred.user.key,
+                    UserGroupFixtures.UserGroups.Admin.group.key
+                ).toString()
+            )
             .then()
             .statusCode(HttpServletResponse.SC_OK)
             .body("apierror", nullValue())
@@ -73,8 +115,8 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
                   "enabled": true
                 },
                 {
-                  "name": "Admin",
-                  "description": "Admin",
+                  "name": "Administrator",
+                  "description": "Administrator",
                   "enabled": true
                 }
 

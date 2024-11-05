@@ -14,7 +14,9 @@ import com.example.rest_hateoas.domain.Sort
 import com.example.rest_hateoas.domain.model.Key
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Repository
 class UserGroupJpaRepository(
     val springDataRepository: UserGroupSpringDataRepository,

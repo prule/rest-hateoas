@@ -8,8 +8,9 @@ import com.example.rest_hateoas.fixtures.SampleLoader
 import com.example.rest_hateoas.fixtures.UserFixtures
 import com.example.rest_hateoas.fixtures.UserGroupFixtures
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.transaction.annotation.Transactional
 
-class FixtureLoader(
+open class FixtureLoader(
     val userRepository: UserRepository,
     val userGroupRepository: UserGroupRepository,
     val personRepository: PersonRepository,

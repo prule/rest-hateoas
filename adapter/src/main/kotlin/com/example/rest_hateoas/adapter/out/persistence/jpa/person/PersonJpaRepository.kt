@@ -13,7 +13,9 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.Person
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Repository
 class PersonJpaRepository(
     val springDataRepository: PersonSpringDataRepository,
