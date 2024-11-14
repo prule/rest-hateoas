@@ -8,6 +8,5 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.UserGroup
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
 interface UserGroupRepository : Repository<UserGroup, UserGroupFilter> {
 }

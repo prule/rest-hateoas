@@ -8,7 +8,6 @@ import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.User
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
 interface UserRepository : Repository<User, UserFilter> {
 
     fun findByUsername(username: String): User?

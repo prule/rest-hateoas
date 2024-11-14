@@ -83,7 +83,7 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider) 
 
         val expectedResponseBody = """
             {
-              "version": 1,
+              "version": 0,
               "key": "fred",
               "username": "fred",
               "firstName": "Fred",

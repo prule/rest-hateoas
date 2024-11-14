@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional
 class AddUserGroupService(val userRepository: UserRepository): AddUserGroupUseCase {
     override fun addGroup(command: AddUserGroupCommand) {
         command.user.addGroup(command.group)
