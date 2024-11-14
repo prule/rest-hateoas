@@ -6,7 +6,6 @@ import com.example.rest_hateoas.domain.Page
 import com.example.rest_hateoas.domain.PageData
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.UserGroup
-import org.springframework.transaction.annotation.Transactional
 
 interface UserGroupRepository : Repository<UserGroup, UserGroupFilter> {
 }

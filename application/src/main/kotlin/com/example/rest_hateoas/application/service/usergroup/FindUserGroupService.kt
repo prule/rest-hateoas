@@ -7,9 +7,7 @@ import com.example.rest_hateoas.application.port.out.persistence.UserRepository
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.domain.model.UserGroup
-import org.springframework.stereotype.Service
 
-@Service
 class FindUserGroupService(val userGroupRepository: UserGroupRepository): FindUserGroupUseCase {
     override fun findByKey(key: Key): UserGroup {
         userGroupRepository.findOneByKey(key)?.let {

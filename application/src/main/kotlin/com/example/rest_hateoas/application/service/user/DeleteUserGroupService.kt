@@ -5,9 +5,7 @@ import com.example.rest_hateoas.application.port.`in`.usergroup.AddUserGroupUseC
 import com.example.rest_hateoas.application.port.`in`.usergroup.RemoveUserGroupCommand
 import com.example.rest_hateoas.application.port.`in`.usergroup.RemoveUserGroupUseCase
 import com.example.rest_hateoas.application.port.out.persistence.UserRepository
-import org.springframework.stereotype.Service
 
-@Service
 class DeleteUserGroupService(val userRepository: UserRepository): RemoveUserGroupUseCase {
     override fun removeGroup(command: RemoveUserGroupCommand) {
         command.user.removeGroup(command.group)

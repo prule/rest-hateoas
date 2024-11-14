@@ -61,6 +61,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    runtimeOnly("com.h2database:h2")
 
     kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
     implementation(kotlin("script-runtime"))
