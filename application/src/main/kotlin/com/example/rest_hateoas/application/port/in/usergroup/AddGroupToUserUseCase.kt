@@ -1,5 +1,5 @@
 package com.example.rest_hateoas.application.port.`in`.usergroup
 
-interface AddUserGroupUseCase {
+interface AddGroupToUserUseCase {
     fun addGroup(command: AddUserGroupCommand)
 }

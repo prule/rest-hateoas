@@ -2,7 +2,7 @@ package com.example.rest_hateoas.adapter.`in`.rest.user
 
 import com.example.rest_hateoas.application.port.`in`.usergroup.AddUserGroupCommand
 import com.example.rest_hateoas.application.port.`in`.user.FindUserUseCase
-import com.example.rest_hateoas.application.port.`in`.usergroup.AddUserGroupUseCase
+import com.example.rest_hateoas.application.port.`in`.usergroup.AddGroupToUserUseCase
 import com.example.rest_hateoas.application.port.`in`.usergroup.FindUserGroupUseCase
 import com.example.rest_hateoas.domain.model.Key
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 //@org.springframework.transaction.annotation.Transactional
 class UserAddUserGroupController(
-    private val manageUserGroupUseCase: AddUserGroupUseCase,
+    private val manageUserGroupUseCase: AddGroupToUserUseCase,
     private val findUserUseCase: FindUserUseCase,
     private val findUserGroupUseCase: FindUserGroupUseCase,
     private val userRestMapper: UserRestMapper
