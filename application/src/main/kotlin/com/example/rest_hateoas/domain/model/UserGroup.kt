@@ -1,11 +1,12 @@
 package com.example.rest_hateoas.domain.model
+import kotlinx.serialization.Serializable
 
 
 class UserGroup(
     val key: Key,
-    var name: String,
-    var description: String,
-    var enabled: Boolean,
+    var name: Name,
+    var description: Description,
+    var enabled: Enabled,
 ) {
     override fun toString(): String {
         return "UserGroup(key=$key, name='$name', description='$description', enabled=$enabled)"
@@ -26,5 +27,14 @@ class UserGroup(
         return key.hashCode() ?: 0
     }
 
+    @Serializable
+    @JvmInline
+    value class Name(val value: String)
+    @Serializable
+    @JvmInline
+    value class Description(val value: String)
+    @Serializable
+    @JvmInline
+    value class Enabled(val value: Boolean)
 
 }

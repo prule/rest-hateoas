@@ -56,6 +56,31 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.bundles.logging)
 
+    /*
+    jackson-module-kotlin prevents the name of the field for value classes from being rendered like this
+    (eg name instead of `name-E9DX7Pw`):
+    ```
+        "groups": [
+            {
+                "name-E9DX7Pw": "Administrator",
+                "description-H6SkKz0": "Administrator",
+                "enabled-6IG517g": true
+            }
+        ]
+    ```
+    so by adding this module, the name of the field is rendered like this:
+    ```
+        "groups": [
+            {
+                "name": "Administrator",
+                "description": "Administrator",
+                "enabled": true
+            }
+        ]
+    ```
+     */
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.1")
+
     implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
     testImplementation("org.springframework.boot:spring-boot-starter-test")

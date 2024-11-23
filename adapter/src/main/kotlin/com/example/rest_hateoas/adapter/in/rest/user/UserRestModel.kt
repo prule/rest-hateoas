@@ -13,12 +13,11 @@ open class UserRestModel (
     val username: String,
     val firstName: String? = null,
     val lastName: String? = null,
-
     val enabled: Boolean = false,
 
     val groups: List<UserGroupRestModel> = listOf(),
 
-    val metadata: ModelMetadataRestModel
+    val metadata: ModelMetadataRestModel,
 
 ): RepresentationModel<UserRestModel>() {
 

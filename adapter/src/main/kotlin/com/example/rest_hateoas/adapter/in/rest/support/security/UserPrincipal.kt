@@ -18,8 +18,8 @@ class UserPrincipal(val id: Long, user: User) : UserDetails {
     init {
         this.enabled = user.enabled
         this.groups = user.groups.stream()
-            .filter { g: UserGroup -> g.enabled }
-            .map<SimpleGrantedAuthority> { g: UserGroup -> SimpleGrantedAuthority(g.name) }
+            .filter { g: UserGroup -> g.enabled.value }
+            .map<SimpleGrantedAuthority> { g: UserGroup -> SimpleGrantedAuthority(g.name.value) }
             .collect(Collectors.toSet<GrantedAuthority>())
     }
 

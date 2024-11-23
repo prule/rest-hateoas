@@ -58,3 +58,6 @@ Notes
 
 * If you see this error: `Could not find a valid Docker environment. Please check configuration.` while running tests, you need to have docker running (so test containers
   can be created).
+* https://medium.com/@flbenz/kotlin-and-domain-driven-design-value-objects-fb8dd1e7d965
+* https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/value-classes.md
+* 

@@ -18,9 +18,8 @@ class UserRestMapper {
             value.lastName,
             value.enabled,
             value.groups.map { UserGroupRestMapper().fromDomain(it) },
-            ModelMetadataRestMapper.fromDomain(value.metaData)
+            ModelMetadataRestMapper.fromDomain(value.metaData),
         )
-
         // links
         // any logic could be applied here to control the presence of these links - user based permissions, or entity states etc
         model.add(

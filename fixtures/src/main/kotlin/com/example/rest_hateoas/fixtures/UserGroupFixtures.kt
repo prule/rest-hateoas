@@ -3,30 +3,30 @@ package com.example.rest_hateoas.fixtures
 import com.example.rest_hateoas.domain.model.Key
 import com.example.rest_hateoas.domain.model.UserGroup
 
-class UserGroupFixtures: Fixture<UserGroup> {
+class UserGroupFixtures : Fixture<UserGroup> {
     enum class UserGroups(val group: UserGroup) {
         Admin(
             UserGroup(
                 Key("admin"),
-                "Administrator",
-                "Administrator",
-                true,
+                UserGroup.Name("Administrator"),
+                UserGroup.Description("Administrator"),
+                UserGroup.Enabled(true),
             )
         ),
         User(
             UserGroup(
                 Key("user"),
-                "User",
-                "User",
-                true,
+                UserGroup.Name("User"),
+                UserGroup.Description("User"),
+                UserGroup.Enabled(true),
             )
         ),
         Disabled(
             UserGroup(
                 Key("disabled"),
-                "Disabled",
-                "Disabled",
-                false,
+                UserGroup.Name("Disabled"),
+                UserGroup.Description("Disabled"),
+                UserGroup.Enabled(false),
             )
         )
     }
