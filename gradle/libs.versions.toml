@@ -9,7 +9,7 @@ junit-jupiter-engine = "5.11.4"
 kotest = "5.9.1"
 logback-classic = "1.5.13"
 kotlin-logging-jvm = "3.0.5"
-asciidocter = "4.0.3"
+asciidocter = "4.0.4"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
