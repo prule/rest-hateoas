@@ -1,35 +1,40 @@
 package com.example.rest_hateoas.domain.model
 
 import com.example.rest_hateoas.domain.Validator
+import kotlinx.serialization.Serializable
 
 
 class User(
     val key: Key,
-    var username: String,
-    var password: String,
-    var firstName: String,
-    var lastName: String,
-    var enabled: Boolean,
+    var username: Username,
+    var password: Password,
+    var firstName: FirstName,
+    var lastName: LastName,
+    var enabled: Enabled,
     var groups: List<UserGroup>,
 
     val metaData: ModelMetadata = ModelMetadata(),
 
 ) {
 
+    fun hasPermission(action: String, resource: Any): Boolean {
+        return groups.any { it.hasPermission(action, resource) }
+    }
+
     fun isValid(validator: Validator) {
         validator.validate("key") {
             key.isValid(validator)
         }
-        validator.check(username.isNotBlank()) {
+        validator.check(username.value.isNotBlank()) {
             "Username cannot be blank"
         }
-        validator.check(password.isNotBlank()) {
+        validator.check(password.value.isNotBlank()) {
             "Password cannot be blank"
         }
-        validator.check(firstName.isNotBlank()) {
+        validator.check(firstName.value.isNotBlank()) {
             "First name cannot be blank"
         }
-        validator.check(lastName.isNotBlank()) {
+        validator.check(lastName.value.isNotBlank()) {
             "Last name cannot be blank"
         }
     }
@@ -73,8 +78,29 @@ class User(
         return result
     }
 
-    fun withPassword(password: String): User {
+    fun withPassword(password: Password): User {
         return User(key, username, password, firstName, lastName, enabled, groups, metaData)
     }
+
+    @Serializable
+    @JvmInline
+    value class Username(val value: String)
+
+    @Serializable
+    @JvmInline
+    value class Password(val value: String)
+
+    @Serializable
+    @JvmInline
+    value class FirstName(val value: String)
+
+    @Serializable
+    @JvmInline
+    value class LastName(val value: String)
+
+    @Serializable
+    @JvmInline
+    value class Enabled(val value: Boolean)
+
 
 }

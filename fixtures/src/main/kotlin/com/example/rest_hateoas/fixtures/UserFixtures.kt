@@ -8,22 +8,22 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
         Fred(
             User(
                 Key("fred"),
-                "fred",
-                "password",
-                "Fred",
-                "Doe",
-                true,
+                User.Username("fred"),
+                User.Password("password"),
+                User.FirstName("Fred"),
+                User.LastName("Doe"),
+                User.Enabled(true),
                 listOf(UserGroupFixtures.UserGroups.User.group),
             )
         ),
         Boss(
             User(
                 Key("boss"),
-                "boss",
-                "password",
-                "Boss",
-                "Doe",
-                true,
+                User.Username("boss"),
+                User.Password("password"),
+                User.FirstName("Boss"),
+                User.LastName("Doe"),
+                User.Enabled(true),
                 listOf(UserGroupFixtures.UserGroups.Admin.group)
             )
         )
@@ -32,7 +32,7 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
     override fun entries(): List<User> {
         return Users.values().map {
             // transform password
-            it.user.withPassword(passwordEncoder(it.user.password))
+            it.user.withPassword(User.Password(passwordEncoder(it.user.password.value)))
         }
     }
 }

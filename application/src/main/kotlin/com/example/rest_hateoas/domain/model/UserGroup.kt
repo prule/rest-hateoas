@@ -27,6 +27,11 @@ class UserGroup(
         return key.hashCode() ?: 0
     }
 
+    fun hasPermission(action: String, resource: Any): Boolean {
+        // todo
+        return true
+    }
+
     @Serializable
     @JvmInline
     value class Name(val value: String)

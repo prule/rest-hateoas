@@ -16,7 +16,7 @@ class UserPrincipal(val id: Long, user: User) : UserDetails {
     private val groups: Set<GrantedAuthority>
 
     init {
-        this.enabled = user.enabled
+        this.enabled = user.enabled.value
         this.groups = user.groups.stream()
             .filter { g: UserGroup -> g.enabled.value }
             .map<SimpleGrantedAuthority> { g: UserGroup -> SimpleGrantedAuthority(g.name.value) }
@@ -28,11 +28,11 @@ class UserPrincipal(val id: Long, user: User) : UserDetails {
     }
 
     override fun getPassword(): String {
-        return password
+        return password.value
     }
 
     override fun getUsername(): String {
-        return username
+        return username.value
     }
 
     override fun isEnabled(): Boolean {

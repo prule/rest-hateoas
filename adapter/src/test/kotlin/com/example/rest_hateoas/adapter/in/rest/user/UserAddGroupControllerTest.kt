@@ -85,7 +85,7 @@ class UserAddGroupControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvid
     @Rollback(false)
     @Test
     fun `add group`() {
-        val token = jwtTokenProvider.createToken(UserFixtures.Users.Boss.user.username, listOf())
+        val token = jwtTokenProvider.createToken(UserFixtures.Users.Boss.user.username.value, listOf())
         val actualResponseBody = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()

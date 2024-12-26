@@ -16,8 +16,11 @@ class UserFindController(
     private val findUserUseCase: FindUserUseCase,
     private val userRestMapper: UserRestMapper
 ) {
+    companion object {
+        const val PATH_USER_ME = "/api/1/user/me"
+    }
 
-    @GetMapping("/api/1/user/me")
+    @GetMapping(PATH_USER_ME)
     fun me(): ResponseEntity<UserRestModel> {
         AuthenticatedUser.instance?.let { user ->
             val value = findUserUseCase.findByUsername(user.principal.username)
