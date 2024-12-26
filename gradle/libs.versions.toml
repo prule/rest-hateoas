@@ -2,12 +2,12 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 dokka = "1.9.20"
-guava = "33.3.1-jre"
-junit-jupiter-engine = "5.11.3"
+guava = "33.4.0-jre"
+junit-jupiter-engine = "5.11.4"
 kotest = "5.9.1"
-logback-classic = "1.5.12"
+logback-classic = "1.5.13"
 kotlin-logging-jvm = "3.0.5"
 asciidocter = "4.0.3"
 

@@ -2,8 +2,8 @@ import com.adarshr.gradle.testlogger.theme.ThemeType
 
 //https://spring.io/guides/tutorials/spring-boot-kotlin
 plugins {
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot") version "3.4.0"
+    id("io.spring.dependency-management") version "1.1.7"
     id("jvm-test-suite")
 
     alias(libs.plugins.test.logger)
@@ -44,12 +44,12 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
     api("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
-    implementation("com.google.guava:guava:33.3.1-jre")
+    implementation("com.google.guava:guava:33.4.0-jre")
     implementation("io.github.xn32:json5k:0.3.0")
     implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
@@ -94,9 +94,9 @@ dependencies {
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
     testImplementation("io.rest-assured:rest-assured:5.5.0")
     // https://mvnrepository.com/artifact/org.testcontainers/postgresql
-    testImplementation("org.testcontainers:postgresql:1.20.3")
+    testImplementation("org.testcontainers:postgresql:1.20.4")
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
-    testImplementation("org.testcontainers:junit-jupiter:1.20.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.20.4")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation("org.postgresql:postgresql:42.7.4")
 
