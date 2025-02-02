@@ -16,7 +16,7 @@ dependencies {
         kotlinx-serialization-core
     Note that in adapters, we also need jackson-module-kotlin so spring boot serialises them properly.
      */
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0")
 
     testImplementation(libs.bundles.kotest)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
