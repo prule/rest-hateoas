@@ -31,25 +31,23 @@ tasks.register("generateDocs") {
 }
 
 // tag::asciidoctor-gradle-configuration[]
-//tasks {
-//
-//    val asciidocAttributes = mapOf(
-//        // define a custom attribute to be used in the document eg as {source}
-//        // unfortunately these won't work in the intellij preview, only in the gradle output
-//        // so you would need to separately define these attributes in the intellij settings
-//        "main_source" to project.sourceSets.main.get().kotlin.srcDirs.first(),
-//        "test_source" to project.sourceSets.test.get().kotlin.srcDirs.first(),
-//        "root" to project.rootDir.absolutePath,
-//        "github" to "https://github.com/prule/rest-hateoas/blob/version2"
-//    )
-//
-//    "asciidoctor"(AsciidoctorTask::class) {
-//        baseDirFollowsSourceDir()
-//        attributes(asciidocAttributes)
-//    }
-//    "asciidoctorPdf"(AsciidoctorPdfTask::class) {
-//        baseDirFollowsSourceDir()
-//        attributes(asciidocAttributes)
-//    }
-//}
+tasks {
+
+    val asciidocAttributes = mapOf(
+        // define a custom attribute to be used in the document eg as {source}
+        // unfortunately these won't work in the intellij preview, only in the gradle output
+        // so you would need to separately define these attributes in the intellij settings
+        "root" to project.rootDir.absolutePath,
+        "github" to "https://github.com/prule/rest-hateoas/"
+    )
+
+    "asciidoctor"(AsciidoctorTask::class) {
+        baseDirFollowsSourceDir()
+        attributes(asciidocAttributes)
+    }
+    "asciidoctorPdf"(AsciidoctorPdfTask::class) {
+        baseDirFollowsSourceDir()
+        attributes(asciidocAttributes)
+    }
+}
 // end::asciidoctor-gradle-configuration[]
