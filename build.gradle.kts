@@ -1,12 +1,7 @@
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.pdf.AsciidoctorPdfTask
 
-
 plugins {
-//    id("shared")
-//    alias(libs.plugins.jvm)
-//    alias(libs.plugins.kapt)
-
     alias(libs.plugins.asciidoctor.pdf)
     alias(libs.plugins.asciidoctor.convert)
     alias(libs.plugins.asciidoctor.epub)
