@@ -74,7 +74,7 @@ dependencies {
         ]
     ```
      */
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
 
     implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
