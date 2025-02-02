@@ -4,7 +4,7 @@
     "config:recommended"
   ],
   "timezone": "Australia/Sydney",
-  "schedule": "after 6am and before 10am on Friday",
+  "schedule": "after 6am and before 10am on Monday",
   "packageRules": [
     {
       "automerge": true,
