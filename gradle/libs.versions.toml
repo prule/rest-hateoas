@@ -20,6 +20,12 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 kotlin-logging-jvm = { module = "io.github.microutils:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 
+# plugins for buildSrc/build.gradle.kts
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+serialization-gradle-plugin = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
+kapt-gradle-plugin = { module = "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin", version.ref = "kotlin" }
+
+
 [bundles]
 kotest = ["kotest-runner-junit5", "kotest-assertions-core", "kotlin-test-junit5"]
 logging = ["kotlin-logging-jvm"]
@@ -29,7 +35,7 @@ jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+#kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 test-logger = { id = "com.adarshr.test-logger", version = "4.0.0" }

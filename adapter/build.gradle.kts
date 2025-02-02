@@ -2,18 +2,19 @@ import com.adarshr.gradle.testlogger.theme.ThemeType
 
 //https://spring.io/guides/tutorials/spring-boot-kotlin
 plugins {
+    id("shared")
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.7"
     id("jvm-test-suite")
 
     alias(libs.plugins.test.logger)
-
-    alias(libs.plugins.jvm)
     alias(libs.plugins.spring)
     alias(libs.plugins.jpa)
     alias(libs.plugins.allopen)
-    alias(libs.plugins.kapt)
-    alias(libs.plugins.serialization)
+}
+
+springBoot {
+    mainClass.set("none")
 }
 
 allOpen {
@@ -25,12 +26,6 @@ allOpen {
 
 group = "com.example.rest_hateoas.adapter"
 version = "0.0.1-SNAPSHOT"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
 
 dependencies {
 
@@ -100,16 +95,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation("org.postgresql:postgresql:42.7.4")
 
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
 
 testing {
