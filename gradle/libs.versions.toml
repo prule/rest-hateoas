@@ -10,6 +10,9 @@ kotest = "5.9.1"
 logback-classic = "1.5.16"
 kotlin-logging-jvm = "3.0.5"
 asciidocter = "4.0.4"
+kotlinx-serialization = "1.8.0"
+json5k = "0.3.0"
+slf4j = "2.0.16"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -19,6 +22,12 @@ kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
 kotlin-logging-jvm = { module = "io.github.microutils:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+
+#implementation("io.github.xn32:json5k:0.3.0")
+#implementation("org.slf4j:slf4j-api:2.0.16")
+json5k = { module = "io.github.xn32:json5k", version.ref = "json5k" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 # plugins for buildSrc/build.gradle.kts
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -31,12 +40,12 @@ kotest = ["kotest-runner-junit5", "kotest-assertions-core", "kotlin-test-junit5"
 logging = ["kotlin-logging-jvm"]
 
 [plugins]
-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
-#kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+spring-boot = { id = "org.springframework.boot", version = "3.4.2" }
+spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.7" }
 
 test-logger = { id = "com.adarshr.test-logger", version = "4.0.0" }
 
@@ -46,9 +55,3 @@ asciidoctor-epub = { id = "org.asciidoctor.jvm.epub", version.ref = "asciidocter
 asciidoctor-leanpub = { id = "org.asciidoctor.jvm.leanpub", version.ref = "asciidocter" }
 asciidoctor-revealjs = { id = "org.asciidoctor.jvm.revealjs", version.ref = "asciidocter" }
 asciidoctor-gems = { id = "org.asciidoctor.jvm.gems", version.ref = "asciidocter" }
-
-#kotlin("plugin.spring") version "1.9.24"
-#kotlin("plugin.jpa") version "1.9.24"
-#kotlin("plugin.allopen") version "1.9.24"
-#kotlin("kapt") version "1.9.24"
-#kotlin("plugin.serialization") version "1.9.24"

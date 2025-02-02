@@ -1,7 +1,7 @@
 plugins {
     id("shared")
-    id("org.springframework.boot") version "3.4.2"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
     alias(libs.plugins.spring)
 }
 
