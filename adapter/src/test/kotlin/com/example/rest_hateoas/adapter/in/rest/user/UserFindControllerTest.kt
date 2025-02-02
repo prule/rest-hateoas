@@ -10,14 +10,16 @@ import com.example.rest_hateoas.domain.model.User
 import com.example.rest_hateoas.domain.model.UserGroup
 import com.example.rest_hateoas.fixtures.UserFixtures
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.github.xn32.json5k.Json5
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
+import io.restassured.config.ObjectMapperConfig
+import io.restassured.config.RestAssuredConfig
 import io.restassured.http.ContentType
+import io.restassured.path.json.mapper.factory.DefaultJackson2ObjectMapperFactory
 import jakarta.servlet.http.HttpServletResponse
-import kotlinx.serialization.encodeToString
 import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,23 +27,31 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-import org.springframework.hateoas.EntityModel
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.LinkRelation
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
-import org.springframework.http.ResponseEntity
+import org.springframework.hateoas.mediatype.MessageResolver
+import org.springframework.hateoas.mediatype.hal.CurieProvider
+import org.springframework.hateoas.mediatype.hal.Jackson2HalModule
+import org.springframework.hateoas.server.core.DefaultLinkRelationProvider
 import org.springframework.test.context.ActiveProfiles
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
+import java.lang.reflect.Type
 import java.time.Instant
+
+// https://github.com/spring-projects/spring-hateoas/blob/17644464d999a52de3a1872612df556097ad58b3/src/test/java/org/springframework/hateoas/mediatype/hal/HalTestUtils.java#L51-L65
+// https://github.com/spring-projects/spring-hateoas/issues/1306
+// https://stackoverflow.com/questions/71128775/testing-spring-hateoas-application-with-representationmodelassembler
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
 @ActiveProfiles(profiles = ["db-postgres-test", "db-init"])
-class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider, @Autowired val objectMapper: ObjectMapper) {
+class UserFindControllerTest(
+    @Autowired val jwtTokenProvider: JwtTokenProvider,
+    @Autowired val objectMapper: ObjectMapper
+) {
     companion object {
         @Container
         @ServiceConnection
@@ -56,6 +66,16 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider, 
     @BeforeEach
     fun setUp() {
         RestAssured.port = port!!
+
+        // use the same object mapper as used by spring boot so we get the same behavior
+        RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
+            ObjectMapperConfig().jackson2ObjectMapperFactory(
+                object : DefaultJackson2ObjectMapperFactory() {
+                    override fun create(cls: Type, charset: String?): ObjectMapper {
+                        return objectMapper
+                    }
+                }
+            ))
     }
 
     @Test
@@ -85,69 +105,59 @@ class UserFindControllerTest(@Autowired val jwtTokenProvider: JwtTokenProvider, 
     @Test
     fun `should return me when logged in`() {
         val token = jwtTokenProvider.createToken(UserFixtures.Users.Fred.user.username.value, listOf())
-        val actualResponseBody = given().contentType(ContentType.JSON)
+        val actual = given().contentType(ContentType.JSON)
             .header(JwtTokenFilter.AUTH_HEADER, BearerToken.buildTokenHeaderValue(token))
             .`when`()
             .get(PATH_USER_ME)
             .then()
             .statusCode(HttpServletResponse.SC_OK)
-            .body("apierror", nullValue())
-            .extract().body().asString()
+            .extract()
+            .body()
+            .asString()
 
-        val expected = UserRestModel(
-            0L,
-            "fred",
-            User.Username("fred"),
-            User.FirstName("Fred"),
-            User.LastName("Doe"),
-            User.Enabled(true),
-            listOf(
-                UserGroupRestModel(
-                    UserGroup.Name("User"),
-                    UserGroup.Description("User"),
-                    UserGroup.Enabled(true)
+        val expected =
+            UserRestModel(
+                0L,
+                "fred",
+                User.Username("fred"),
+                User.FirstName("Fred"),
+                User.LastName("Doe"),
+                User.Enabled(true),
+                listOf(
+                    UserGroupRestModel(
+                        UserGroup.Name("User"),
+                        UserGroup.Description("User"),
+                        UserGroup.Enabled(true)
+                    )
+                ),
+                ModelMetadataRestModel(
+                    Instant.now(),
+                    Instant.now()
                 )
-            ),
-            ModelMetadataRestModel(
-                Instant.now(),
-                Instant.now()
             )
-        )
         expected.add(
             Link.of("http://localhost:$port/api/1/user/fred", LinkRelation.of("self"))
         )
 
-        println(objectMapper.writeValueAsString(EntityModel.of(expected)))
-        val expectedResponseBody = """
-            {
-              "version": 0,
-              "key": "fred",
-              "username": "fred",
-              "firstName": "Fred",
-              "lastName": "Doe",
-              "enabled": true,
-              "groups": [
-                {
-                  "name": "User",
-                  "description": "User",
-                  "enabled": true
-                }
-              ],
-              "metadata": {
-                "createdDate": "2024-10-21T10:54:36.528794Z",
-                "lastModifiedDate": "2024-10-21T10:54:36.539443Z"
-              },
-              "_links": {
-                "self": {
-                  "href": "http://localhost:$port/api/1/user/fred"
-                }
-              }
-            }
-        """.trimIndent()
+        val objectMapper = ObjectMapper().apply {
+            registerModule(JavaTimeModule())
+            registerModule(KotlinModule.Builder().build())
+            registerModule(Jackson2HalModule())
+            setHandlerInstantiator(
+                Jackson2HalModule.HalHandlerInstantiator(
+                    DefaultLinkRelationProvider(),
+                    CurieProvider.NONE,
+                    MessageResolver.DEFAULTS_ONLY
+                )
+            )
+        }
 
-        println(actualResponseBody)
-//        JSONAssert.assertEquals(expectedResponseBody, actualResponseBody, true)
-        AssertModelMetadata.assert(objectMapper.writeValueAsString(expected), actualResponseBody)
+        val expectedJsonString = objectMapper.writeValueAsString(expected)
+
+        AssertModelMetadata.assert(
+            expectedJsonString,
+            actual
+        )
 
     }
 
