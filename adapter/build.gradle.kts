@@ -2,7 +2,7 @@ import com.adarshr.gradle.testlogger.theme.ThemeType
 
 //https://spring.io/guides/tutorials/spring-boot-kotlin
 plugins {
-    id("shared")
+    id("buildlogic.kotlin-library-conventions")
     id("jvm-test-suite")
 
     alias(libs.plugins.spring.boot)

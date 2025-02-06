@@ -1,6 +1,6 @@
 
 plugins {
-    id("shared")
+    id("buildlogic.kotlin-library-conventions")
 }
 
 group = "com.example.rest_hateoas.application"

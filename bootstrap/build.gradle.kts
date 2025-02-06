@@ -1,5 +1,5 @@
 plugins {
-    id("shared")
+    id("buildlogic.kotlin-application-conventions")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
     alias(libs.plugins.spring)
