@@ -1,0 +1,25 @@
+meta {
+  name: Login - disabled
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{host}}/api/1/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "username": "disabled",
+      "password": "password"
+    }
+  
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("token", data.token);
+  
+}

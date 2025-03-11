@@ -16,6 +16,17 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
                 listOf(UserGroupFixtures.UserGroups.User.group),
             )
         ),
+        Bob(
+            User(
+                Key("bob"),
+                User.Username("bob"),
+                User.Password("password"),
+                User.FirstName("Fred"),
+                User.LastName("Doe"),
+                User.Enabled(true),
+                listOf(UserGroupFixtures.UserGroups.User.group),
+            )
+        ),
         Boss(
             User(
                 Key("boss"),
@@ -25,6 +36,17 @@ class UserFixtures(val passwordEncoder: (String) -> String): Fixture<User> {
                 User.LastName("Doe"),
                 User.Enabled(true),
                 listOf(UserGroupFixtures.UserGroups.Admin.group)
+            )
+        ),
+        Disabled(
+            User(
+                Key("disabled"),
+                User.Username("disabled"),
+                User.Password("password"),
+                User.FirstName("Disabled"),
+                User.LastName("Doe"),
+                User.Enabled(false),
+                listOf(UserGroupFixtures.UserGroups.User.group)
             )
         )
     }

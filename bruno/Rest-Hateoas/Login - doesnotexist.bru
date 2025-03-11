@@ -1,0 +1,25 @@
+meta {
+  name: Login - doesnotexist
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{host}}/api/1/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "username": "doesnotexist",
+      "password": "password"
+    }
+  
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("token", data.token);
+  
+}

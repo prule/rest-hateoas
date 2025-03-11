@@ -6,10 +6,10 @@ import io.github.xn32.json5k.decodeFromStream
 import org.slf4j.LoggerFactory
 
 class SampleLoader<T>(
-    val repository: Repository<T, *>,
+    private val repository: Repository<T, *>,
     val fixtures: Fixture<T>
 ) {
-    protected val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     fun loadFixtures() {
         // fixture driven
