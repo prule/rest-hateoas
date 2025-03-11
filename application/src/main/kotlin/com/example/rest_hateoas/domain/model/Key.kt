@@ -4,7 +4,7 @@ import com.example.rest_hateoas.domain.Validator
 import java.util.*
 
 class Key(
-    var key: String = (UUID.randomUUID().toString()).replace("-", "")
+    val key: String = (UUID.randomUUID().toString()).replace("-", "")
 ) {
     override fun toString(): String {
         return "Key(key='$key')"

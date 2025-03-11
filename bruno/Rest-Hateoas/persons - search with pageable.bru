@@ -1,0 +1,19 @@
+meta {
+  name: persons - search with pageable
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{host}}/api/1/persons?&filter=sortable&size=20&page=0&sort=name.firstName,asc&sort=name.lastName,desc
+  body: none
+  auth: inherit
+}
+
+params:query {
+  filter: sortable
+  size: 20
+  page: 0
+  sort: name.firstName,asc
+  sort: name.lastName,desc
+}

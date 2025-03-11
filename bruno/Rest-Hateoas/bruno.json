@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Rest-Hateoas",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

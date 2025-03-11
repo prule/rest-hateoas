@@ -56,4 +56,5 @@ class Config {
     ): FixtureLoader {
         return FixtureLoader(userRepository, userGroupRepository, personRepository, passwordEncoder)
     }
+
 }

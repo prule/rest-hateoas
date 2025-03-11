@@ -1,0 +1,15 @@
+meta {
+  name: persons - search with filter params
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{host}}/api/1/persons?filter=homer
+  body: none
+  auth: inherit
+}
+
+params:query {
+  filter: homer
+}

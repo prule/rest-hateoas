@@ -1,0 +1,31 @@
+meta {
+  name: persons - delete
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{host}}/api/1/persons/{{person.key}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "dateOfBirth": "1980-01-01",
+      "name": {
+        "firstName": "",
+        "lastName": "Simpson",
+        "otherNames": "Jay"
+      },
+      "address": {
+        "line1": "Level 33",
+        "line2": "10000 York St",
+        "city": "Sydney",
+        "state": "NSW",
+        "postcode": "2000",
+        "country": "Australia"
+      }
+    }
+  
+}

@@ -1,0 +1,32 @@
+meta {
+  name: persons - update - invalid
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{host}}/api/1/persons/{{person.key}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+              {
+                  "key": "homer",
+                  "version": {{person.version}},
+                  "name": {
+                      "firstName": "Homer2",
+                      "lastName": "",
+                      "otherNames": "Jay"
+                  },
+                  "address": {
+                      "line1": "Level 33",
+                      "line2": "10000 York St",
+                      "city": "Sydney",
+                      "state": "NSW",
+                      "country": "Australia",
+                      "postcode": "2000"
+                  },
+                  "dateOfBirth": "1980-01-01"
+              }
+}
