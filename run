@@ -104,6 +104,12 @@ case "$1" in
     echo ""
     ;;
 
+  'docker:up')
+    echo ""
+    # https://medium.com/@asuarezaceves/initializing-a-postgresql-database-with-a-dataset-using-docker-compose-a-step-by-step-guide-3feebd5b1545
+    docker compose up
+    echo ""
+    ;;
   *)
     echo -e ""
     echo "Usage:"
@@ -124,5 +130,6 @@ case "$1" in
     echo "$(tput setaf 3)    docs:html                                  $(tput sgr0)      Generate asciidoc documentation as HTML only"
     echo "$(tput setaf 3)    docs:pdf                                   $(tput sgr0)      Generate asciidoc documentation as PDF only"
     echo "$(tput setaf 3)    swagger                                    $(tput sgr0)      Open swagger documentation"
+    echo "$(tput setaf 3)    docker:up                                  $(tput sgr0)      Start postgres container"
 
 esac

@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - example
+
+  metabase:
+    image: metabase/metabase:latest
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    networks:
+      - example
+
+networks:
+  example:
+    driver: bridge

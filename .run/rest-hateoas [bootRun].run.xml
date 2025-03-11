@@ -3,6 +3,9 @@
     <ExternalSystemSettings>
       <option name="env">
         <map>
+          <entry key="DB_HOST" value="localhost:5432" />
+          <entry key="DB_PASS" value="example" />
+          <entry key="DB_USER" value="example" />
           <entry key="spring.profiles.active" value="debug,db-postgres,db-init" />
         </map>
       </option>
