@@ -2,17 +2,17 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-kotlin = "2.1.10"
+kotlin = "2.1.20"
 dokka = "1.9.20"
-guava = "33.4.0-jre"
-junit-jupiter-engine = "5.11.4"
+guava = "33.4.8-jre"
+junit-jupiter-engine = "5.12.2"
 kotest = "5.9.1"
-logback-classic = "1.5.16"
+logback-classic = "1.5.18"
 kotlin-logging-jvm = "3.0.5"
 asciidocter = "4.0.4"
-kotlinx-serialization = "1.8.0"
+kotlinx-serialization = "1.8.1"
 json5k = "0.3.0"
-slf4j = "2.0.16"
+slf4j = "2.0.17"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -44,7 +44,7 @@ jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 
-spring-boot = { id = "org.springframework.boot", version = "3.4.2" }
+spring-boot = { id = "org.springframework.boot", version = "3.4.4" }
 spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.7" }
 
 test-logger = { id = "com.adarshr.test-logger", version = "4.0.0" }
