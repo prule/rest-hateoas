@@ -39,12 +39,12 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
     api("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("com.google.code.gson:gson:2.12.1")
+    implementation("com.google.code.gson:gson:2.13.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
-    implementation("com.google.guava:guava:33.4.0-jre")
+    implementation("com.google.guava:guava:33.4.8-jre")
     implementation("io.github.xn32:json5k:0.3.0")
     implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
@@ -74,7 +74,7 @@ dependencies {
         ]
     ```
      */
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.3")
 
     implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
@@ -87,11 +87,11 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    testImplementation("io.rest-assured:rest-assured:5.5.1")
     // https://mvnrepository.com/artifact/org.testcontainers/postgresql
-    testImplementation("org.testcontainers:postgresql:1.20.4")
+    testImplementation("org.testcontainers:postgresql:1.20.6")
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
-    testImplementation("org.testcontainers:junit-jupiter:1.20.4")
+    testImplementation("org.testcontainers:junit-jupiter:1.20.6")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation("org.postgresql:postgresql:42.7.5")
 
