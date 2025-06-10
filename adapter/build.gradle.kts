@@ -39,7 +39,7 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
     api("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.google.code.gson:gson:2.13.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -87,13 +87,13 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testImplementation("io.rest-assured:rest-assured:5.5.1")
+    testImplementation("io.rest-assured:rest-assured:5.5.5")
     // https://mvnrepository.com/artifact/org.testcontainers/postgresql
-    testImplementation("org.testcontainers:postgresql:1.21.0")
+    testImplementation("org.testcontainers:postgresql:1.21.1")
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
-    testImplementation("org.testcontainers:junit-jupiter:1.21.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.21.1")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation("org.postgresql:postgresql:42.7.5")
+    implementation("org.postgresql:postgresql:42.7.6")
 
 }
 
