@@ -4,7 +4,7 @@
 [versions]
 kotlin = "2.2.20"
 dokka = "1.9.20"
-guava = "33.4.8-jre"
+guava = "33.5.0-jre"
 junit-jupiter-engine = "5.13.4"
 kotest = "5.9.1"
 logback-classic = "1.5.18"
@@ -44,7 +44,7 @@ jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 
-spring-boot = { id = "org.springframework.boot", version = "3.5.5" }
+spring-boot = { id = "org.springframework.boot", version = "3.5.6" }
 spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.7" }
 
 test-logger = { id = "com.adarshr.test-logger", version = "4.0.0" }
