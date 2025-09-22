@@ -44,7 +44,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
-    implementation("com.google.guava:guava:33.4.8-jre")
+    implementation("com.google.guava:guava:33.5.0-jre")
     implementation("io.github.xn32:json5k:0.3.0")
     implementation("io.jsonwebtoken:jjwt-impl:0.13.0")
     implementation("io.jsonwebtoken:jjwt-jackson:0.13.0")
@@ -93,7 +93,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation("org.testcontainers:junit-jupiter:1.21.3")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation("org.postgresql:postgresql:42.7.7")
+    implementation("org.postgresql:postgresql:42.7.8")
 
 }
 
