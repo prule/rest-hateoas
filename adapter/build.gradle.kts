@@ -39,7 +39,7 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14")
     api("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
