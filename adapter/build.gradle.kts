@@ -93,7 +93,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation("org.testcontainers:junit-jupiter:1.21.4")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation("org.postgresql:postgresql:42.7.9")
+    implementation("org.postgresql:postgresql:42.7.10")
 
 }
 
