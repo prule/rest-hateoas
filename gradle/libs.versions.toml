@@ -10,7 +10,7 @@ kotest = "5.9.1"
 logback-classic = "1.5.32"
 kotlin-logging-jvm = "3.0.5"
 asciidocter = "4.0.5"
-kotlinx-serialization = "1.10.0"
+kotlinx-serialization = "1.11.0"
 json5k = "0.3.0"
 slf4j = "2.0.17"
 
