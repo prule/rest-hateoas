@@ -41,7 +41,7 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-security")
     api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17")
     api("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.code.gson:gson:2.14.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
     implementation("com.google.guava:guava:33.6.0-jre")
