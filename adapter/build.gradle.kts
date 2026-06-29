@@ -87,7 +87,7 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testImplementation("io.rest-assured:rest-assured:5.5.7")
+    testImplementation("io.rest-assured:rest-assured:6.0.0")
     // https://mvnrepository.com/artifact/org.testcontainers/postgresql
     testImplementation("org.testcontainers:postgresql:1.21.4")
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
