@@ -74,7 +74,7 @@ dependencies {
         ]
     ```
      */
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.1")
 
     implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
@@ -93,7 +93,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation("org.testcontainers:junit-jupiter:1.21.4")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation("org.postgresql:postgresql:42.7.11")
+    implementation("org.postgresql:postgresql:42.7.13")
 
 }
 
