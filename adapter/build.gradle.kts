@@ -39,12 +39,12 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.9.1")
     api("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.google.code.gson:gson:2.14.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
-    implementation("com.google.guava:guava:33.6.0-jre")
+    implementation("com.google.guava:guava:33.7.1-jre")
     implementation("io.github.xn32:json5k:0.3.0")
     implementation("io.jsonwebtoken:jjwt-impl:0.13.0")
     implementation("io.jsonwebtoken:jjwt-jackson:0.13.0")
@@ -74,7 +74,7 @@ dependencies {
         ]
     ```
      */
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.2")
 
     implementation(project(":fixtures"))
     testImplementation(libs.bundles.kotest)
